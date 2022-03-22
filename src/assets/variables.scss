@@ -1,0 +1,14 @@
+$colorDark: #000;
+$widthProfile: 300px;
+@mixin flexCenterCenter(){
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin container(){
+  padding: 0 16px;
+  max-width: 1056px;
+  width: 100%;
+  margin: 0 auto;
+}

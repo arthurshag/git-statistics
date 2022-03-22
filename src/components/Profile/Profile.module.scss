@@ -1,0 +1,30 @@
+@import "../../assets/variables";
+.profile{
+  position: relative;
+  width: $widthProfile;
+  box-shadow: 0 0 3px 0 #0000005c;
+}
+
+.loadingProfile{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #e0e0e0;
+  @include flexCenterCenter;
+}
+
+.profileImg{
+  width: $widthProfile;
+  height: $widthProfile;
+}
+
+.profileRow{
+  width: 100%;
+  padding: 8px;
+  border-bottom: 1px solid rgba(217, 214, 214, 0.6);
+  &:last-child{
+    border-bottom: none;
+  }
+}

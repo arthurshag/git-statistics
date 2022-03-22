@@ -1,0 +1,23 @@
+@import "../../assets/variables";
+.formContainer{
+  width: $widthProfile;
+  padding: 16px 0;
+}
+
+.form{
+  display: flex;
+}
+
+.input{
+  margin-right: 8px;
+  flex-grow: 1;
+}
+
+.btn{
+
+}
+
+.error{
+  display: block;
+  margin-top: 10px;
+}
