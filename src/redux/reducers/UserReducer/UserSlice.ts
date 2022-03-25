@@ -19,6 +19,7 @@ const initialState: UserState = {
         login: "",
         name: "",
         public_repos: 0,
+        repos_url: "",
     },
     isLoading: false,
     error: ""
