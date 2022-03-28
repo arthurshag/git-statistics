@@ -1,16 +1,16 @@
 import {AppDispatch} from "../../redux-store";
 import {repositoriesSlice} from "./RepositoriesSlice"
-import axios from "axios";
 import {IRepository} from "../../../models/IRepository";
+import {reposAPI} from "../../../api/api";
 
 const {repsFetchingError, repsFetchingSuccess, repsFetching} = repositoriesSlice.actions;
 
-export const fetchReps = (url: string) => async (dispatch: AppDispatch) => {
+export const fetchReps = (login: string) => async (dispatch: AppDispatch) => {
     dispatch(repsFetching());
     try {
-        const response = await axios.get<Array<any>>(url);
+        const response = await reposAPI.getRepsByUser(login);
         const responseReps = response.data;
-        const repsWithLanguages = await addLanguagesToServerReps(responseReps);
+        const repsWithLanguages = await addLanguagesDataToReps(responseReps);
         const repositories = repsWithLanguages.map((r) => selectNeededDataRepository(r));
         dispatch(repsFetchingSuccess(repositories));
     } catch (e) {
@@ -18,10 +18,10 @@ export const fetchReps = (url: string) => async (dispatch: AppDispatch) => {
     }
 }
 
-const addLanguagesToServerReps = async (reps: Array<any>) => {
+const addLanguagesDataToReps = async (reps: Array<IRepository>) => {
     return await Promise.all(reps.map((e) => {
         return new Promise((resolve) => {
-            fetchLanguages(e.languages_url)
+            fetchLanguages(e.full_name)
                 .then(response => {
                     resolve({...e, languages: response})
                 })
@@ -32,11 +32,12 @@ const addLanguagesToServerReps = async (reps: Array<any>) => {
     })) as IRepository[];
 }
 
-const fetchLanguages = async (url: string) => {
-    return (await axios.get<{ [key: string]: number }>(url)).data;
+const fetchLanguages = async (full_name: string) => {
+    return (await reposAPI.fetchLanguages(full_name)).data;
 }
 
 const selectNeededDataRepository = ({
+                                        full_name,
                                         clone_url,
                                         created_at,
                                         description,
@@ -53,6 +54,7 @@ const selectNeededDataRepository = ({
                                         watchers_count
                                     }: IRepository): IRepository => {
     return {
+        full_name,
         clone_url,
         created_at,
         description,

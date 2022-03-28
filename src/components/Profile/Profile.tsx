@@ -28,7 +28,7 @@ const Profile: FC<ProfileProps> = ({user, isLoading}) => {
             }
             <div className={classes.profileRow}>{user.followers} Followers</div>
             <div className={classes.profileRow}>{user.following} Following</div>
-            <button disabled={!user.repos_url} onClick={() => dispatch(fetchReps(user.repos_url))}
+            <button disabled={!user.repos_url} onClick={() => dispatch(fetchReps(user.login))}
                     className={classes.profileRow}>{user.public_repos} Public repos
             </button>
             {isLoading &&
