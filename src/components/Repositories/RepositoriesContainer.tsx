@@ -3,15 +3,15 @@ import {useAppSelector} from "../../redux/hooks/reduxHooks";
 import Repositories from "./Repositories";
 
 const RepositoriesContainer: FC = () => {
-    const repositories = useAppSelector(state => state.repositoriesReducer.repositories);
-    const isLoadingReps = useAppSelector(state => state.repositoriesReducer.isLoading);
-    const repsError = useAppSelector(state => state.repositoriesReducer.error);
+    const repositories = useAppSelector(state => state.userReducer.user.repositories);
+    const isLoadingReps = useAppSelector(state => state.userReducer.isLoading);
 
     return (
         <>
-            {isLoadingReps && "Loading..."}
-            {!!repsError && repsError}
-            {!!repositories?.length && <Repositories repositories={repositories}/>}
+            {isLoadingReps
+                ? "Loading..."
+                : repositories && <Repositories repositories={repositories}/>
+            }
         </>
     );
 };

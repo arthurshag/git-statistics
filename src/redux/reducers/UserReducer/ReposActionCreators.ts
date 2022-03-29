@@ -1,16 +1,15 @@
 import {AppDispatch} from "../../redux-store";
-import {repositoriesSlice} from "./RepositoriesSlice"
-import {IRepository, IServerRepositoryWithLanguages, TypeListUserReposData} from "../../../models/IRepository";
+import {IRepository, IServerRepositoryWithLanguages, ListUserReposType} from "../../../models/IRepository";
 import {reposAPI} from "../../../api/api";
+import {userSlice} from "./UserSlice";
 
-const {repsFetchingError, repsFetchingSuccess, repsFetching} = repositoriesSlice.actions;
+const {repsFetchingError, repsFetchingSuccess, repsFetching} = userSlice.actions;
 
 export const fetchReps = (login: string) => async (dispatch: AppDispatch) => {
     dispatch(repsFetching());
     try {
-        const response = await reposAPI.getRepsByUser(login);
-        const responseReps = response.data;
-        const repsWithLanguages = await addLanguagesDataToReps(responseReps);
+        const responseRepos = await reposAPI.getRepsByUser(login);
+        const repsWithLanguages = await addLanguagesDataToReps(responseRepos);
         const repositories = repsWithLanguages.map((r) => selectNeededDataRepository(r));
         dispatch(repsFetchingSuccess(repositories));
     } catch (e) {
@@ -18,23 +17,15 @@ export const fetchReps = (login: string) => async (dispatch: AppDispatch) => {
     }
 }
 
-const addLanguagesDataToReps = async (reps: TypeListUserReposData) => {
-    return await Promise.all(reps.map((rep) => {
-        return new Promise((resolve) => {
-            fetchLanguages(rep.owner.login, rep.name)
-                .then(response => {
-                    resolve({...rep, languages: response})
-                })
-                .catch((e) => {
-                    //todo: обработать ошибку, черт его знает как мб засунуть languages: ["ошибка"]
-                    resolve(rep);
-                });
-        })
-    })) as IServerRepositoryWithLanguages[];
-}
-
-const fetchLanguages = async (owner: string, repo: string) => {
-    return (await reposAPI.fetchLanguages(owner, repo)).data;
+const addLanguagesDataToReps = (repos: ListUserReposType) => {
+    return Promise.all(repos.map(async (rep) => {
+        try {
+            const languages = await reposAPI.fetchLanguages(rep.owner.login, rep.name);
+            return {...rep, languages: languages}
+        } catch {
+            return rep;
+        }
+    })) as Promise<IServerRepositoryWithLanguages[]>;
 }
 
 const selectNeededDataRepository = ({

@@ -6,7 +6,7 @@ interface FormLoginProps {
     text: string,
     setText: (text: string) => void,
     disabled: boolean,
-    error: string,
+    error: string | null,
 }
 
 const FormLogin: FC<FormLoginProps> = ({handleClick, text, setText, disabled, error}) => {

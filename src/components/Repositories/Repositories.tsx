@@ -9,7 +9,7 @@ interface PropsType {
 
 const Repositories: FC<PropsType> = memo(({repositories}) => {
     const UIReps = repositories.map((props) => {
-        return <Repository {...props} />
+        return <Repository key={props.id} {...props} />
     });
 
     return (

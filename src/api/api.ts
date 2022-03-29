@@ -10,22 +10,22 @@ const instance = (): AxiosInstance => axios.create({
     baseURL: `https://api.github.com/`,
 });
 export const userAPI = {
-    getUser(login: string) {
-        return instance().get<IUser>(`users/${login}`)
+    async getUser(login: string) {
+        return await instance().get<IUser>(`users/${login}`)
     }
 }
 
 export const reposAPI = {
-    getRepsByUser(username: string) {
-        return octokit.rest.repos.listForUser({
+    async getRepsByUser(username: string) {
+        return (await (octokit.rest.repos.listForUser({
             username
-        });
+        }))).data;
     },
 
-    fetchLanguages(owner: string, repo: string) {
-        return octokit.rest.repos.listLanguages({
+    async fetchLanguages(owner: string, repo: string) {
+        return (await octokit.rest.repos.listLanguages({
             owner,
             repo,
-        });
+        })).data;
     }
 }

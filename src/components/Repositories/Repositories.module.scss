@@ -1,10 +1,12 @@
 @import "../../assets/variables";
-.repositories{
+
+.repositories {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  &__wrapper{
+
+  &__wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     flex-wrap: wrap;
@@ -15,43 +17,54 @@
 }
 
 
-.repository{
+.repository {
   display: flex;
   flex-direction: column;
   border: 1px black solid;
   padding: 5px;
-  &__item{
+
+  &__item {
     padding: 8px;
-    border-bottom: 1px solid rgba(217, 214, 214, 0.6);
-    &:last-child{
+
+    & + .repository__item {
+      border-top: 1px solid rgba(217, 214, 214, 0.6);
+    }
+
+    &:last-child {
       margin-top: auto;
-      border-bottom: none;
     }
   }
 
-  &__name{
+  &__name {
     display: flex;
     align-items: center;
     gap: 8px;
+
     & svg {
       width: 1em;
       height: 1em;
     }
+
+    & a {
+      display: flex;
+      align-items: center;
+      justify-items: center;
+    }
   }
 
-  &__topics{
+  &__topics {
     display: flex;
     gap: 1em;
   }
 
-  &__topicsItems{
+  &__topicsItems {
     display: flex;
     gap: 5px;
     align-items: center;
     flex-wrap: wrap;
   }
 
-  &__topic{
+  &__topic {
     font-size: 0.7em;
     line-height: 1.3;
     padding: 4px;
@@ -59,11 +72,11 @@
     border: 1px solid rgba(217, 214, 214, 0.6);
   }
 
-  &__btnClone{
+  &__btnClone {
     width: 100%;
     margin-top: auto;
-    &:hover{
-      cursor: pointer;
+    cursor: pointer;
+    &:hover {
     }
   }
 

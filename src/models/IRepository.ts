@@ -1,13 +1,14 @@
 import {Endpoints} from "@octokit/types";
 
-export type TypeListUserReposData = Endpoints["GET /users/{username}/repos"]["response"]["data"];
-export type TypeServerRepository = Endpoints["GET /repos/{owner}/{repo}"]["response"]["data"];
+export type ListUserReposType = Endpoints["GET /users/{username}/repos"]["response"]["data"];
+export type ServerRepositoryType = Endpoints["GET /repos/{owner}/{repo}"]["response"]["data"];
+export type LanguageType = Endpoints["GET /repos/{owner}/{repo}/languages"]["response"]["data"];
 
-export interface IServerRepositoryWithLanguages extends TypeServerRepository{
-    languages: { [key: string]: number } | null
+export interface IServerRepositoryWithLanguages extends ServerRepositoryType {
+    languages: LanguageType
 }
 
-type TypeNeededFields =
+type NeededFieldsType =
     "id"
     | "name"
     | "full_name"
@@ -23,10 +24,8 @@ type TypeNeededFields =
     | "stargazers_count"
     | "language";
 
-export type TypeRepository = Pick<TypeServerRepository, TypeNeededFields>
+export type RepositoryType = Pick<ServerRepositoryType, NeededFieldsType>
 
-
-
-export interface IRepository extends TypeRepository{
-    languages: { [key: string]: number } | null
+export interface IRepository extends RepositoryType {
+    languages: LanguageType
 }

@@ -2,11 +2,9 @@ import React from 'react';
 import MainPage from "./pages/MainPage/MainPage";
 
 function GitStatApp() {
-  return (
-    <>
-      <MainPage/>
-    </>
-  );
+    return (
+        <MainPage/>
+    );
 }
 
 export default GitStatApp;

@@ -1,10 +1,11 @@
-import { IUser } from "../../../models/IUser";
+import {IUser} from "../../../models/IUser";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {IRepository} from "../../../models/IRepository";
 
 interface UserState {
     user: IUser;
     isLoading: boolean;
-    error: string;
+    error: string | null;
 }
 
 const initialState: UserState = {
@@ -19,27 +20,43 @@ const initialState: UserState = {
         login: "",
         name: "",
         public_repos: 0,
-        repos_url: "",
+        repositories: null,
     },
     isLoading: false,
-    error: ""
+    error: null
 }
 
 export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        userFetching(state){
+        userFetching(state) {
+            state.user.repositories = null;
             state.isLoading = true
         },
-        userFetchingSuccess(state, action: PayloadAction<IUser>){
+        userFetchingSuccess(state, action: PayloadAction<IUser>) {
             state.isLoading = false
             state.error = ''
             state.user = action.payload
         },
-        userFetchingError(state, action: PayloadAction<string>){
+        userFetchingError(state, action: PayloadAction<string>) {
             state.isLoading = false
             state.error = action.payload
+        },
+
+
+        repsFetching(state) {
+            state.isLoading = true
+        },
+        repsFetchingSuccess(state, action: PayloadAction<IRepository[]>) {
+            state.isLoading = false
+            state.error = null;
+            state.user.repositories = action.payload;
+        },
+        repsFetchingError(state, action: PayloadAction<string>) {
+            state.user.repositories = null;
+            state.isLoading = false;
+            state.error = action.payload;
         },
     }
 })

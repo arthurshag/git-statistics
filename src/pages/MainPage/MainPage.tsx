@@ -6,9 +6,7 @@ import {fetchUser} from "../../redux/reducers/UserReducer/ActionCreators";
 import FormLogin from "../../components/FormLogin/FormLogin";
 import Profile from "../../components/Profile/Profile";
 import RepositoriesContainer from "../../components/Repositories/RepositoriesContainer";
-import {actions} from "../../redux/reducers/ReposReducer/RepositoriesSlice";
 
-const {setReps} = actions;
 
 const MainPage: FC = () => {
     //for test you can use: arthurshag, gaearon, TalisMan701
@@ -19,7 +17,6 @@ const MainPage: FC = () => {
 
     const handleClick = () => {
         dispatch(fetchUser(login))
-        dispatch(setReps(null))
     }
 
     useEffect(() => {
