@@ -4,13 +4,13 @@ import {IRepository} from "../../../models/IRepository";
 interface RepositoriesState {
     repositories: IRepository[] | null;
     isLoading: boolean;
-    error: string;
+    error: string | null;
 }
 
 const initialState: RepositoriesState = {
     repositories: null,
     isLoading: false,
-    error: "",
+    error: null,
 }
 
 export const repositoriesSlice = createSlice({
@@ -25,7 +25,7 @@ export const repositoriesSlice = createSlice({
         },
         repsFetchingSuccess(state, action: PayloadAction<IRepository[]>) {
             state.isLoading = false
-            state.error = ''
+            state.error = null;
             state.repositories = action.payload
         },
         repsFetchingError(state, action: PayloadAction<string>) {

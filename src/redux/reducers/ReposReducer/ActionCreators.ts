@@ -12,7 +12,6 @@ export const fetchReps = (login: string) => async (dispatch: AppDispatch) => {
         const responseReps = response.data;
         const repsWithLanguages = await addLanguagesDataToReps(responseReps);
         const repositories = repsWithLanguages.map((r) => selectNeededDataRepository(r));
-        debugger;
         dispatch(repsFetchingSuccess(repositories));
     } catch (e) {
         dispatch(repsFetchingError((e as Error).toString()))
@@ -22,7 +21,7 @@ export const fetchReps = (login: string) => async (dispatch: AppDispatch) => {
 const addLanguagesDataToReps = async (reps: TypeListUserReposData) => {
     return await Promise.all(reps.map((rep) => {
         return new Promise((resolve) => {
-            fetchLanguages("rep.owner.login", rep.name)
+            fetchLanguages(rep.owner.login, rep.name)
                 .then(response => {
                     resolve({...rep, languages: response})
                 })

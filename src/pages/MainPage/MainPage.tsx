@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import classes from "./MainPage.module.scss"
 import Header from "../../components/Header/Header";
-import {useAppDispatch, useAppSelector} from "../../redux/reducers/hooks/reduxHooks";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks/reduxHooks";
 import {fetchUser} from "../../redux/reducers/UserReducer/ActionCreators";
 import FormLogin from "../../components/FormLogin/FormLogin";
 import Profile from "../../components/Profile/Profile";

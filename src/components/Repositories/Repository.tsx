@@ -8,7 +8,7 @@ interface PropsType extends IRepository {
 
 const Repository: FC<PropsType> = memo((props) => {
 
-    const topicsUI = props.topics.map((e) => {
+    const topicsUI = props.topics?.map((e) => {
         return <div key={e} className={classes.repository__topic}>{e}</div>
     })
 
@@ -21,12 +21,14 @@ const Repository: FC<PropsType> = memo((props) => {
             <div className={classes.repository__item}>Count forks: {props.forks_count}</div>
             <div className={[classes.repository__item, classes.repository__topics].join(" ")}>
                 <span>Topics:</span>
-                <div className={classes.repository__topicsItems}>{topicsUI.length ? topicsUI : "not specified"}</div>
+                <div className={classes.repository__topicsItems}>{topicsUI?.length ? topicsUI : "not specified"}</div>
             </div>
             <div className={classes.repository__item}>Watchers count: {props.watchers_count}</div>
             <div className={classes.repository__item}>Stargazers count: {props.stargazers_count}</div>
             <div className={classes.repository__item}>Description: {props.description || "not specified"}</div>
-            <div className={classes.repository__item}>Languages: {Object.keys(props.languages).join(", ") || "not specified"}</div>
+            <div className={classes.repository__item}>
+                Languages: {props.languages && Object.keys(props.languages).join(", ") || "not specified"}
+            </div>
             <div className={classes.repository__item}>
                 <div>Created at: {props.created_at}</div>
                 <div>Updated at: {props.updated_at}</div>

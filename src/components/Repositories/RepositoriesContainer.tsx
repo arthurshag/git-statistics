@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {useAppSelector} from "../../redux/reducers/hooks/reduxHooks";
+import {useAppSelector} from "../../redux/hooks/reduxHooks";
 import Repositories from "./Repositories";
 
 const RepositoriesContainer: FC = () => {

@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import classes from "./Profile.module.scss"
 import {IUser} from "../../models/IUser";
-import {useAppDispatch} from "../../redux/reducers/hooks/reduxHooks";
+import {useAppDispatch} from "../../redux/hooks/reduxHooks";
 import {fetchReps} from "../../redux/reducers/ReposReducer/ActionCreators";
 
 interface ProfileProps {

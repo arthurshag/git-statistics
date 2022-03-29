@@ -4,7 +4,7 @@ export type TypeListUserReposData = Endpoints["GET /users/{username}/repos"]["re
 export type TypeServerRepository = Endpoints["GET /repos/{owner}/{repo}"]["response"]["data"];
 
 export interface IServerRepositoryWithLanguages extends TypeServerRepository{
-    languages: { [key: string]: number }
+    languages: { [key: string]: number } | null
 }
 
 type TypeNeededFields =
@@ -28,5 +28,5 @@ export type TypeRepository = Pick<TypeServerRepository, TypeNeededFields>
 
 
 export interface IRepository extends TypeRepository{
-    languages: { [key: string]: number }
+    languages: { [key: string]: number } | null
 }
