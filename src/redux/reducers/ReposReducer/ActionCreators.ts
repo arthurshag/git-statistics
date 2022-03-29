@@ -1,6 +1,6 @@
 import {AppDispatch} from "../../redux-store";
 import {repositoriesSlice} from "./RepositoriesSlice"
-import {IRepository} from "../../../models/IRepository";
+import {IRepository, IServerRepositoryWithLanguages, TypeListUserReposData} from "../../../models/IRepository";
 import {reposAPI} from "../../../api/api";
 
 const {repsFetchingError, repsFetchingSuccess, repsFetching} = repositoriesSlice.actions;
@@ -12,28 +12,30 @@ export const fetchReps = (login: string) => async (dispatch: AppDispatch) => {
         const responseReps = response.data;
         const repsWithLanguages = await addLanguagesDataToReps(responseReps);
         const repositories = repsWithLanguages.map((r) => selectNeededDataRepository(r));
+        debugger;
         dispatch(repsFetchingSuccess(repositories));
     } catch (e) {
         dispatch(repsFetchingError((e as Error).toString()))
     }
 }
 
-const addLanguagesDataToReps = async (reps: Array<IRepository>) => {
-    return await Promise.all(reps.map((e) => {
+const addLanguagesDataToReps = async (reps: TypeListUserReposData) => {
+    return await Promise.all(reps.map((rep) => {
         return new Promise((resolve) => {
-            fetchLanguages(e.full_name)
+            fetchLanguages("rep.owner.login", rep.name)
                 .then(response => {
-                    resolve({...e, languages: response})
+                    resolve({...rep, languages: response})
                 })
                 .catch((e) => {
-                    resolve({error: e.message});
+                    //todo: обработать ошибку, черт его знает как мб засунуть languages: ["ошибка"]
+                    resolve(rep);
                 });
         })
-    })) as IRepository[];
+    })) as IServerRepositoryWithLanguages[];
 }
 
-const fetchLanguages = async (full_name: string) => {
-    return (await reposAPI.fetchLanguages(full_name)).data;
+const fetchLanguages = async (owner: string, repo: string) => {
+    return (await reposAPI.fetchLanguages(owner, repo)).data;
 }
 
 const selectNeededDataRepository = ({
@@ -52,7 +54,7 @@ const selectNeededDataRepository = ({
                                         topics,
                                         updated_at,
                                         watchers_count
-                                    }: IRepository): IRepository => {
+                                    }: IServerRepositoryWithLanguages): IRepository => {
     return {
         full_name,
         clone_url,
