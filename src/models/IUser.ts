@@ -1,3 +1,5 @@
+import {IRepository} from "./IRepository";
+
 export interface IUser {
     avatar_url: string,
     bio: string,
@@ -9,4 +11,5 @@ export interface IUser {
     login: string,
     name: string,
     public_repos: number,
+    repositories: undefined | null | IRepository[]
 }
