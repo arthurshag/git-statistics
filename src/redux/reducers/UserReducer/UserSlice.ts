@@ -23,7 +23,7 @@ const initialState: UserState = {
         repositories: null,
     },
     isLoading: false,
-    error: null
+    error: null,
 }
 
 export const userSlice = createSlice({
@@ -43,7 +43,6 @@ export const userSlice = createSlice({
             state.isLoading = false
             state.error = action.payload
         },
-
 
         repsFetching(state) {
             state.isLoading = true
