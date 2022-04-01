@@ -20,9 +20,9 @@ export const userAPI = {
 }
 
 export const reposAPI = {
-    async getRepsByUser(username: string) {
+    async getReposByUser(username: string, page: number = 1, per_page:number = 10) {
         return (await (octokit.rest.repos.listForUser({
-            username
+            username, page, per_page
         }))).data;
     },
 

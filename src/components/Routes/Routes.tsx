@@ -3,6 +3,7 @@ import React from "react";
 import MainPage from "../../pages/MainPage/MainPage";
 import AuthContainer from "../../pages/Auth/Auth";
 import {Navigate, RouteObject} from "react-router-dom";
+import RepositoriesPage from "../../pages/Repositories/RepositoriesContainer";
 
 const routes:RouteObject[] = [
     {
@@ -14,9 +15,13 @@ const routes:RouteObject[] = [
         element: <AuthContainer/>
     },
     {
+        path: "/repositories",
+        element: (<RepositoriesPage />)
+    },
+    {
         path: "*",
         element: (<Navigate to="/" replace />)
-    }
+    },
 ]
 
 export default routes;

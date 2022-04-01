@@ -1,8 +1,6 @@
 import React, {FC} from 'react';
 import classes from "./Profile.module.scss"
 import {IUser} from "../../models/IUser";
-import {useAppDispatch} from "../../redux/hooks/reduxHooks";
-import {fetchReps} from "../../redux/reducers/UserReducer/ReposActionCreators";
 
 interface ProfileProps {
     user: IUser,
@@ -10,7 +8,6 @@ interface ProfileProps {
 }
 
 const Profile: FC<ProfileProps> = ({user, isLoading}) => {
-    const dispatch = useAppDispatch();
     return (
         <div className={classes.profile}>
             <img src={user.avatar_url} alt="avatar" className={classes.profileImg}/>
@@ -28,7 +25,7 @@ const Profile: FC<ProfileProps> = ({user, isLoading}) => {
             }
             <div className={classes.profileRow}>{user.followers} Followers</div>
             <div className={classes.profileRow}>{user.following} Following</div>
-            <button disabled={isLoading} onClick={() => dispatch(fetchReps(user.login))}
+            <button disabled={isLoading}
                     className={classes.profileRow}>{user.public_repos} Public repos
             </button>
             {isLoading &&

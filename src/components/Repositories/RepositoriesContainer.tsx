@@ -2,18 +2,30 @@ import React, {FC} from 'react';
 import {useAppSelector} from "../../redux/hooks/reduxHooks";
 import Repositories from "./Repositories";
 
-const RepositoriesContainer: FC = () => {
-    const repositories = useAppSelector(state => state.userReducer.user.repositories);
-    const isLoadingReps = useAppSelector(state => state.userReducer.isLoading);
+interface IProps {
+    fetchReposPaginateOnClick: () => void
+}
 
+const RepositoriesPaginate: FC<IProps> = ({fetchReposPaginateOnClick}) => {
+    const repositories = useAppSelector(state => state.repositoriesReducer.repositories);
+    const isLoading = useAppSelector(state => state.repositoriesReducer.paginate.isLoading);
+    const couldLoadMore = useAppSelector(state => state.repositoriesReducer.paginate.couldLoadMore);
+    const paginateError = useAppSelector(state => state.repositoriesReducer.paginate.error);
     return (
-        <>
-            {isLoadingReps
-                ? "Loading..."
-                : repositories && <Repositories repositories={repositories}/>
+        <div>
+            {repositories?.length > 0 && <>
+                <Repositories repositories={repositories}/>
+                {paginateError}
+                {couldLoadMore &&
+                <button disabled={isLoading} onClick={fetchReposPaginateOnClick}>
+                    Load more
+                </button>
+                }
+            </>
             }
-        </>
+        </div>
     );
 };
 
-export default RepositoriesContainer;
+
+export default RepositoriesPaginate;
