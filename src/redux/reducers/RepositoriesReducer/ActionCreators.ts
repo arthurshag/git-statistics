@@ -1,7 +1,7 @@
 import {AppDispatch} from "../../redux-store";
-import {IRepository, IServerRepositoryWithLanguages, ListUserReposType} from "../../../models/IRepository";
 import {reposAPI} from "../../../api/api";
 import {repositoriesSlice} from "./RepositoriesReducer";
+import {IRepository, ListUserReposType} from "../../../models/IRepository";
 
 const {
     fetchingError,
@@ -17,7 +17,7 @@ export const fetchRepos = (login: string, per_page = 10) => async (dispatch: App
     dispatch(fetching());
     try {
         const responseRepos = await reposAPI.getReposByUser(login);
-        const reposWithLanguages = await addLanguagesDataToReps(responseRepos);
+        const reposWithLanguages = await addLanguagesDataToRepos(responseRepos);
         if (reposWithLanguages.length < per_page) {
             dispatch(paginateSetCouldLoadMore(false));
         } else {
@@ -33,7 +33,7 @@ export const fetchMoreRepos = (login: string, page = 1, per_page = 10) => async 
     dispatch(paginateFetching());
     try {
         const responseRepos = await reposAPI.getReposByUser(login, page, per_page);
-        const reposWithLanguages = await addLanguagesDataToReps(responseRepos);
+        const reposWithLanguages = await addLanguagesDataToRepos(responseRepos);
         if (reposWithLanguages.length < per_page) {
             dispatch(paginateSetCouldLoadMore(false));
         } else {
@@ -45,7 +45,7 @@ export const fetchMoreRepos = (login: string, page = 1, per_page = 10) => async 
     }
 }
 
-const addLanguagesDataToReps = (repos: ListUserReposType) => {
+const addLanguagesDataToRepos = (repos: ListUserReposType) => {
     return Promise.all(repos.map(async (rep) => {
         try {
             const languages = await reposAPI.fetchLanguages(rep.owner.login, rep.name);
@@ -53,5 +53,5 @@ const addLanguagesDataToReps = (repos: ListUserReposType) => {
         } catch {
             return rep;
         }
-    })) as Promise<IServerRepositoryWithLanguages[]>;
+    })) as Promise<IRepository[]>;
 }
