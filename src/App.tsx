@@ -1,9 +1,12 @@
 import React from 'react';
-import MainPage from "./pages/MainPage/MainPage";
+import {useRoutes} from "react-router-dom";
+import routes from "./components/Routes/Routes";
 
 function GitStatApp() {
-    return (
-        <MainPage/>
+    const element = useRoutes(routes);
+    return (<>
+            {element}
+        </>
     );
 }
 

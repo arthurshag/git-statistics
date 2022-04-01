@@ -11,5 +11,5 @@ export interface IUser {
     login: string,
     name: string,
     public_repos: number,
-    repositories: undefined | null | IRepository[]
+    repositories?: undefined | null | IRepository[]
 }
