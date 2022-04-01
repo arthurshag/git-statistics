@@ -1,7 +1,7 @@
 import {AppDispatch} from "../../redux-store";
 import {reposAPI} from "../../../api/api";
 import {repositoriesSlice} from "./RepositoriesReducer";
-import {IRepository, ListUserReposType} from "../../../models/IRepository";
+import {IRepository, ListUserReposType, ReposRequestParamsType} from "../../../models/IRepository";
 
 const {
     fetchingError,
@@ -13,10 +13,11 @@ const {
     paginateSetCouldLoadMore
 } = repositoriesSlice.actions;
 
-export const fetchRepos = (login: string, per_page = 10) => async (dispatch: AppDispatch) => {
+export const fetchRepos = ({per_page = 10, ...params}: ReposRequestParamsType) => async (dispatch: AppDispatch) => {
+    const reqParams = {...params, per_page};
     dispatch(fetching());
     try {
-        const responseRepos = await reposAPI.getReposByUser(login);
+        const responseRepos = await reposAPI.getReposByUser(reqParams);
         const reposWithLanguages = await addLanguagesDataToRepos(responseRepos);
         if (reposWithLanguages.length < per_page) {
             dispatch(paginateSetCouldLoadMore(false));
@@ -29,10 +30,10 @@ export const fetchRepos = (login: string, per_page = 10) => async (dispatch: App
     }
 }
 
-export const fetchMoreRepos = (login: string, page = 1, per_page = 10) => async (dispatch: AppDispatch) => {
-    dispatch(paginateFetching());
+export const fetchMoreRepos = ({per_page = 10, ...params}: ReposRequestParamsType) => async (dispatch: AppDispatch) => {
+    const reqParams = {...params, per_page};
     try {
-        const responseRepos = await reposAPI.getReposByUser(login, page, per_page);
+        const responseRepos = await reposAPI.getReposByUser(reqParams);
         const reposWithLanguages = await addLanguagesDataToRepos(responseRepos);
         if (reposWithLanguages.length < per_page) {
             dispatch(paginateSetCouldLoadMore(false));

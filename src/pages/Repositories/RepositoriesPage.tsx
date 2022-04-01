@@ -1,41 +1,35 @@
-import React, {FC, useRef, useState} from 'react';
-import {useAppDispatch, useAppSelector} from "../../redux/hooks/reduxHooks";
-import {fetchMoreRepos, fetchRepos} from "../../redux/reducers/RepositoriesReducer/ActionCreators";
-import FormLogin from "../../components/FormLogin/FormLogin";
+import React, {FC, useRef} from 'react';
+import {useAppDispatch} from "../../redux/hooks/reduxHooks";
+import {fetchMoreRepos} from "../../redux/reducers/RepositoriesReducer/ActionCreators";
 import RepositoriesPaginate from "../../components/Repositories/RepositoriesContainer";
-import {useSearchParams} from "react-router-dom";
+import {useReposFilterParams} from "../../helpers/hooks/useReposFilterParams";
+import ReposFilters from "../../components/ReposFilters/ReposFilters";
 
 const RepositoriesPage: FC = () => {
     //for test you can use: arthurshag, gaearon, TalisMan701
-    let [searchParams, setSearchParams] = useSearchParams();
-    const count = useRef(2);
-    console.log()
-    const [login, setLogin] = useState(searchParams.get("user") || "");
-    console.log(login)
-    const isLoading = useAppSelector(state => state.repositoriesReducer.isLoading);
-    const error = useAppSelector(state => state.repositoriesReducer.error);
-
+    const {params, setParams, saveUrlParams} = useReposFilterParams();
+    const page = useRef(1);
     const dispatch = useAppDispatch();
-
-    const fetchReposOnClick = () => {
-        count.current = 2;
-        dispatch(fetchRepos(login))
-        setSearchParams({user: login});
-    }
-
     const fetchReposPaginateOnClick = () => {
-        count.current = count.current + 1;
-        dispatch(fetchMoreRepos(login, count.current))
+        page.current = page.current + 1;
+        saveUrlParams();
+        dispatch(fetchMoreRepos({...params, page: page.current}));
     }
+
+    const resetHandler = () => {
+        saveUrlParams();
+        page.current = 1;
+    };
 
     return (
         <>
-            <FormLogin handleClick={fetchReposOnClick} text={login} setText={setLogin} disabled={isLoading}
-                       error={error}/>
+            <ReposFilters params={params} setParams={setParams} reset={resetHandler}/>
             <RepositoriesPaginate fetchReposPaginateOnClick={fetchReposPaginateOnClick}/>
         </>
     );
 };
+
+
 
 
 export default RepositoriesPage;

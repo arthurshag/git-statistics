@@ -1,6 +1,7 @@
 import {Endpoints} from "@octokit/types";
 
 export type ListUserReposType = Endpoints["GET /users/{username}/repos"]["response"]["data"];
+export type ReposRequestParamsType = Endpoints["GET /users/{username}/repos"]["parameters"];
 type ServerRepositoryType = Endpoints["GET /repos/{owner}/{repo}"]["response"]["data"];
 type LanguageType = Endpoints["GET /repos/{owner}/{repo}/languages"]["response"]["data"];
 
