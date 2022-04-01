@@ -10,7 +10,7 @@ export const useReposFilterParams = () => {
         username: searchParams.get("username") || "",
     };
     const [params, setParams] = useState<ReposRequestParamsType>(initialState);
-    const reset = () => setParams(initialState);
+    const reset = () => setParams({username: ""});
     const setValue = (field: string, value: string | undefined) => {
         setParams({...params, [field]: value});
     }

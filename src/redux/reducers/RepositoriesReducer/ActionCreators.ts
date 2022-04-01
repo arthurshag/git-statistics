@@ -32,6 +32,7 @@ export const fetchRepos = ({per_page = 10, ...params}: ReposRequestParamsType) =
 
 export const fetchMoreRepos = ({per_page = 10, ...params}: ReposRequestParamsType) => async (dispatch: AppDispatch) => {
     const reqParams = {...params, per_page};
+    dispatch(paginateFetching());
     try {
         const responseRepos = await reposAPI.getReposByUser(reqParams);
         const reposWithLanguages = await addLanguagesDataToRepos(responseRepos);
