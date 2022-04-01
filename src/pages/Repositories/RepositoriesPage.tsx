@@ -3,11 +3,15 @@ import {useAppDispatch, useAppSelector} from "../../redux/hooks/reduxHooks";
 import {fetchMoreRepos, fetchRepos} from "../../redux/reducers/RepositoriesReducer/ActionCreators";
 import FormLogin from "../../components/FormLogin/FormLogin";
 import RepositoriesPaginate from "../../components/Repositories/RepositoriesContainer";
+import {useSearchParams} from "react-router-dom";
 
 const RepositoriesPage: FC = () => {
     //for test you can use: arthurshag, gaearon, TalisMan701
+    let [searchParams, setSearchParams] = useSearchParams();
     const count = useRef(2);
-    const [login, setLogin] = useState("arthurshag");
+    console.log()
+    const [login, setLogin] = useState(searchParams.get("user") || "");
+    console.log(login)
     const isLoading = useAppSelector(state => state.repositoriesReducer.isLoading);
     const error = useAppSelector(state => state.repositoriesReducer.error);
 
@@ -16,6 +20,7 @@ const RepositoriesPage: FC = () => {
     const fetchReposOnClick = () => {
         count.current = 2;
         dispatch(fetchRepos(login))
+        setSearchParams({user: login});
     }
 
     const fetchReposPaginateOnClick = () => {
