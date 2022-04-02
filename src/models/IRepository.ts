@@ -29,3 +29,5 @@ export type RepositoryType = Pick<ServerRepositoryType, NeededFieldsType>
 export interface IRepository extends RepositoryType {
     languages?: LanguageType
 }
+
+type asd = Endpoints["GET /events"]
