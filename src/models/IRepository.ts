@@ -27,5 +27,5 @@ type NeededFieldsType =
 export type RepositoryType = Pick<ServerRepositoryType, NeededFieldsType>
 
 export interface IRepository extends RepositoryType {
-    languages: LanguageType
+    languages?: LanguageType
 }

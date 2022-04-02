@@ -31,6 +31,13 @@ export const reposAPI = {
             owner,
             repo,
         })).data;
+    },
+
+    async getRepo(owner: string, repo:string ) {
+        return (await octokit.rest.repos.get({
+            owner,
+            repo,
+        })).data;
     }
 }
 
