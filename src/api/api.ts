@@ -25,20 +25,31 @@ export const reposAPI = {
             username
         }))).data;
     },
-
+    async getRepo(owner: string, repo: string) {
+        return (await octokit.rest.repos.get({
+            owner,
+            repo,
+        })).data;
+    },
     async fetchLanguages(owner: string, repo: string) {
         return (await octokit.rest.repos.listLanguages({
             owner,
             repo,
         })).data;
     },
-
-    async getRepo(owner: string, repo:string ) {
-        return (await octokit.rest.repos.get({
+    async getLanguages(owner: string, repo: string) {
+        return (await octokit.rest.repos.listLanguages({
             owner,
             repo,
         })).data;
-    }
+    },
+    async getContributors(owner: string, repo: string) {
+        return (await octokit.rest.repos.listContributors({
+            owner,
+            repo,
+        })).data;
+    },
+
 }
 
 export const auth = {

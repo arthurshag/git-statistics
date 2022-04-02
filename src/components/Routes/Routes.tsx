@@ -3,7 +3,7 @@ import React from "react";
 import MainPage from "../../pages/MainPage/MainPage";
 import AuthContainer from "../../pages/Auth/Auth";
 import {Navigate, RouteObject} from "react-router-dom";
-import Repository from "../Repository/Repository";
+import Repository from "../Repository/RepositoryContainer";
 
 const routes: RouteObject[] = [
     {

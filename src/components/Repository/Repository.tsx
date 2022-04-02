@@ -1,31 +1,57 @@
-import React, {FC, useEffect} from 'react';
-import {useParams} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../redux/hooks/reduxHooks";
-import {fetchRepo} from "../../redux/reducers/RepositoryReducer/ActionCreators";
-import Repository from "../Repositories/Repository";
+import {IRepository} from "../../models/IRepository";
+import {FC, memo} from "react";
+import Languages from "./RepositoryParts/Languages";
+import Contributors from "./RepositoryParts/Contributors";
 
-const RepositoryDetailed: FC = (props) => {
-    const params = useParams();
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        if (params.owner && params.repo)
-            dispatch(fetchRepo(params.owner, params.repo));
-    }, [])
+interface PropsType {
+    repository: IRepository
+}
 
-    const repository = useAppSelector((state) => state.repoReducer.repository);
-    console.log(repository);
-    if (repository === null) {
-        return <div>
-            {params.owner}
-            {params.repo}
-        </div>
-    }
+const Repository: FC<PropsType> = memo(({repository}) => {
     return (
-        <div>
-            <Repository {...repository}/>
-        </div>
+        <section>
+            <h2>Repository in detail</h2>
+            <div>
+                {repository.owner.login} {repository.owner.name}
+            </div>
+            <div>
+                {repository.html_url}
+            </div>
+            <div>
+                {repository.forks_count}
+            </div>
+            <div>
+                {repository.topics?.join(", ")}
+            </div>
+            <div>
+                {repository.watchers_count}
+            </div>
+            <div>
+                {repository.stargazers_count}
+            </div>
+            <div>
+                {repository.description}
+            </div>
+            <div>
+                {repository.created_at}
+            </div>
+            <div>
+                {repository.updated_at}
+            </div>
+            <div>
+                {repository.clone_url}
+            </div>
+            <div>
+                <Languages owner={repository.owner.login} repo={repository.name}/>
+            </div>
+            <div>
+                <Languages owner={repository.owner.login} repo={repository.name}/>
+            </div>
+            <div>
+                <Contributors owner={repository.owner.login} repo={repository.name}/>
+            </div>
+        </section>
     );
-};
+});
 
-
-export default RepositoryDetailed;
+export default Repository;
