@@ -1,5 +1,6 @@
 import {Octokit} from "octokit";
 import {Endpoints} from "@octokit/types";
+import {ICommits} from "../models/ICommits";
 
 let octokit = new Octokit({
     auth: localStorage.getItem("access_token")
@@ -30,10 +31,18 @@ export const reposAPI = {
         }));
     },
     async getContributors({owner, repo}: { owner: string, repo: string }) {
-        return (await octokit.rest.repos.listContributors({
+        const iterator = octokit.paginate.iterator(octokit.rest.repos.listContributors, {
             owner,
             repo,
-        }));
+            per_page: 100
+        });
+
+        const response: { data: Endpoints["GET /repos/{owner}/{repo}/contributors"]["response"]["data"] } = {data: []};
+        for await (const {data} of iterator) {
+            response.data.push(...data);
+        }
+
+        return response;
     },
     async getEvents({owner, repo}: { owner: string, repo: string }) {
         return (await octokit.request("GET /repos/{owner}/{repo}/events", {
@@ -48,9 +57,10 @@ export const reposAPI = {
             per_page: 100
         });
 
-        const response: { data: Endpoints["GET /repos/{owner}/{repo}/commits"]["response"]["data"] } = {data: []};
+        const response: { data: ICommits } = {data: []};
         for await (const {data} of iterator) {
             response.data.push(...data);
+            break;
         }
 
         return response;

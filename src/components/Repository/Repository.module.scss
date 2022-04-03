@@ -1,0 +1,27 @@
+@import "../../assets/variables";
+
+.repository {
+  align-self: stretch;
+  padding: 10px 20px;
+  &__statsWrapper{
+    padding: 20px 0;
+  }
+  &__statsWrapperData{
+    padding: 0 20px;
+  }
+}
+
+
+.owner {
+  padding: 10px 0;
+
+  &__img {
+    width: 50%;
+  }
+}
+
+.contributors {
+  &__items{
+
+  }
+}

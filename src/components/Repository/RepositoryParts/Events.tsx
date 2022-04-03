@@ -1,7 +1,8 @@
 import React, {FC} from 'react';
 import {useGetEventsQuery} from "../../../redux/reducers/RepositoryReducer/RepositoryRTK";
-import {ResponsiveContainer, Scatter, Tooltip, XAxis, YAxis, ScatterChart, ZAxis} from "recharts";
 import {Endpoints} from "@octokit/types";
+import {Chart} from "react-google-charts";
+import LoadingError from "./LoadingError";
 
 interface IProps {
     owner: string,
@@ -10,36 +11,46 @@ interface IProps {
 
 const Events: FC<IProps> = ({owner, repo}) => {
     const {data, error, isLoading} = useGetEventsQuery({owner: owner, repo: repo});
-    if (!data)
-        return null;
-    const options = getOptions(data);
+
+    const dataChart = data ? gatDataChart(data) : [];
+
     return (
-        <div>
-            Events:
-            <div>
-                {options}
-            </div>
-        </div>
+        <LoadingError isLoading={isLoading} error={error as string | undefined | null}>
+            <h4>Events:</h4>
+            <Chart
+                chartType="Calendar"
+                data={dataChart}
+                width="100%"
+                height="200px"
+            />
+        </LoadingError>
     );
 };
 
-const getOptions = (data: Endpoints["GET /repos/{owner}/{repo}/events"]["response"]["data"]) => {
-    let options: { date: Date, value: number }[] = [];
+const gatDataChart = (data: Endpoints["GET /repos/{owner}/{repo}/events"]["response"]["data"]) => {
+    let options: [Date, number][] = [];
+    const now = new Date();
     data.forEach(({created_at}) => {
         if (created_at) {
             const date = new Date(created_at);
+            if (date.getFullYear() !== now.getFullYear())
+                return;
             date.setHours(0, 0, 0, 0);
             const index = options.findIndex((e) => {
-                return +e.date === +date;
+                return +e[0] === +date;
             });
             if (index >= 0) {
-                options[index].value++;
+                options[index][1]++;
             } else {
-                options.push({date: date, value: 1});
+                options.push([date, 1]);
             }
         }
     })
-    return options;
+    return [[
+        {type: "date", id: "Date"},
+        {type: "number", id: "Won/Loss"},
+    ], ...options];
 }
+
 
 export default Events;

@@ -2,18 +2,16 @@ import React, {FC} from 'react';
 import {useParams} from "react-router-dom";
 import Repository from "./Repository";
 import {useGetRepositoryQuery} from "../../redux/reducers/RepositoryReducer/RepositoryRTK";
+import LoadingError from "./RepositoryParts/LoadingError";
 
 const RepositoryDetailed: FC = (props) => {
     const params = useParams();
     const {data, error, isLoading} = useGetRepositoryQuery({owner: params.owner || "", repo: params.repo || ""});
-    if (!data) {
-        return <div>
-            {params.owner}
-            {params.repo}
-        </div>
-    }
 
-    return (<Repository repository={data}/>);
+    return (
+        <LoadingError isLoading={isLoading} error={error as string | null | undefined}>
+            {data && <Repository repository={data}/>}
+        </LoadingError>);
 };
 
 

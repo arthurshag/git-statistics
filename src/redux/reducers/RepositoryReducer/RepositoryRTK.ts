@@ -4,7 +4,7 @@ import {IRepository} from "../../../models/IRepository";
 import {ILanguage} from "../../../models/ILanguage";
 import {IContributors} from "../../../models/IContributors";
 import {IRepoEvents} from "../../../models/IRepoEvents";
-import {Endpoints} from "@octokit/types";
+import {ICommits} from "../../../models/ICommits";
 
 
 type PropsType = {
@@ -14,16 +14,17 @@ type PropsType = {
     url: keyof typeof reposAPI
 }
 
+
 export const repositoryApi = createApi({
     reducerPath: 'repositoryApi',
-    baseQuery: (args: PropsType,
+    baseQuery: async (args: PropsType,
                 {signal, dispatch, getState},
                 extraOptions) => {
         try {
-            return reposAPI[args.url](args.params);
-        } catch (e) {
+            return await reposAPI[args.url](args.params);
+        } catch (e){
             const error = e as Error;
-            return {error: {status: 0, data: error.message}};
+            return {error: error.message};
         }
     },
     endpoints: (builder) => ({
@@ -47,9 +48,9 @@ export const repositoryApi = createApi({
         ({
             query: (params) => ({params, url: "getEvents" as PropsType["url"]}),
         }),
-        getAllCommits: builder.query <Endpoints["GET /repos/{owner}/{repo}/commits"]["response"]["data"], PropsType["params"]>
+        getAllCommits: builder.query <ICommits, PropsType["params"]>
         ({
-            query: (params) => ({params, url: "getCommits" as PropsType["url"]}),
+            query: (params) => ({params, url: "getAllCommits" as PropsType["url"]}),
         }),
     }),
 })
