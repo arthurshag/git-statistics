@@ -1,43 +1,58 @@
 import {Octokit} from "octokit";
+import {Endpoints} from "@octokit/types";
 
 let octokit = new Octokit({
     auth: localStorage.getItem("access_token")
 });
 
 export const reposAPI = {
-    async getRepos({owner}: {owner: string}) {
+    async getRepos({owner}: { owner: string }) {
         return (await (octokit.rest.repos.listForUser({
             username: owner
         })));
     },
-    async getRepo({owner, repo}: {owner: string, repo: string}) {
+    async getRepo({owner, repo}: { owner: string, repo: string }) {
         return (await octokit.rest.repos.get({
             owner,
             repo,
         }));
     },
-    async fetchLanguages({owner, repo}: {owner: string, repo: string}) {
+    async fetchLanguages({owner, repo}: { owner: string, repo: string }) {
         return (await octokit.rest.repos.listLanguages({
             owner,
             repo,
         }));
     },
-    async getLanguages({owner, repo}: {owner: string, repo: string}) {
+    async getLanguages({owner, repo}: { owner: string, repo: string }) {
         return (await octokit.rest.repos.listLanguages({
             owner,
             repo,
         }));
     },
-    async getContributors({owner, repo}: {owner: string, repo: string}) {
+    async getContributors({owner, repo}: { owner: string, repo: string }) {
         return (await octokit.rest.repos.listContributors({
             owner,
             repo,
         }));
     },
-    async getEvents({owner, repo}: {owner: string, repo: string}) {
+    async getEvents({owner, repo}: { owner: string, repo: string }) {
         return (await octokit.request("GET /repos/{owner}/{repo}/events", {
             owner,
             repo,
         }));
+    },
+    async getAllCommits({owner, repo}: { owner: string, repo: string }) {
+        const iterator = octokit.paginate.iterator(octokit.rest.repos.listCommits, {
+            owner,
+            repo,
+            per_page: 100
+        });
+
+        const response: { data: Endpoints["GET /repos/{owner}/{repo}/commits"]["response"]["data"] } = {data: []};
+        for await (const {data} of iterator) {
+            response.data.push(...data);
+        }
+
+        return response;
     },
 }

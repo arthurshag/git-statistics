@@ -4,12 +4,15 @@ import Languages from "./RepositoryParts/Languages";
 import Contributors from "./RepositoryParts/Contributors";
 import Owner from "./RepositoryParts/Owner";
 import Events from "./RepositoryParts/Events";
+import Commits from "./RepositoryParts/Commits";
 
 interface PropsType {
     repository: IRepository
 }
 
+
 const Repository: FC<PropsType> = memo(({repository}) => {
+    const btnHandler = () => navigator.clipboard.writeText(repository.clone_url);
     return (
         <section>
             <h2>Repository in detail</h2>
@@ -39,20 +42,22 @@ const Repository: FC<PropsType> = memo(({repository}) => {
                 <div>
                     updated_at: {repository.updated_at}
                 </div>
-                <div>
-                    clone_url: {repository.clone_url}
-                </div>
+                <button onClick={btnHandler}>
+                    clone_url: {repository.clone_url} (onclick copy)
+                </button>
                 <div>
                     <Languages owner={repository.owner.login} repo={repository.name}/>
                 </div>
                 <div>
-                    <Contributors owner={repository.owner.login} repo={repository.name}/>
+                    {/*<Contributors owner={repository.owner.login} repo={repository.name}/>*/}
+                </div>
+                <div>
+                    {/*<Commits owner={repository.owner.login} repo={repository.name}/>*/}
                 </div>
                 <div>
                     <Events owner={repository.owner.login} repo={repository.name}/>
                 </div>
             </section>
-
         </section>
     );
 });

@@ -4,6 +4,7 @@ import {IRepository} from "../../../models/IRepository";
 import {ILanguage} from "../../../models/ILanguage";
 import {IContributors} from "../../../models/IContributors";
 import {IRepoEvents} from "../../../models/IRepoEvents";
+import {Endpoints} from "@octokit/types";
 
 
 type PropsType = {
@@ -19,7 +20,6 @@ export const repositoryApi = createApi({
                 {signal, dispatch, getState},
                 extraOptions) => {
         try {
-            debugger
             return reposAPI[args.url](args.params);
         } catch (e) {
             const error = e as Error;
@@ -47,6 +47,10 @@ export const repositoryApi = createApi({
         ({
             query: (params) => ({params, url: "getEvents" as PropsType["url"]}),
         }),
+        getAllCommits: builder.query <Endpoints["GET /repos/{owner}/{repo}/commits"]["response"]["data"], PropsType["params"]>
+        ({
+            query: (params) => ({params, url: "getCommits" as PropsType["url"]}),
+        }),
     }),
 })
 
@@ -56,5 +60,6 @@ export const {
     useGetRepositoryQuery,
     useGetContributorsQuery,
     useGetEventsQuery,
-    useGetLanguagesQuery
+    useGetLanguagesQuery,
+    useGetAllCommitsQuery
 } = repositoryApi;
