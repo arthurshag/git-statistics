@@ -2,7 +2,6 @@ import axios, {AxiosInstance} from 'axios';
 import {IUser} from "../models/IUser";
 import {Octokit} from "octokit";
 import {Endpoints} from "@octokit/types";
-import {ReposRequestParamsType} from "../models/IRepository";
 
 let octokit = new Octokit({
     auth: localStorage.getItem("access_token")
@@ -28,9 +27,9 @@ export const reposAPI = {
     //     }))).data;
     // },
 
-    async getReposByUser(params: ReposRequestParamsType) {
-        return (await (octokit.rest.repos.listForUser(params))).data;
-    },
+    // async getReposByUser(params: ReposRequestParamsType) {
+    //     return (await (octokit.rest.repos.listForUser(params))).data;
+    // },
 
     async fetchLanguages(owner: string, repo: string) {
         return (await octokit.rest.repos.listLanguages({

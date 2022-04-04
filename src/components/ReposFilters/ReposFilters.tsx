@@ -1,11 +1,10 @@
 import React, {FC} from "react";
-import {useAppSelector} from "../../redux/hooks/reduxHooks";
-import {ReposRequestParamsType} from "../../models/IRepository";
 import FormLogin from "../FormLogin/FormLogin";
 import Select from "./Select";
+import {ReposUrlParamsType} from "../../helpers/hooks/useReposFilterParams";
 
 interface IFilters {
-    params: ReposRequestParamsType,
+    params: ReposUrlParamsType,
     setParams: (field: string, value: string | undefined) => void,
     reset: () => void
     onSubmit: () => void
@@ -18,10 +17,8 @@ const ReposFilters: FC<IFilters> = ({
                                         setParams,
                                         onSubmit
                                     }) => {
-    const isLoading = useAppSelector(state => state.repositoriesReducer.isLoading);
-    const error = useAppSelector(state => state.repositoriesReducer.error);
-    const optionsType: ReposRequestParamsType["type"][] = ["all", "member", "owner"];
-    const optionsSort: ReposRequestParamsType["sort"][] = ["created", "full_name", "pushed", "updated"];
+    const optionsType = ["all", "member", "owner"];
+    const optionsSort = ["created", "full_name", "pushed", "updated"];
 
     const setUsername = (text: string) => {
         setParams("username", text);
@@ -39,8 +36,8 @@ const ReposFilters: FC<IFilters> = ({
 
 
     return <>
-        <FormLogin handleClick={onSubmit} text={params.username} setText={setUsername} disabled={isLoading}
-                   error={error}/>
+        <FormLogin handleClick={onSubmit} text={params.username || ""} setText={setUsername} disabled={false}
+                   error={null}/>
         <Select options={optionsType as string[]} handler={onchangeFilterType}/>
         <Select options={optionsSort as string[]} handler={onchangeFilterSort}/>
         <button onClick={reset}>reset filters</button>

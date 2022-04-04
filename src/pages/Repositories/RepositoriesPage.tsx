@@ -1,39 +1,40 @@
-import React, {FC, useEffect, useRef} from 'react';
-import {useAppDispatch} from "../../redux/hooks/reduxHooks";
-import {fetchMoreRepos} from "../../redux/reducers/RepositoriesReducer/ActionCreators";
-import RepositoriesPaginate from "../../components/Repositories/RepositoriesContainer";
-import {useReposFilterParams} from "../../helpers/hooks/useReposFilterParams";
+import React, {FC} from 'react';
+import {ReposUrlParamsType, useReposFilterParams} from "../../helpers/hooks/useReposFilterParams";
 import ReposFilters from "../../components/ReposFilters/ReposFilters";
+import {useGetRepositoriesQuery} from "../../redux/reducers/RepositoriesReducer/RepositoryRTK";
+import Repositories from "../../components/Repositories/Repositories";
+import {ParamsSearchReposType} from "../../models/IRepository";
 
 const RepositoriesPage: FC = () => {
     const {params, setParams, saveUrlParams, reset} = useReposFilterParams();
-    const page = useRef(1);
-    const dispatch = useAppDispatch();
-    const fetchReposPaginateOnClick = () => {
-        page.current = page.current + 1;
-        saveUrlParams();
-        dispatch(fetchMoreRepos({...params, page: page.current}));
-    };
 
     const fetchReposOnClick = () => {
-        page.current = 1;
         saveUrlParams();
-        dispatch(fetchMoreRepos({...params, page: page.current}));
     }
 
     const resetHandler = () => {
         reset();
     };
 
+    const {data, isLoading, isFetching} = useGetRepositoriesQuery(transformToRequestParams(params));
     return (
         <>
             <ReposFilters params={params} setParams={setParams} reset={resetHandler} onSubmit={fetchReposOnClick}/>
-            <RepositoriesPaginate fetchReposPaginateOnClick={fetchReposPaginateOnClick}/>
+            {data && <Repositories repositories={data.items}/>}
+            <button onClick={() => setParams("page", "1")}>1</button>
+            <button onClick={() => setParams("page", "2")}>2</button>
+            <button onClick={() => setParams("page", "3")}>3</button>
         </>
     );
 };
 
 
-
-
 export default RepositoriesPage;
+
+
+const transformToRequestParams = (params: ReposUrlParamsType): ParamsSearchReposType => {
+    return {
+        q: `user:${params.username}`,
+        page: +(params.page || 1)
+    }
+}
