@@ -36,8 +36,7 @@ const ReposFilters: FC<IFilters> = ({
 
 
     return <>
-        <FormLogin handleClick={onSubmit} text={params.username || ""} setText={setUsername} disabled={false}
-                   error={null}/>
+        <input value={params.username} onChange={(e) => setUsername(e.target.value)}/>
         <Select options={optionsType as string[]} handler={onchangeFilterType}/>
         <Select options={optionsSort as string[]} handler={onchangeFilterSort}/>
         <button onClick={reset}>reset filters</button>

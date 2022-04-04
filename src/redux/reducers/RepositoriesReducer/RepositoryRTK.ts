@@ -7,23 +7,21 @@ import {IRepoEvents} from "../../../models/IRepoEvents";
 import {ICommits} from "../../../models/ICommits";
 
 
-type PropsType = {
-    params: {
-        owner: string, repo: string
-    },
-    url: keyof typeof reposAPI
+type PropsType<T extends keyof typeof reposAPI> = {
+    params: Parameters<typeof reposAPI[T]>[0],
+    url: T
 }
 
 
 export const repositoryApi = createApi({
     reducerPath: 'repositoryApi',
-    baseQuery: async (args: PropsType,
-                {signal, dispatch, getState},
-                extraOptions) => {
+    baseQuery: async (args: PropsType<keyof typeof reposAPI>,
+                      {signal, dispatch, getState},
+                      extraOptions) => {
         try {
-            // @ts-ignore
-            return await reposAPI[args.url](args.params);
-        } catch (e){
+            //todo: fix
+            return await reposAPI[args.url](args.params as any);
+        } catch (e) {
             const error = e as Error;
             return {error: error.message};
         }
@@ -31,27 +29,27 @@ export const repositoryApi = createApi({
     endpoints: (builder) => ({
         getRepositories: builder.query <SearchReposType, ParamsSearchReposType>
         ({
-            query: (params) => ({params, url: "getRepos" as PropsType["url"]}),
+            query: (params) => ({params, url: "getRepos"}),
         }),
-        getRepository: builder.query <IRepository, PropsType["params"]>
+        getRepository: builder.query <IRepository, PropsType<"getRepo">["params"]>
         ({
-            query: (params) => ({params, url: "getRepo" as PropsType["url"]}),
+            query: (params) => ({params, url: "getRepo"}),
         }),
-        getLanguages: builder.query <ILanguage, PropsType["params"]>
+        getLanguages: builder.query <ILanguage, PropsType<"getLanguages">["params"]>
         ({
-            query: (params) => ({params, url: "getLanguages" as PropsType["url"]}),
+            query: (params) => ({params, url: "getLanguages"}),
         }),
-        getContributors: builder.query <IContributors, PropsType["params"]>
+        getContributors: builder.query <IContributors, PropsType<"getContributors">["params"]>
         ({
-            query: (params) => ({params, url: "getContributors" as PropsType["url"]}),
+            query: (params) => ({params, url: "getContributors"}),
         }),
-        getEvents: builder.query <IRepoEvents, PropsType["params"]>
+        getEvents: builder.query <IRepoEvents, PropsType<"getEvents">["params"]>
         ({
-            query: (params) => ({params, url: "getEvents" as PropsType["url"]}),
+            query: (params) => ({params, url: "getEvents"}),
         }),
-        getAllCommits: builder.query <ICommits, PropsType["params"]>
+        getAllCommits: builder.query <ICommits, PropsType<"getAllCommits">["params"]>
         ({
-            query: (params) => ({params, url: "getAllCommits" as PropsType["url"]}),
+            query: (params) => ({params, url: "getAllCommits"}),
         }),
     }),
 })

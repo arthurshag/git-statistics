@@ -3,10 +3,10 @@ import {ParamsSearchReposType} from "../../models/IRepository";
 import {useState} from "react";
 
 export type ReposUrlParamsType = {
-    type?: string | null,
-    sort?: string | null,
     username: string,
-    page?: string | null
+    page: string,
+    type?: string | null,
+    sort?: ParamsSearchReposType["sort"] | null,
 }
 
 export const useReposFilterParams = () => {
@@ -15,9 +15,10 @@ export const useReposFilterParams = () => {
         type: searchParams.get(("type")),
         sort: searchParams.get("sort") as ParamsSearchReposType["sort"],
         username: searchParams.get("username") || "",
+        page: searchParams.get("page") || "1",
     };
     const [params, setParams] = useState<ReposUrlParamsType>(initialState);
-    const reset = () => setParams({username: ""});
+    const reset = () => setParams({username: "", page: "1"});
     const setValue = (field: string, value: string | undefined) => {
         setParams({...params, [field]: value});
     }
