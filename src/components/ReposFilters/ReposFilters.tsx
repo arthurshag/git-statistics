@@ -17,16 +17,10 @@ const ReposFilters: FC<IFilters> = ({
                                         setParams,
                                         onSubmit
                                     }) => {
-    const optionsType = ["all", "member", "owner"];
     const optionsSort = ["created", "full_name", "pushed", "updated"];
 
     const setUsername = (text: string) => {
         setParams("username", text);
-    }
-
-    const onchangeFilterType = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const option = optionsType.find((value) => value === event.target.value)
-        setParams("type", option)
     }
 
     const onchangeFilterSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -34,11 +28,10 @@ const ReposFilters: FC<IFilters> = ({
         setParams("sort", option)
     }
 
-
     return <>
         <input value={params.username} onChange={(e) => setUsername(e.target.value)}/>
-        <Select options={optionsType as string[]} handler={onchangeFilterType}/>
         <Select options={optionsSort as string[]} handler={onchangeFilterSort}/>
+        <button onClick={onSubmit}>fetch</button>
         <button onClick={reset}>reset filters</button>
     </>
 }

@@ -7,10 +7,10 @@ import {ParamsSearchReposType} from "../../models/IRepository";
 import Paginator from "../../components/Repositories/Paginator";
 
 const RepositoriesPage: FC = () => {
-    const {params, setParams, saveUrlParams, reset} = useReposFilterParams();
+    const {newParams, currentParams, setParams, saveParamsInUrl, reset} = useReposFilterParams();
 
     const fetchReposOnClick = () => {
-        saveUrlParams();
+        saveParamsInUrl({...newParams, page: 1});
     }
 
     const resetHandler = () => {
@@ -18,18 +18,17 @@ const RepositoriesPage: FC = () => {
     };
 
     const paginateHandler = (value: number) => {
-        setParams("page", value.toString());
-        saveUrlParams();
-    }
+        saveParamsInUrl({...currentParams, page: value});
+    };
 
-    const {data, isLoading, error} = useGetRepositoriesQuery(transformToRequestParams(params));
+    const {data, isLoading, error} = useGetRepositoriesQuery(transformToRequestParams(currentParams));
 
     return (
         <>
-            <ReposFilters params={params} setParams={setParams} reset={resetHandler} onSubmit={fetchReposOnClick}/>
-            {data && <Repositories repositories={data.items}/>}
-            <Paginator current={+params.page} handler={paginateHandler}
-                       count={Math.ceil((data?.total_count || 0) / 10)}/>
+            <ReposFilters params={newParams} setParams={setParams} reset={resetHandler} onSubmit={fetchReposOnClick}/>
+            {error ? error : isLoading ? "Loading..." : data && <><Repositories repositories={data.items}/>
+                <Paginator current={+newParams.page} handler={paginateHandler}
+                           count={Math.ceil((data?.total_count || 0) / 10)}/></>}
         </>
     );
 };
@@ -40,7 +39,7 @@ export default RepositoriesPage;
 
 const transformToRequestParams = (params: ReposUrlParamsType): ParamsSearchReposType => {
     return {
-        q: `user:${params.username}`,
+        q: `user:${params.username} type:${params.type}`,
         page: +(params.page || 1),
         per_page: 10,
         sort: params.sort || undefined

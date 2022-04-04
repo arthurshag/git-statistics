@@ -59,8 +59,8 @@ export const reposAPI = {
 
         const response: { data: ICommits } = {data: []};
         for await (const resp of iterator) {
-            debugger
             response.data.push(...resp.data);
+            //todo: remove
             break;
         }
 

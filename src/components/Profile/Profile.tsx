@@ -26,7 +26,7 @@ const Profile: FC<ProfileProps> = ({user, isLoading}) => {
             }
             <div className={classes.profileRow}>{user.followers} Followers</div>
             <div className={classes.profileRow}>{user.following} Following</div>
-            <Link to={`/repositories?user=${user.login}`}>
+            <Link to={`/repositories?username=${user.login}`}>
                 <button disabled={isLoading}
                         className={classes.profileRow}>{user.public_repos} Public repos
                 </button>
