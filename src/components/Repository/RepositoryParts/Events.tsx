@@ -3,6 +3,7 @@ import {useGetEventsQuery} from "../../../redux/reducers/RepositoryReducer/Repos
 import {Endpoints} from "@octokit/types";
 import {Chart} from "react-google-charts";
 import LoadingError from "./LoadingError";
+import classes from "./../Repository.module.scss";
 
 interface IProps {
     owner: string,
@@ -15,11 +16,12 @@ const Events: FC<IProps> = ({owner, repo}) => {
     const dataChart = data ? gatDataChart(data) : [];
 
     return (
-        <LoadingError isLoading={isLoading} error={error as string | undefined | null}>
+        <LoadingError isLoading={isLoading} error={error as string | undefined | null} className={classes.chart}>
             <h4>Events:</h4>
             <Chart
                 chartType="Calendar"
                 data={dataChart}
+                options={{calendar: {cellSize: 14},}}
                 width="100%"
                 height="200px"
             />

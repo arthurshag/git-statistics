@@ -1,7 +1,5 @@
 import React, {FC} from 'react';
-import {
-    useGetAllCommitsQuery,
-} from "../../../redux/reducers/RepositoryReducer/RepositoryRTK";
+import {useGetAllCommitsQuery,} from "../../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import {Endpoints} from "@octokit/types";
 import {Chart} from "react-google-charts";
 import LoadingError from "./LoadingError";
@@ -23,6 +21,7 @@ const Commits: FC<IProps> = ({owner, repo}) => {
                 chartType="Calendar"
                 data={dataChart}
                 height={200}
+                options={{calendar: {cellSize: 14},}}
                 width="100%"
             />
         </LoadingError>

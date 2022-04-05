@@ -6,7 +6,6 @@ import classes from "./Repository.module.scss";
 import Contributors from "./RepositoryParts/Contributors";
 import Commits from "./RepositoryParts/Commits";
 import Events from "./RepositoryParts/Events";
-import {useGetContributorsQuery} from "../../redux/reducers/RepositoryReducer/RepositoryRTK";
 
 interface PropsType {
     repository: IRepository
@@ -15,7 +14,6 @@ interface PropsType {
 
 const Repository: FC<PropsType> = memo(({repository}) => {
     const btnHandler = () => navigator.clipboard.writeText(repository.clone_url);
-    const {data, error, isLoading} = useGetContributorsQuery({owner:repository.owner.login, repo: repository.name})
     return (
         <section className={classes.repository}>
             <h2>Repository in detail</h2>
@@ -56,11 +54,12 @@ const Repository: FC<PropsType> = memo(({repository}) => {
                     <div>
                         <Contributors owner={repository.owner.login} repo={repository.name}/>
                     </div>
-                    <div>
+                    <div >
                         <Events owner={repository.owner.login} repo={repository.name}/>
                     </div>
-                    <Commits owner={repository.owner.login} repo={repository.name}/>
-
+                    <div >
+                        <Commits owner={repository.owner.login} repo={repository.name}/>
+                    </div>
                 </div>
             </section>
         </section>

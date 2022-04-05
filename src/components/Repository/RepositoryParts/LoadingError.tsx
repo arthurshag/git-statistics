@@ -4,6 +4,7 @@ interface IProps {
     error?: string | null,
     isLoading: boolean,
     className?: string
+    style?: React.CSSProperties
 }
 
 
@@ -12,8 +13,9 @@ const LoadingError: FC<IProps> = ({
                                       isLoading,
                                       children,
                                       className,
+                                      style
                                   }) => {
-    return <div className={className}>
+    return <div className={className} style={style}>
         {error ? error : isLoading ? "Loading... " : children}
     </div>
 }

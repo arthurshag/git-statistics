@@ -9,7 +9,7 @@ const RepositoryDetailed: FC = (props) => {
     const {data, error, isLoading} = useGetRepositoryQuery({owner: params.owner || "", repo: params.repo || ""});
 
     return (
-        <LoadingError isLoading={isLoading} error={error as string | null | undefined}>
+        <LoadingError isLoading={isLoading} error={error as string | null | undefined} style={{alignSelf: "stretch"}}>
             {data && <Repository repository={data}/>}
         </LoadingError>);
 };

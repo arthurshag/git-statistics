@@ -1,7 +1,6 @@
 import React, {FC} from 'react';
 import {useGetContributorsQuery} from "../../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import LoadingError from "./LoadingError";
-import {Link} from "react-router-dom";
 
 interface IProps {
     owner: string,
@@ -18,7 +17,6 @@ const Contributors: FC<IProps> = ({owner, repo}) => {
         <LoadingError isLoading={isLoading} error={error as string | undefined | null}>
             <h4>Contributors:</h4>
             <div>{contributorsUI}</div>
-            <Link to={"/"}>hohol</Link>
         </LoadingError>
     );
 };
