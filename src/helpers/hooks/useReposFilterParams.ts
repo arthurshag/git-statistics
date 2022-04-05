@@ -1,6 +1,6 @@
 import {useSearchParams} from "react-router-dom";
 import {ParamsSearchReposType} from "../../models/IRepository";
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 
 export type ReposUrlParamsType = {
     username: string,
@@ -10,21 +10,18 @@ export type ReposUrlParamsType = {
 
 export const useReposFilterParams = () => {
     let [searchParams, setSearchParams] = useSearchParams();
-    const initialState: ReposUrlParamsType = {
+    const currentParams: ReposUrlParamsType = {
         sort: searchParams.get("sort") as ParamsSearchReposType["sort"],
         username: searchParams.get("username") || "",
         page: +(searchParams.get("page") || 1),
     };
-    const [newParams, setNewParams] = useState<ReposUrlParamsType>(initialState);
-    const paramsCurrent = useRef<ReposUrlParamsType>(newParams);
+    const [newParams, setNewParams] = useState<ReposUrlParamsType>(currentParams);
     const reset = () => setNewParams({username: "", page: 1});
-    const setValue = (field: string, value: string | undefined) => {
+    const setValue = (field: string, value: string | undefined | number) => {
         setNewParams((state) => ({...state, [field]: value}));
     }
 
     const saveParamsInUrl = (params: ReposUrlParamsType) => {
-        paramsCurrent.current = params;
-        setNewParams(params);
         const urlParams: { [key: string]: string } = {};
         (Object.keys(params) as Array<keyof ReposUrlParamsType>).forEach(key => {
             if (params[key]) {
@@ -36,7 +33,7 @@ export const useReposFilterParams = () => {
     }
 
     return {
-        newParams: newParams, currentParams: paramsCurrent.current, setParams: setValue, reset,
+        newParams: newParams, currentParams: currentParams, setParams: setValue, reset,
         saveParamsInUrl
     };
 }
