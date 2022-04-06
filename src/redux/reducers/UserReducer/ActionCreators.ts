@@ -7,7 +7,7 @@ export const fetchUser = (login: string) => (dispatch: AppDispatch) => {
     dispatch(userSlice.actions.userFetching())
     userAPI.getUser(login)
         .then(response => {
-            dispatch(userSlice.actions.userFetchingSuccess(response.data))
+            dispatch(userSlice.actions.userFetchingSuccess(response.data as IUser))
         })
         .catch(error => {
             dispatch(userSlice.actions.userFetchingError(error.message))

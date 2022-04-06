@@ -12,7 +12,9 @@ const instance = (): AxiosInstance => axios.create({
 
 export const userAPI = {
     async getUser(login: string) {
-        return await instance().get<IUser>(`users/${login}`)
+        //console.log(await octokit.rest.users.getByUsername({username: login}))
+        //return await instance().get<IUser>(`users/${login}`)
+        return await octokit.rest.users.getByUsername({username: login})
     },
     async getCurrent() {
         return (await octokit.request("GET /user")).data;

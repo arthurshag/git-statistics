@@ -12,8 +12,10 @@ const MainPage: FC = () => {
     //for test you can use: arthurshag, gaearon, TalisMan701
     const [login, setLogin] = useState("example")
     const dispatch = useAppDispatch()
-    //todo: при каждом чихе в userReducer перендер происходит
-    const {user, isLoading, error} = useAppSelector(state => state.userReducer)
+
+    const user = useAppSelector(state => state.userReducer.user)
+    const isLoading = useAppSelector(state => state.userReducer.isLoading)
+    const error = useAppSelector(state => state.userReducer.error)
 
     const handleClick = () => {
         dispatch(fetchUser(login))
