@@ -1,6 +1,6 @@
 import {useSearchParams} from "react-router-dom";
 import {ParamsSearchReposType} from "../../models/IRepository";
-import {useRef, useState} from "react";
+import {useState} from "react";
 
 export type ReposUrlParamsType = {
     username: string,
@@ -22,10 +22,10 @@ export const useReposFilterParams = () => {
     }
 
     const saveParamsInUrl = (params: ReposUrlParamsType) => {
-        const urlParams: { [key: string]: string } = {};
+        const urlParams = new URLSearchParams();
         (Object.keys(params) as Array<keyof ReposUrlParamsType>).forEach(key => {
             if (params[key]) {
-                urlParams[key] = <string>params[key]
+                urlParams.append(key, String(params[key]))
             }
         })
 

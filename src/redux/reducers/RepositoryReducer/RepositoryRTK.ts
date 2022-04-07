@@ -1,6 +1,6 @@
 import {createApi} from '@reduxjs/toolkit/query/react'
 import {reposAPI} from "../../../api/apiReposForQuery";
-import {IRepository, ParamsSearchReposType, SearchReposType} from "../../../models/IRepository";
+import {IRepository, SearchReposType} from "../../../models/IRepository";
 import {ILanguage} from "../../../models/ILanguage";
 import {IContributors} from "../../../models/IContributors";
 import {IRepoEvents} from "../../../models/IRepoEvents";
@@ -27,7 +27,7 @@ export const repositoryApi = createApi({
         }
     },
     endpoints: (builder) => ({
-        getRepositories: builder.query <SearchReposType, ParamsSearchReposType>
+        getRepositories: builder.query <SearchReposType, PropsType<"getRepos">["params"]>
         ({
             query: (params) => ({params, url: "getRepos"}),
         }),

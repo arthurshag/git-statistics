@@ -1,5 +1,4 @@
 import React, {FC} from "react";
-import FormLogin from "../FormLogin/FormLogin";
 import Select from "./Select";
 import {ReposUrlParamsType} from "../../helpers/hooks/useReposFilterParams";
 
@@ -24,13 +23,12 @@ const ReposFilters: FC<IFilters> = ({
     }
 
     const onchangeFilterSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const option = optionsSort.find((value) => value === event.target.value)
-        setParams("sort", option)
+        setParams("sort", event.target.value)
     }
 
     return <>
         <input value={params.username} onChange={(e) => setUsername(e.target.value)}/>
-        <Select options={optionsSort as string[]} handler={onchangeFilterSort}/>
+        <Select options={optionsSort} handler={onchangeFilterSort}/>
         <button onClick={onSubmit}>fetch</button>
         <button onClick={reset}>reset filters</button>
     </>
