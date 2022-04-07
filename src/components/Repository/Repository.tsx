@@ -17,7 +17,7 @@ const Repository: FC<PropsType> = memo(({repository}) => {
     return (
         <section className={classes.repository}>
             <h2>Repository in detail</h2>
-            <Owner owner={repository.owner}/>
+            {repository.owner && <Owner owner={repository.owner}/>}
             <section className={classes.repository__statsWrapper}>
                 <h3>Statistics</h3>
                 <div className={classes.repository__statsWrapperData}>
@@ -48,18 +48,22 @@ const Repository: FC<PropsType> = memo(({repository}) => {
                     <button onClick={btnHandler}>
                         Clone url: {repository.clone_url} (onclick copy)
                     </button>
-                    <div>
-                        <Languages owner={repository.owner.login} repo={repository.name}/>
-                    </div>
-                    <div>
-                        <Contributors owner={repository.owner.login} repo={repository.name}/>
-                    </div>
-                    <div >
-                        <Events owner={repository.owner.login} repo={repository.name}/>
-                    </div>
-                    <div >
-                        <Commits owner={repository.owner.login} repo={repository.name}/>
-                    </div>
+                    {
+                        repository.owner && <>
+                            <div>
+                                <Languages owner={repository.owner.login} repo={repository.name}/>
+                            </div>
+                            <div>
+                                <Contributors owner={repository.owner.login} repo={repository.name}/>
+                            </div>
+                            <div>
+                                <Events owner={repository.owner.login} repo={repository.name}/>
+                            </div>
+                            <div>
+                                <Commits owner={repository.owner.login} repo={repository.name}/>
+                            </div>
+                        </>
+                    }
                 </div>
             </section>
         </section>

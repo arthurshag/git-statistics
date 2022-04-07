@@ -3,7 +3,7 @@ import {IRepository} from "../../../models/IRepository";
 import classes from "./../Repository.module.scss";
 
 interface IProps {
-    owner: IRepository["owner"]
+    owner: NonNullable<IRepository["owner"]>
 }
 
 const Owner: FC<IProps> = ({owner}) => {
