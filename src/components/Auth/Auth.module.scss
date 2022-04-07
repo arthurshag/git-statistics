@@ -1,24 +1,19 @@
 @import "../../assets/variables";
 
 .auth {
-
-
   &__hrefToken {
     color: white;
     align-self: start;
   }
 
-  &__input{
+  &__input {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    position: relative;
   }
 
-  &__inputError{
-    position: absolute;
-    right: 0;
-    top: 0;
+  &__inputError {
+    height: 1cm;
     color: red;
   }
 }

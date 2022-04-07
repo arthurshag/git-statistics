@@ -13,7 +13,7 @@
     display: flex;
   }
 
-  &__wrapperInner{
+  &__wrapperInner {
     flex: 1 1 auto;
     display: grid;
     grid-template-rows: 50px 1fr;
@@ -25,14 +25,11 @@
     padding: 5px;
   }
 
-  &__form{
-    align-self: center;
-  }
 
-  &__formWrapper{
+  &__formWrapper {
     color: white;
-    margin: 0 auto;
-    margin-top: -155px;
+    margin: -155px auto 0;
+    align-self: center;
     max-width: 600px;
     width: 100%;
     display: flex;
