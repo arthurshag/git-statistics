@@ -1,16 +1,15 @@
 import {Octokit} from "octokit";
 import {Endpoints} from "@octokit/types";
 import {ICommits} from "../models/ICommits";
+import {ParamsSearchReposType} from "../models/IRepository";
 
 let octokit = new Octokit({
     auth: localStorage.getItem("access_token")
 });
 
 export const reposAPI = {
-    async getRepos({owner}: { owner: string }) {
-        return (await (octokit.rest.repos.listForUser({
-            username: owner
-        })));
+    async getRepos(params: ParamsSearchReposType) {
+        return octokit.rest.search.repos(params);
     },
     async getRepo({owner, repo}: { owner: string, repo: string }) {
         return (await octokit.rest.repos.get({
@@ -58,8 +57,10 @@ export const reposAPI = {
         });
 
         const response: { data: ICommits } = {data: []};
-        for await (const {data} of iterator) {
-            response.data.push(...data);
+      
+        for await (const resp of iterator) {
+            response.data.push(...resp.data);
+            //todo: remove
             break;
         }
 

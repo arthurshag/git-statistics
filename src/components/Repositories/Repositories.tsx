@@ -8,14 +8,14 @@ interface PropsType {
 }
 
 const Repositories: FC<PropsType> = memo(({repositories}) => {
-    const UIReps = repositories.map((props) => {
+    const UIRepos = repositories.map((props) => {
         return <Repository key={props.id} {...props} />
     });
 
     return (
         <div className={classes.repositories}>
             <h2>Repositories</h2>
-            <div className={classes.repositories__wrapper}>{UIReps}</div>
+            <div className={classes.repositories__wrapper}>{UIRepos}</div>
         </div>
     );
 });

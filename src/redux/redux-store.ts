@@ -3,6 +3,7 @@ import userReducer from "./reducers/UserReducer/UserSlice"
 import profileReducer from "./reducers/ProfileReducer/ProfileSlice"
 import {repositoryApi} from "./reducers/RepositoryReducer/RepositoryRTK";
 
+
 const rootReducer = combineReducers({
     profileReducer,
     userReducer,
