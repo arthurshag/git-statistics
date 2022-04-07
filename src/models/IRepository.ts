@@ -5,4 +5,3 @@ export type ParamsSearchReposType = Endpoints["GET /search/repositories"]["param
 export type RepositoryType = SearchReposType["items"][number]
 
 export interface IRepository extends RepositoryType {}
-

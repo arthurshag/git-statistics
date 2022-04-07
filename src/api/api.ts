@@ -21,22 +21,25 @@ export const userAPI = {
 }
 
 export const reposAPI = {
-    // async getReposByUser(username: string, page: number = 1, per_page:number = 10) {
-    //     return (await (octokit.rest.repos.listForUser({
-    //         username, page, per_page,
-    //     }))).data;
-    // },
-
-    // async getReposByUser(params: ReposRequestParamsType) {
-    //     return (await (octokit.rest.repos.listForUser(params))).data;
-    // },
-
     async fetchLanguages(owner: string, repo: string) {
         return (await octokit.rest.repos.listLanguages({
             owner,
             repo,
         })).data;
-    }
+    },
+    async getLanguages(owner: string, repo: string) {
+        return (await octokit.rest.repos.listLanguages({
+            owner,
+            repo,
+        })).data;
+    },
+    async getContributors(owner: string, repo: string) {
+        return (await octokit.rest.repos.listContributors({
+            owner,
+            repo,
+        })).data;
+    },
+
 }
 
 export const auth = {

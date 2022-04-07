@@ -10,7 +10,6 @@ let octokit = new Octokit({
 export const reposAPI = {
     async getRepos(params: ParamsSearchReposType) {
         return octokit.rest.search.repos(params);
-        // return (await (octokit.rest.repos.listForUser({...params, per_page: 10})));
     },
     async getRepo({owner, repo}: { owner: string, repo: string }) {
         return (await octokit.rest.repos.get({
@@ -58,6 +57,7 @@ export const reposAPI = {
         });
 
         const response: { data: ICommits } = {data: []};
+      
         for await (const resp of iterator) {
             response.data.push(...resp.data);
             //todo: remove
