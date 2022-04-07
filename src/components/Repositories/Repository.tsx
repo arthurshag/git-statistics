@@ -3,8 +3,10 @@ import {IRepository} from "../../models/IRepository";
 import classes from "./Repositories.module.scss";
 import {ReactComponent as LinkIcon} from "./../../assets/icons/link.svg";
 import classNames from "classnames";
+import Languages from "./RepositoryParts/Languages";
 
-interface PropsType extends IRepository {}
+interface PropsType extends IRepository {
+}
 
 const Repository: FC<PropsType> = memo((props) => {
     const topicsUI = props.topics?.map((e) => {
@@ -33,7 +35,7 @@ const Repository: FC<PropsType> = memo((props) => {
             <div className={classes.repository__item}>Stargazers count: {props.stargazers_count}</div>
             {props.description && <div className={classes.repository__item}>Description: {props.description}</div>}
             <div className={classes.repository__item}>
-                Languages: {}
+                {props.owner && <Languages owner={props.owner.login} repo={props.name}/>}
             </div>
             <div className={classes.repository__item}>
                 <div>Created at: {props.created_at}</div>

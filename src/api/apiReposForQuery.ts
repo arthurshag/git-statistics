@@ -17,12 +17,6 @@ export const reposAPI = {
             repo,
         }));
     },
-    async fetchLanguages({owner, repo}: { owner: string, repo: string }) {
-        return (await octokit.rest.repos.listLanguages({
-            owner,
-            repo,
-        }));
-    },
     async getLanguages({owner, repo}: { owner: string, repo: string }) {
         return (await octokit.rest.repos.listLanguages({
             owner,
@@ -57,7 +51,7 @@ export const reposAPI = {
         });
 
         const response: { data: ICommits } = {data: []};
-      
+
         for await (const resp of iterator) {
             response.data.push(...resp.data);
             //todo: remove

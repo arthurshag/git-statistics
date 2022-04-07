@@ -3,8 +3,10 @@ import {ReposUrlParamsType, useReposFilterParams} from "../../helpers/hooks/useR
 import ReposFilters from "../../components/ReposFilters/ReposFilters";
 import Repositories from "../../components/Repositories/Repositories";
 import {ParamsSearchReposType} from "../../models/IRepository";
-import Paginator from "../../components/Repositories/Paginator";
+import Pagination from "../../components/Repositories/Pagination";
 import {useGetRepositoriesQuery} from "../../redux/reducers/RepositoryReducer/RepositoryRTK";
+
+const filesPerPage = 10;
 
 const RepositoriesPage: FC = () => {
     const {newParams, currentParams, setParams, saveParamsInUrl, reset} = useReposFilterParams();
@@ -28,8 +30,8 @@ const RepositoriesPage: FC = () => {
         <>
             <ReposFilters params={newParams} setParams={setParams} reset={resetHandler} onSubmit={fetchReposOnClick}/>
             {error ? error : isFetching ? "Loading..." : data && <><Repositories repositories={data.items}/>
-                <Paginator current={+newParams.page} handler={paginateHandler}
-                           count={Math.ceil((data?.total_count || 0) / 10)}/></>}
+                <Pagination current={+newParams.page} pageHandler={paginateHandler}
+                            count={Math.ceil((data?.total_count || 0) / filesPerPage)}/></>}
         </>
     );
 };
@@ -42,7 +44,7 @@ const transformToRequestParams = (params: ReposUrlParamsType): ParamsSearchRepos
     return {
         q: `user:${params.username}`,
         page: +(params.page || 1),
-        per_page: 10,
+        per_page: filesPerPage,
         sort: params.sort || undefined
     }
 }
