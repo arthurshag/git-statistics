@@ -18,7 +18,7 @@ const Button: FC<IProps> = ({
                             }) => {
     return (
         <button onClick={onClick} className={classNames(classes.button, classes["button_" + type], className)}
-                disabled={false}>
+                disabled={disabled}>
             <span>{children}</span>
         </button>
     );
