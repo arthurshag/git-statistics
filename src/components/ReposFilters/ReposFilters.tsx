@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import Select from "./Select";
+import Select, {SingleValue} from "react-select"
 import {ReposUrlParamsType} from "../../helpers/hooks/useReposFilterParams";
 
 interface IFilters {
@@ -16,19 +16,26 @@ const ReposFilters: FC<IFilters> = ({
                                         setParams,
                                         onSubmit
                                     }) => {
-    const optionsSort = ["created", "full_name", "pushed", "updated"];
+    const optionsSort = [
+        {label: "created", value: "created"},
+        {label: "full_name", value: "full_name"},
+        {label: "pushed", value: "pushed"},
+        {label: "updated", value: "updated"},
+    ];
+    const currentOptionSort = params.sort && optionsSort.find((e) => params.sort === e.value);
 
     const setUsername = (text: string) => {
         setParams("username", text);
     }
 
-    const onchangeFilterSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setParams("sort", event.target.value)
+    const onchangeFilterSort = (value: SingleValue<{ label: string; value: string; }>) => {
+        if (value)
+            setParams("sort", value.value)
     }
 
     return <>
         <input value={params.username} onChange={(e) => setUsername(e.target.value)}/>
-        <Select options={optionsSort} handler={onchangeFilterSort}/>
+        <Select options={optionsSort} onChange={onchangeFilterSort} isClearable={true} value={currentOptionSort}/>
         <button onClick={onSubmit}>fetch</button>
         <button onClick={reset}>reset filters</button>
     </>
