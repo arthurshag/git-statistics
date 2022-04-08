@@ -1,12 +1,11 @@
 import React from 'react';
-import {useRoutes} from "react-router-dom";
-import routes from "./components/Routes/Routes";
+import Button from "./components/utils/Button/Button";
 
 function GitStatApp() {
-    const element = useRoutes(routes);
-    return (<>
-            {element}
-        </>
+
+    return (<div style={{padding: 20}}>
+            <Button>Кнопка тык тык</Button>
+        </div>
     );
 }
 
