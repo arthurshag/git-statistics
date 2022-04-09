@@ -1,6 +1,7 @@
 import axios, {AxiosInstance} from 'axios';
 import {IUser} from "../models/IUser";
 import {Octokit} from "octokit";
+import {Endpoints} from "@octokit/types";
 
 let octokit = new Octokit({
     auth: localStorage.getItem("access_token")
@@ -22,18 +23,25 @@ export const userAPI = {
 }
 
 export const reposAPI = {
-    async getRepsByUser(username: string) {
-        return (await (octokit.rest.repos.listForUser({
-            username
-        }))).data;
-    },
-
     async fetchLanguages(owner: string, repo: string) {
         return (await octokit.rest.repos.listLanguages({
             owner,
             repo,
         })).data;
-    }
+    },
+    async getLanguages(owner: string, repo: string) {
+        return (await octokit.rest.repos.listLanguages({
+            owner,
+            repo,
+        })).data;
+    },
+    async getContributors(owner: string, repo: string) {
+        return (await octokit.rest.repos.listContributors({
+            owner,
+            repo,
+        })).data;
+    },
+
 }
 
 export const auth = {

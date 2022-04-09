@@ -11,7 +11,6 @@ const Repository: FC<PropsType> = memo((props) => {
         return <div key={e} className={classes.repository__topic}>{e}</div>
     })
 
-    const languagesUI = props.languages && Object.keys(props.languages).join(", ");
 
     const btnHandler = () => navigator.clipboard.writeText(props.clone_url);
 
@@ -20,7 +19,7 @@ const Repository: FC<PropsType> = memo((props) => {
             <div className={classNames(classes.repository__item, classes.repository__name)}>
                 <span>Repository: {props.name}</span> <a href={props.html_url}><LinkIcon/></a>
             </div>
-            <div className={classes.repository__item}>Owner: {props.owner.login}</div>
+            <div className={classes.repository__item}>Owner: {props?.owner?.login}</div>
             <div className={classes.repository__item}>Count forks: {props.forks_count}</div>
             {topicsUI?.length !== 0 &&
             <div className={classNames(classes.repository__item, classes.repository__topics)}>
@@ -34,7 +33,7 @@ const Repository: FC<PropsType> = memo((props) => {
             <div className={classes.repository__item}>Stargazers count: {props.stargazers_count}</div>
             {props.description && <div className={classes.repository__item}>Description: {props.description}</div>}
             <div className={classes.repository__item}>
-                Languages: {languagesUI}
+                Languages: {}
             </div>
             <div className={classes.repository__item}>
                 <div>Created at: {props.created_at}</div>

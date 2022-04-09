@@ -5,7 +5,6 @@ import {useAppDispatch, useAppSelector} from "../../redux/hooks/reduxHooks";
 import {fetchUser} from "../../redux/reducers/UserReducer/ActionCreators";
 import FormLogin from "../../components/FormLogin/FormLogin";
 import Profile from "../../components/Profile/Profile";
-import RepositoriesContainer from "../../components/Repositories/RepositoriesContainer";
 
 
 const MainPage: FC = () => {
@@ -32,7 +31,6 @@ const MainPage: FC = () => {
                 <FormLogin handleClick={handleClick} text={login} setText={setLogin} disabled={isLoading}
                            error={error}/>
                 <Profile user={user} isLoading={isLoading}/>
-                <RepositoriesContainer/>
             </div>
         </>
     );

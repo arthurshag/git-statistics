@@ -20,7 +20,6 @@ const initialState: UserState = {
         login: "",
         name: "",
         public_repos: 0,
-        repositories: null,
     },
     isLoading: false,
     error: null,
@@ -42,20 +41,6 @@ export const userSlice = createSlice({
         userFetchingError(state, action: PayloadAction<string>) {
             state.isLoading = false
             state.error = action.payload
-        },
-
-        repsFetching(state) {
-            state.isLoading = true
-        },
-        repsFetchingSuccess(state, action: PayloadAction<IRepository[]>) {
-            state.isLoading = false
-            state.error = null;
-            state.user.repositories = action.payload;
-        },
-        repsFetchingError(state, action: PayloadAction<string>) {
-            state.user.repositories = null;
-            state.isLoading = false;
-            state.error = action.payload;
         },
     }
 })
