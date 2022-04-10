@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import {ReposUrlParamsType, useReposFilterParams} from "../../helpers/hooks/useReposFilterParams";
 import ReposFilters from "../../components/ReposFilters/ReposFilters";
-import {useGetRepositoriesQuery} from "../../redux/reducers/RepositoriesReducer/RepositoryRTK";
 import Repositories from "../../components/Repositories/Repositories";
 import {ParamsSearchReposType} from "../../models/IRepository";
 import Paginator from "../../components/Repositories/Paginator";
+import {useGetRepositoriesQuery} from "../../redux/reducers/RepositoryReducer/RepositoryRTK";
 
 const RepositoriesPage: FC = () => {
     const {newParams, currentParams, setParams, saveParamsInUrl, reset} = useReposFilterParams();
