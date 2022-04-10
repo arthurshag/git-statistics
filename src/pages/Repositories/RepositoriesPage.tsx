@@ -6,7 +6,6 @@ import Pagination from "../../components/Repositories/Pagination";
 import {useGetRepositoriesQuery} from "../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import {transformToRequestParamsRepos} from "../../helpers/TransformToRequestParams";
 
-const filesPerPage = 10;
 
 const RepositoriesPage: FC = () => {
     const {newParams, currentParams, setParams, saveParamsInUrl, reset} = useReposFilterParams();
@@ -27,6 +26,7 @@ const RepositoriesPage: FC = () => {
     }, []);
 
     //todo: validation must have q
+
     const wrapped = useCallback(() => transformToRequestParamsRepos(currentParams), [currentParams]);
     const {data, isLoading, error, isFetching} = useGetRepositoriesQuery(wrapped());
     return (
@@ -34,11 +34,20 @@ const RepositoriesPage: FC = () => {
             <ReposFilters params={newParams} setParams={setParams} reset={resetHandler} onSubmit={fetchReposOnClick}/>
             {error ? error : isFetching ? "Loading..." : data && <><Repositories repositories={data.items}/>
                 <Pagination current={+newParams.page} pageHandler={paginateHandler}
-                            count={Math.ceil((data?.total_count || 0) / filesPerPage)}/></>}
+                            count={calcCountPages(data.total_count, +newParams.filesPerPage, 1000)}/></>}
+            {/* todo у github ограничение на поиск 1000 элементами*/}
         </>
     );
 };
 
+function calcCountPages(countsElements: number, perPage: number, maximumElements?: number) {
+    const countPages = Math.ceil(countsElements / perPage);
+    if (maximumElements) {
+        return Math.min(countPages, Math.ceil(maximumElements / perPage))
+    }
+
+    return countPages;
+}
 
 export default RepositoriesPage;
 

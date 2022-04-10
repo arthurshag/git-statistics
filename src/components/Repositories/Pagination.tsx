@@ -13,16 +13,16 @@ const countNeighbours = 2;
 const Pagination: FC<IProps> = memo(({count, current, pageHandler}) => {
     if (count === 0 || count === 1)
         return <></>;
-    console.log(count);
     const paginatorItems: React.ReactElement[] = [];
     if (current - countNeighbours > 1) {
-        paginatorItems.push(<button key={"hohol"}>{"..."}</button>)
+        paginatorItems.push(<Elem key={1} isCurrent={current === 1} page={1} pageHandler={pageHandler}/>);
+        paginatorItems.push(<button key={"cherepaha"}>{"..."}</button>)
     }
     for (let i = Math.max(current - 2, 1); i <= Math.min(current + countNeighbours, count); i++) {
         paginatorItems.push(<Elem key={i} isCurrent={current === i} page={i} pageHandler={pageHandler}/>);
     }
     if (current + countNeighbours < count) {
-        paginatorItems.push(<button key={"hohol"}>{"..."}</button>);
+        paginatorItems.push(<button key={"left-hook"}>{"..."}</button>);
         paginatorItems.push(<Elem key={count} isCurrent={current === count} page={count} pageHandler={pageHandler}/>);
     }
 

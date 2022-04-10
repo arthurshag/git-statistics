@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, FormEvent, MouseEvent} from "react";
+import React, {ChangeEvent, FC, FormEvent, useMemo} from "react";
 import Select, {MultiValue, SingleValue} from "react-select"
 import {ReposUrlParamsType} from "../../helpers/hooks/useReposFilterParams";
 import TextInput from "../utils/TextInput/TextInput";
@@ -26,10 +26,51 @@ const ReposFilters: FC<IFilters> = ({
         {label: "updated", value: "updated"},
     ];
     //todo: add default options languages
-    const currentOptionSort = params.sort && optionsSort.find((e) => params.sort === e.value);
+    const currentOptionSort = params.sort ? optionsSort.find((e) => params.sort === e.value) : null;
     const currentOptionsLanguages = params.languages ?
-        params.languages.split(" ").map((e) => ({label: e, value: e})) : undefined;
+        params.languages.split(" ").map((e) => ({label: e, value: e})) : null;
 
+    const memoizedGetHandlers = useMemo(() => getHandlers(setParams), [setParams]);
+    const {
+        onChangeFilterSort,
+        onChangeLanguages,
+        setStarsMax,
+        setStarsMin,
+        setRepoName,
+        onSubmitForm,
+        setUsername,
+        setCreatedFrom,
+        setPushedFrom,
+        setPushedTo,
+        setCreatedTo
+    } = memoizedGetHandlers;
+
+    return <form onSubmit={onSubmitForm}>
+        <TextInput placeholder={"Repo name"} value={params.repo || ""} onChange={setRepoName}/>
+        <TextInput placeholder={"Login user"} value={params.username || ""} onChange={setUsername}/>
+        <CreatableSelect
+            placeholder={"Languages"}
+            isMulti
+            value={currentOptionsLanguages}
+            onChange={onChangeLanguages}
+            options={[]}
+        />
+        <Select options={optionsSort} onChange={onChangeFilterSort} isClearable={true} value={currentOptionSort}
+                placeholder={"sort type"}/>
+        <TextInput label={"Stars min"} type={"number"} value={params.starsMin || ""} onChange={setStarsMin}/>
+        <TextInput label={"Stars max"} type={"number"} value={params.starsMax || ""} onChange={setStarsMax}/>
+        <TextInput label={"Pushed from"} type={"date"} value={params.pushedFrom || ""} onChange={setPushedFrom}/>
+        <TextInput label={"Pushed to"} type={"date"} value={params.pushedTo || ""} onChange={setPushedTo}/>
+        <TextInput label={"Created from"} type={"date"} value={params.createdFrom || ""} onChange={setCreatedFrom}/>
+        <TextInput label={"Created to"} type={"date"} value={params.createdTo || ""} onChange={setCreatedTo}/>
+        <Button type={"primary"} onClick={onSubmit}>fetch</Button>
+        <Button type={"danger"} onClick={reset}>reset filters</Button>
+    </form>
+}
+
+
+function getHandlers(setParams: <T extends keyof ReposUrlParamsType>(field: T, value: ReposUrlParamsType[T]) => void) {
+    //todo: мб сразу в объект пихать
     const setUsername = (e: ChangeEvent<HTMLInputElement>) => {
         setParams("username", e.target.value);
     }
@@ -42,7 +83,7 @@ const ReposFilters: FC<IFilters> = ({
         setParams("languages", value ? value.map(e => e.label).join(" ") : null);
     }
 
-    const onchangeFilterSort = (value: SingleValue<{ label: string; value: string; }>) => {
+    const onChangeFilterSort = (value: SingleValue<{ label: string; value: string; }>) => {
         setParams("sort", value ? value.value as ReposUrlParamsType["sort"] : null)
     }
 
@@ -54,33 +95,41 @@ const ReposFilters: FC<IFilters> = ({
         setParams("starsMin", e.target.value);
     }
 
-    const onReset = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
-        reset();
+
+    const setPushedFrom = (e: ChangeEvent<HTMLInputElement>) => {
+        setParams("pushedFrom", e.target.value);
     }
+
+    const setPushedTo = (e: ChangeEvent<HTMLInputElement>) => {
+        setParams("pushedTo", e.target.value);
+    }
+
+    const setCreatedFrom = (e: ChangeEvent<HTMLInputElement>) => {
+        setParams("createdFrom", e.target.value);
+    }
+
+    const setCreatedTo = (e: ChangeEvent<HTMLInputElement>) => {
+        setParams("createdTo", e.target.value);
+    }
+
 
     const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        onSubmit();
     }
 
-    return <form onSubmit={onSubmitForm}>
-        <TextInput placeholder={"Repo name"} value={params.repo || ""} onChange={setRepoName}/>
-        <TextInput placeholder={"Login user"} value={params.username || ""} onChange={setUsername}/>
-        <CreatableSelect
-            placeholder={"Languages"}
-            isMulti
-            value={currentOptionsLanguages}
-            onChange={onChangeLanguages}
-            options={[]}
-        />
-        <Select options={optionsSort} onChange={onchangeFilterSort} isClearable={true} value={currentOptionSort}
-                placeholder={"sort type"}/>
-        <TextInput label={"Stars min"} type={"number"} value={params.starsMin || ""} onChange={setStarsMin}/>
-        <TextInput label={"Stars max"} type={"number"} value={params.starsMax || ""} onChange={setStarsMax}/>
-        <Button type={"primary"} onClick={onSubmit}>fetch</Button>
-        <Button type={"danger"} onClick={onReset}>reset filters</Button>
-    </form>
+    return {
+        setUsername,
+        setRepoName,
+        onChangeFilterSort,
+        onChangeLanguages,
+        setStarsMax,
+        setStarsMin,
+        onSubmitForm,
+        setPushedFrom,
+        setPushedTo,
+        setCreatedTo,
+        setCreatedFrom,
+    };
 }
 
 
