@@ -1,10 +1,10 @@
-import React, {FC, useCallback} from 'react';
+import React, {FC, useCallback, useMemo} from 'react';
 import {useReposFilterParams} from "../../helpers/hooks/useReposFilterParams";
 import ReposFilters from "../../components/ReposFilters/ReposFilters";
 import Repositories from "../../components/Repositories/Repositories";
 import Pagination from "../../components/Repositories/Pagination";
 import {useGetRepositoriesQuery} from "../../redux/reducers/RepositoryReducer/RepositoryRTK";
-import {transformToRequestParamsRepos} from "../../helpers/TransformToRequestParams";
+import {transformToRequestReposParams} from "../../helpers/TransformToRequestReposParams";
 
 
 const RepositoriesPage: FC = () => {
@@ -27,8 +27,9 @@ const RepositoriesPage: FC = () => {
 
     //todo: validation must have q
 
-    const wrapped = useCallback(() => transformToRequestParamsRepos(currentParams), [currentParams]);
-    const {data, isLoading, error, isFetching} = useGetRepositoriesQuery(wrapped());
+    const memoizedTransformToRequestReposParams = useMemo(() => transformToRequestReposParams(currentParams),
+        [currentParams]);
+    const {data, isLoading, error, isFetching} = useGetRepositoriesQuery(memoizedTransformToRequestReposParams);
     return (
         <>
             <ReposFilters params={newParams} setParams={setParams} reset={resetHandler} onSubmit={fetchReposOnClick}/>

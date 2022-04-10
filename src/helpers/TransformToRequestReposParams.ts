@@ -1,7 +1,7 @@
 import {ReposUrlParamsType} from "./hooks/useReposFilterParams";
 import {ParamsSearchReposType} from "../models/IRepository";
 
-export const transformToRequestParamsRepos = (params: ReposUrlParamsType): ParamsSearchReposType => {
+export const transformToRequestReposParams = (params: ReposUrlParamsType): ParamsSearchReposType => {
 
     const {page, sort, filesPerPage} = params;
     return {
