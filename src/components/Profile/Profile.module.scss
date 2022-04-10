@@ -3,6 +3,9 @@
   position: relative;
   width: $widthProfile;
   box-shadow: 0 0 3px 0 #0000005c;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .loadingProfile{
@@ -27,4 +30,22 @@
   &:last-child{
     border-bottom: none;
   }
+}
+
+.btnRepos{
+  margin-top: auto;
+  margin-bottom: 0px;
+}
+
+.profileDelBtn{
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background-color: #092b4b;
+  color: #FFF;
+  @include flexCenterCenter;
+  cursor: pointer;
+  position: absolute;
+  top: 4px;
+  right: 4px;
 }

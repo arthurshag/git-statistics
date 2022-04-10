@@ -5,3 +5,26 @@
   flex-direction: column;
   align-items: center;
 }
+
+.ContributionCalendarLabel{
+  font-size: 12px;
+}
+
+.users{
+  position: relative;
+  display: flex;
+}
+
+.addUserBtn{
+  width: 32px;
+  height: 32px;
+  @include flexCenterCenter;
+  border-radius: 999px;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 24px;
+  position: absolute;
+  top: 16px;
+  right: -16px;
+}

@@ -13,3 +13,8 @@ export interface IUser {
     public_repos: number,
     repositories?: undefined | null | IRepository[]
 }
+
+export interface IUserWithLoading extends IUser{
+    isLoading: boolean,
+    error: string | null
+}
