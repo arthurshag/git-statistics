@@ -1,10 +1,10 @@
-import React, {FC} from 'react';
-import {ReposUrlParamsType, useReposFilterParams} from "../../helpers/hooks/useReposFilterParams";
+import React, {FC, useCallback} from 'react';
+import {useReposFilterParams} from "../../helpers/hooks/useReposFilterParams";
 import ReposFilters from "../../components/ReposFilters/ReposFilters";
 import Repositories from "../../components/Repositories/Repositories";
-import {ParamsSearchReposType} from "../../models/IRepository";
 import Pagination from "../../components/Repositories/Pagination";
 import {useGetRepositoriesQuery} from "../../redux/reducers/RepositoryReducer/RepositoryRTK";
+import {transformToRequestParamsRepos} from "../../helpers/TransformToRequestParams";
 
 const filesPerPage = 10;
 
@@ -12,20 +12,23 @@ const RepositoriesPage: FC = () => {
     const {newParams, currentParams, setParams, saveParamsInUrl, reset} = useReposFilterParams();
 
     const fetchReposOnClick = () => {
-        setParams("page", 1);
-        saveParamsInUrl({...newParams, page: 1});
+        setParams("page", "1");
+        saveParamsInUrl({...newParams, page: "1"});
     }
 
     const resetHandler = () => {
         reset();
     };
 
-    const paginateHandler = (value: number) => {
-        setParams("page", value);
-        saveParamsInUrl({...currentParams, page: value});
-    };
+    const paginateHandler = useCallback((value: number) => {
+        const page = String(value);
+        setParams("page", page);
+        saveParamsInUrl({...currentParams, page});
+    }, []);
 
-    const {data, isLoading, error, isFetching} = useGetRepositoriesQuery(transformToRequestParams(currentParams));
+    //todo: validation must have q
+    const wrapped = useCallback(() => transformToRequestParamsRepos(currentParams), [currentParams]);
+    const {data, isLoading, error, isFetching} = useGetRepositoriesQuery(wrapped());
     return (
         <>
             <ReposFilters params={newParams} setParams={setParams} reset={resetHandler} onSubmit={fetchReposOnClick}/>
@@ -40,11 +43,4 @@ const RepositoriesPage: FC = () => {
 export default RepositoriesPage;
 
 
-const transformToRequestParams = (params: ReposUrlParamsType): ParamsSearchReposType => {
-    return {
-        q: `user:${params.username}`,
-        page: +(params.page || 1),
-        per_page: filesPerPage,
-        sort: params.sort || undefined
-    }
-}
+
