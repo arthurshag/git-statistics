@@ -12,6 +12,7 @@ interface IProps {
     label?: string,
     error?: string,
     pattern?: string
+    type?: "text" | "number" | "date"
 }
 
 const TextInput: FC<IProps> = ({
@@ -23,6 +24,7 @@ const TextInput: FC<IProps> = ({
                                    label,
                                    error,
                                    onPressEnter,
+                                   type = "text",
                                    pattern
                                }) => {
     function onKeyPress(e: KeyboardEvent<HTMLInputElement>) {
@@ -39,6 +41,7 @@ const TextInput: FC<IProps> = ({
                    disabled={disabled}
                    onChange={onChange}
                    value={value}
+                   type={type}
                    onKeyPress={onKeyPress}/>
             {error && <span className={classes.error}>{error}</span>}
         </label>
