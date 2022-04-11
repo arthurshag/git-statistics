@@ -3,6 +3,7 @@ import {useGetAllCommitsQuery,} from "../../../redux/reducers/RepositoryReducer/
 import {Endpoints} from "@octokit/types";
 import {Chart} from "react-google-charts";
 import LoadingError from "./LoadingError";
+import Title from "../../utils/Title/Title";
 
 interface IProps {
     owner: string,
@@ -16,7 +17,7 @@ const Commits: FC<IProps> = ({owner, repo}) => {
     const dataChart = data ? getDataChart(data) : [];
     return (
         <LoadingError isLoading={isLoading} error={error as string | null | undefined}>
-            <h4>Commits</h4>
+            <Title level={3}>Commits</Title>
             <Chart
                 chartType="Calendar"
                 data={dataChart}

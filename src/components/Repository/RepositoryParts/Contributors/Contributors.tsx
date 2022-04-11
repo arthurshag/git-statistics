@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
-import {useGetContributorsQuery} from "../../../redux/reducers/RepositoryReducer/RepositoryRTK";
-import LoadingError from "./LoadingError";
+import {useGetContributorsQuery} from "../../../../redux/reducers/RepositoryReducer/RepositoryRTK";
+import Title from "../../../utils/Title/Title";
+import classes from "./Contributors.module.scss";
 
 interface IProps {
     owner: string,
@@ -14,10 +15,10 @@ const Contributors: FC<IProps> = ({owner, repo}) => {
     })
 
     return (
-        <LoadingError isLoading={isLoading} error={error as string | undefined | null}>
-            <h4>Contributors:</h4>
-            <div>{contributorsUI}</div>
-        </LoadingError>
+        <div className={classes.contributors}>
+            <Title level={3}>Contributors:</Title>
+            <div className={classes.contributors__items}>{contributorsUI}</div>
+        </div>
     );
 };
 

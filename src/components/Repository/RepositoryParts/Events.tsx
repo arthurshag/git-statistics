@@ -4,6 +4,7 @@ import {Endpoints} from "@octokit/types";
 import {Chart} from "react-google-charts";
 import LoadingError from "./LoadingError";
 import classes from "./../Repository.module.scss";
+import Title from "../../utils/Title/Title";
 
 interface IProps {
     owner: string,
@@ -17,7 +18,7 @@ const Events: FC<IProps> = ({owner, repo}) => {
 
     return (
         <LoadingError isLoading={isLoading} error={error as string | undefined | null} className={classes.chart}>
-            <h4>Events:</h4>
+            <Title level={3}>Events:</Title>
             <Chart
                 chartType="Calendar"
                 data={dataChart}

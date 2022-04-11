@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {useGetLanguagesQuery} from "../../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import {Chart} from "react-google-charts";
-import {Simulate} from "react-dom/test-utils";
+import Title from "../../utils/Title/Title";
 
 interface IProps {
     owner: string,
@@ -20,12 +20,12 @@ const Languages: FC<IProps> = ({owner, repo}) => {
 
     return (
         <div>
+            <Title level={3}>Languages</Title>
             <Chart
                 chartType="PieChart"
-                width={"500px"}
+                width={"400px"}
                 height="200px"
                 data={chartData}
-                options={{title: "Languages"}}
             />
         </div>
     );

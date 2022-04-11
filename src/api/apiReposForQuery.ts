@@ -11,6 +11,7 @@ export const reposAPI = {
     async getRepos(params: ParamsSearchReposType) {
         return octokit.rest.search.repos(params);
     },
+
     async getRepo({owner, repo}: { owner: string, repo: string }) {
         return (await octokit.rest.repos.get({
             owner,
@@ -57,10 +58,41 @@ export const reposAPI = {
         });
 
         const response: { data: ICommits } = {data: []};
-      
+
         for await (const resp of iterator) {
             response.data.push(...resp.data);
             //todo: remove
+            break;
+        }
+
+        return response;
+    },
+    async getClosedPulls(params: { owner: string, repo: string }) {
+        const iterator = octokit.paginate.iterator(octokit.rest.pulls.list, {
+            ...params,
+            state: "closed",
+            per_page: 100
+        });
+        const response: { data: Endpoints["GET /repos/{owner}/{repo}/pulls"]["response"]["data"] } = {data: []};
+
+        for await (const resp of iterator) {
+            response.data.push(...resp.data);
+            break;
+        }
+
+        return response;
+    },
+
+    async getClosedIssues(params: { owner: string, repo: string }) {
+        const iterator = octokit.paginate.iterator(octokit.rest.issues.listForRepo, {
+            ...params,
+            state: "closed",
+            per_page: 100
+        });
+        const response: { data: Endpoints["GET /repos/{owner}/{repo}/issues"]["response"]["data"] } = {data: []};
+
+        for await (const resp of iterator) {
+            response.data.push(...resp.data);
             break;
         }
 
