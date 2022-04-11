@@ -2,6 +2,8 @@ import React, {FC} from 'react';
 import {useGetContributorsQuery} from "../../../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import Title from "../../../utils/Title/Title";
 import classes from "./Contributors.module.scss";
+import Loading from "../../../utils/Loading/Loading";
+import Error from "../../../utils/ErrorWrapper/ErrorWrapper";
 
 interface IProps {
     owner: string,
@@ -15,10 +17,14 @@ const Contributors: FC<IProps> = ({owner, repo}) => {
     })
 
     return (
-        <div className={classes.contributors}>
-            <Title level={3}>Contributors:</Title>
-            <div className={classes.contributors__items}>{contributorsUI}</div>
-        </div>
+        <Loading isLoading={isLoading}>
+            <div className={classes.contributors}>
+                <Title level={3}>Contributors:</Title>
+                <Error error={error as string | undefined | null}>
+                    <div className={classes.contributors__items}>{contributorsUI}</div>
+                </Error>
+            </div>
+        </Loading>
     );
 };
 

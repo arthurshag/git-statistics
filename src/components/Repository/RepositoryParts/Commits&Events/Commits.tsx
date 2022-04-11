@@ -1,9 +1,10 @@
 import React, {FC} from 'react';
 import {useGetAllCommitsQuery,} from "../../../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import {Endpoints} from "@octokit/types";
-import LoadingError from "../LoadingError";
 import Title from "../../../utils/Title/Title";
 import CalendarChart from "./CalendarChart";
+import Loading from "../../../utils/Loading/Loading";
+import ErrorWrapper from "../../../utils/ErrorWrapper/ErrorWrapper";
 
 interface IProps {
     owner: string,
@@ -16,10 +17,12 @@ const Commits: FC<IProps> = ({owner, repo}) => {
 
     const dataChart = data ? getDataChart(data) : [];
     return (
-        <LoadingError isLoading={isLoading} error={error as string | null | undefined}>
+        <Loading isLoading={isLoading}>
             <Title level={3}>Commits</Title>
-            <CalendarChart dataChart={dataChart}/>
-        </LoadingError>
+            <ErrorWrapper error={error as string | null | undefined}>
+                <CalendarChart dataChart={dataChart}/>
+            </ErrorWrapper>
+        </Loading>
     );
 };
 

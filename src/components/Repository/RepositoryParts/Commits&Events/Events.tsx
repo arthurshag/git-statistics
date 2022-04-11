@@ -1,10 +1,11 @@
 import React, {FC} from 'react';
 import {useGetEventsQuery} from "../../../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import {Endpoints} from "@octokit/types";
-import LoadingError from "../LoadingError";
 import classes from "../../Repository.module.scss";
 import Title from "../../../utils/Title/Title";
 import CalendarChart from "./CalendarChart";
+import Loading from "../../../utils/Loading/Loading";
+import Error from "../../../utils/ErrorWrapper/ErrorWrapper";
 
 interface IProps {
     owner: string,
@@ -17,10 +18,12 @@ const Events: FC<IProps> = ({owner, repo}) => {
     const dataChart = data ? gatDataChart(data) : [];
 
     return (
-        <LoadingError isLoading={isLoading} error={error as string | undefined | null} className={classes.chart}>
+        <Loading isLoading={isLoading} className={classes.chart}>
             <Title level={3}>Events:</Title>
-            <CalendarChart dataChart={dataChart}/>
-        </LoadingError>
+            <Error error={error as string | undefined | null}>
+                <CalendarChart dataChart={dataChart}/>
+            </Error>
+        </Loading>
     );
 };
 

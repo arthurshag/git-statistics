@@ -3,6 +3,8 @@ import {useGetClosedPullsQuery} from "../../../../redux/reducers/RepositoryReduc
 import Title from "../../../utils/Title/Title";
 import {Endpoints} from "@octokit/types";
 import ColumnDateChart from "./ColumnChart";
+import Loading from "../../../utils/Loading/Loading";
+import ErrorWrapper from "../../../utils/ErrorWrapper/ErrorWrapper";
 
 interface IProps {
     owner: string,
@@ -12,19 +14,18 @@ interface IProps {
 
 const Pulls: FC<IProps> = ({owner, repo}) => {
     const {data, error, isLoading} = useGetClosedPullsQuery({owner: owner, repo: repo});
-    if (isLoading)
-        return <div>Loading...</div>
-    if (!data)
-        return null;
-
-    const dataChart = getDataChart(data);
+    const dataChart = data ? getDataChart(data) : undefined;
 
     return (
-        <div>
-            <Title level={3}>Last 100 Closed Pulls</Title>
-            <p>Time in hours spent on closing pulls requests</p>
-            <ColumnDateChart dataChart={dataChart}/>
-        </div>
+        <Loading isLoading={isLoading}>
+            <div>
+                <Title level={3}>Last 100 Closed Pulls</Title>
+                <p>Time in hours spent on closing pulls requests</p>
+                <ErrorWrapper error={error as string | null | undefined}>
+                    <ColumnDateChart dataChart={dataChart}/>
+                </ErrorWrapper>
+            </div>
+        </Loading>
     );
 };
 
