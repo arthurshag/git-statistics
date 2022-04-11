@@ -19,7 +19,9 @@ const Repository: FC<PropsType> = memo((props) => {
     return (
         <BlockShadow className={classes.repository}>
             <div className={classNames(classes.repository__item, classes.repository__name)}>
-                <span>Repository: {props.name}</span> <a href={props.html_url}><LinkIcon/></a>
+                Repository: <a href={props.html_url}><span
+                className={classes.repository__nameText}>{props.name}</span> {" "}
+                <span className={classes.repository__nameSvg}><LinkIcon/></span></a>
             </div>
             <div className={classes.repository__item}>Owner: {props?.owner?.login}</div>
             <div className={classes.repository__item}>Count forks: {props.forks_count}</div>

@@ -36,17 +36,24 @@
   }
 
   &__name {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    & svg {
-      width: 1em;
-      height: 1em;
+    & a {
+      white-space: nowrap;
     }
 
-    & a {
-      @include flexCenterCenter;
+    &Text {
+      word-wrap: anywhere;
+      white-space: normal;
+      flex: 0 1 auto;
+    }
+
+    &Svg {
+      display: inline-block;
+
+      & svg {
+        margin: 0 auto;
+        width: 1em;
+        height: 1em;
+      }
     }
   }
 
