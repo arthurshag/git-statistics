@@ -4,6 +4,8 @@ import classes from "./Repositories.module.scss";
 import {ReactComponent as LinkIcon} from "./../../assets/icons/link.svg";
 import classNames from "classnames";
 import Languages from "./RepositoryParts/Languages";
+import BlockShadow from "../utils/BlockShadow/BlockShadow";
+import Button from "../utils/Button/Button";
 
 interface PropsType extends IRepository {
 }
@@ -13,11 +15,9 @@ const Repository: FC<PropsType> = memo((props) => {
         return <div key={e} className={classes.repository__topic}>{e}</div>
     })
 
-
     const btnHandler = () => navigator.clipboard.writeText(props.clone_url);
-
     return (
-        <section className={classes.repository}>
+        <BlockShadow className={classes.repository}>
             <div className={classNames(classes.repository__item, classes.repository__name)}>
                 <span>Repository: {props.name}</span> <a href={props.html_url}><LinkIcon/></a>
             </div>
@@ -41,10 +41,10 @@ const Repository: FC<PropsType> = memo((props) => {
                 <div>Created at: {props.created_at}</div>
                 <div>Updated at: {props.updated_at}</div>
             </div>
-            <button className={classes.repository__btnClone}
+            <Button className={classes.repository__btnClone}
                     onClick={btnHandler}>Copy clone url
-            </button>
-        </section>
+            </Button>
+        </BlockShadow>
     );
 });
 

@@ -2,6 +2,7 @@ import React, {FC, memo} from 'react';
 import Repository from "./Repository";
 import classes from "./Repositories.module.scss";
 import {IRepository} from "../../models/IRepository";
+import Title from "../utils/Title/Title";
 
 interface PropsType {
     repositories: IRepository[]
@@ -14,7 +15,7 @@ const Repositories: FC<PropsType> = memo(({repositories}) => {
 
     return (
         <div className={classes.repositories}>
-            <h2>Repositories</h2>
+            <Title level={2}>Repositories</Title>
             <div className={classes.repositories__wrapper}>{UIRepos}</div>
         </div>
     );

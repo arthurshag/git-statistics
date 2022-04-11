@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
+  margin-bottom: 30px;
 
   &__wrapper {
     display: grid;
@@ -20,14 +21,13 @@
 .repository {
   display: flex;
   flex-direction: column;
-  border: 1px black solid;
   padding: 5px;
 
   &__item {
     padding: 8px;
 
     & + .repository__item {
-      border-top: 1px solid rgba(217, 214, 214, 0.6);
+      border-top: 1px solid $colorAzure;
     }
 
     &:last-child {
@@ -73,9 +73,6 @@
   &__btnClone {
     width: 100%;
     margin-top: auto;
-    cursor: pointer;
-    &:hover {
-    }
   }
 
 }
