@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import {useGetClosedIssuesQuery} from "../../../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import Title from "../../../utils/Title/Title";
-import {Chart} from "react-google-charts";
 import {Endpoints} from "@octokit/types";
+import ColumnChart from "./ColumnChart";
 
 interface IProps {
     owner: string,
@@ -23,13 +23,7 @@ const Issues: FC<IProps> = ({owner, repo}) => {
         <div>
             <Title level={3}>Last 100 Closed Issues</Title>
             <p>Time in hours spent on closing pulls requests</p>
-            <p><span style={{color: "red"}}>Red </span> {">= 48 hours "}
-                <span style={{
-                    color: "yellow",
-                    textShadow: "1px 0px 1px black, 0px 1px 1px black,-1px 0px 1px black,0px -1px 1px black"
-                }}>Yellow</span>{" >=24 hours "}
-                <span style={{color: "green"}}>Green</span>{" <24 hours "}</p>
-            <Chart chartType={"ColumnChart"} data={dataChart}/>
+            <ColumnChart dataChart={dataChart}/>
         </div>
     );
 };

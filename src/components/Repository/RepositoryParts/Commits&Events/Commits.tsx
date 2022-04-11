@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
-import {useGetAllCommitsQuery,} from "../../../redux/reducers/RepositoryReducer/RepositoryRTK";
+import {useGetAllCommitsQuery,} from "../../../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import {Endpoints} from "@octokit/types";
-import {Chart} from "react-google-charts";
-import LoadingError from "./LoadingError";
-import Title from "../../utils/Title/Title";
+import LoadingError from "../LoadingError";
+import Title from "../../../utils/Title/Title";
+import CalendarChart from "./CalendarChart";
 
 interface IProps {
     owner: string,
@@ -18,13 +18,7 @@ const Commits: FC<IProps> = ({owner, repo}) => {
     return (
         <LoadingError isLoading={isLoading} error={error as string | null | undefined}>
             <Title level={3}>Commits</Title>
-            <Chart
-                chartType="Calendar"
-                data={dataChart}
-                height={200}
-                options={{calendar: {cellSize: 14},}}
-                width="100%"
-            />
+            <CalendarChart dataChart={dataChart}/>
         </LoadingError>
     );
 };

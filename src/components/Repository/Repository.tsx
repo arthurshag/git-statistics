@@ -3,14 +3,14 @@ import {FC, memo} from "react";
 import Languages from "./RepositoryParts/Languages";
 import classes from "./Repository.module.scss";
 import Contributors from "./RepositoryParts/Contributors/Contributors";
-import Commits from "./RepositoryParts/Commits";
-import Events from "./RepositoryParts/Events";
+import Commits from "./RepositoryParts/Commits&Events/Commits";
+import Events from "./RepositoryParts/Commits&Events/Events";
 import BlockShadow from "../utils/BlockShadow/BlockShadow";
 import Title from "../utils/Title/Title";
 import Owner from "./RepositoryParts/Owner/Owner";
 import Button from "../utils/Button/Button";
-import Pulls from "./RepositoryParts/Pulls/Pulls";
-import Issues from "./RepositoryParts/Issues/Issues";
+import Pulls from "./RepositoryParts/Issues&Pulls/Pulls";
+import Issues from "./RepositoryParts/Issues&Pulls/Issues";
 
 interface PropsType {
     repository: IRepository
