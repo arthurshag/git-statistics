@@ -1,23 +1,24 @@
 import React, {FC} from "react";
+import classes from "./ErrorWrapper.module.scss";
+import classNames from "classnames";
 
 interface IProps {
-    error?: string | null,
-    isLoading: boolean,
+    error: string | null | undefined,
     className?: string
     style?: React.CSSProperties
 }
 
 
-const LoadingError: FC<IProps> = ({
+const ErrorWrapper: FC<IProps> = ({
                                       error,
-                                      isLoading,
                                       children,
                                       className,
                                       style
                                   }) => {
-    return <div className={className} style={style}>
-        {error ? error : isLoading ? "ErrorWrapper... " : children}
-    </div>
+    return error ?
+        <div className={classNames(className, classes.wrapper)} style={style}>{error}</div>
+        : <>{children}</>;
+
 }
 
-export default LoadingError;
+export default ErrorWrapper;

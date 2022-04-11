@@ -27,7 +27,7 @@ const RepositoriesPage: FC = () => {
     return (
         <>
             <ReposFilters params={newParams} setParams={setParams} reset={resetHandler} onSubmit={fetchReposOnClick}/>
-            {error ? error : isFetching ? "Loading..." : data && <><Repositories repositories={data.items}/>
+            {error ? error : isFetching ? "ErrorWrapper..." : data && <><Repositories repositories={data.items}/>
                 <Paginator current={+newParams.page} handler={paginateHandler}
                            count={Math.ceil((data?.total_count || 0) / 10)}/></>}
         </>
