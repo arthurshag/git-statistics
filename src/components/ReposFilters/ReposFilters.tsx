@@ -4,6 +4,8 @@ import {ReposUrlParamsType} from "../../helpers/hooks/useReposFilterParams";
 import TextInput from "../utils/TextInput/TextInput";
 import CreatableSelect from "react-select/creatable";
 import Button from "../utils/Button/Button";
+import classes from "./ReposFilters.module.scss";
+import classNames from "classnames";
 
 interface IFilters {
     params: ReposUrlParamsType,
@@ -45,26 +47,42 @@ const ReposFilters: FC<IFilters> = ({
         setCreatedTo
     } = memoizedGetHandlers;
 
-    return <form onSubmit={onSubmitForm}>
+    return <form onSubmit={onSubmitForm} className={classes.filters}>
         <TextInput placeholder={"Repo name"} value={params.repo || ""} onChange={setRepoName}/>
         <TextInput placeholder={"Login user"} value={params.username || ""} onChange={setUsername}/>
-        <CreatableSelect
-            placeholder={"Languages"}
-            isMulti
-            value={currentOptionsLanguages}
-            onChange={onChangeLanguages}
-            options={[]}
-        />
-        <Select options={optionsSort} onChange={onChangeFilterSort} isClearable={true} value={currentOptionSort}
-                placeholder={"sort type"}/>
-        <TextInput label={"Stars min"} type={"number"} value={params.starsMin || ""} onChange={setStarsMin}/>
-        <TextInput label={"Stars max"} type={"number"} value={params.starsMax || ""} onChange={setStarsMax}/>
-        <TextInput label={"Pushed from"} type={"date"} value={params.pushedFrom || ""} onChange={setPushedFrom}/>
-        <TextInput label={"Pushed to"} type={"date"} value={params.pushedTo || ""} onChange={setPushedTo}/>
-        <TextInput label={"Created from"} type={"date"} value={params.createdFrom || ""} onChange={setCreatedFrom}/>
-        <TextInput label={"Created to"} type={"date"} value={params.createdTo || ""} onChange={setCreatedTo}/>
-        <Button type={"primary"} onClick={onSubmit}>fetch</Button>
-        <Button type={"danger"} onClick={reset}>reset filters</Button>
+        <div className={classes.filters__twoInOne}>
+            <CreatableSelect
+                placeholder={"Languages"}
+                isMulti
+                value={currentOptionsLanguages}
+                onChange={onChangeLanguages}
+                options={[]}
+            />
+            <Select options={optionsSort} onChange={onChangeFilterSort} isClearable={true} value={currentOptionSort}
+                    placeholder={"Sort type"}/>
+        </div>
+        <div className={classes.filters__flex}>
+            <div className={classNames(classes.filters__twoInOne)}>
+                <TextInput label={"Stars min"} type={"number"} value={params.starsMin || ""} onChange={setStarsMin}/>
+                <TextInput label={"Stars max"} type={"number"} value={params.starsMax || ""} onChange={setStarsMax}/>
+            </div>
+
+            <div className={classNames(classes.filters__flex, classes.filters__flexItem)}>
+                <div className={classNames(classes.filters__twoInOne, classes.filters__flexItem)}>
+                    <TextInput label={"Pushed from"} type={"date"} value={params.pushedFrom || ""}
+                               onChange={setPushedFrom}/>
+                    <TextInput label={"Pushed to"} type={"date"} value={params.pushedTo || ""} onChange={setPushedTo}/>
+                </div>
+                <div className={classNames(classes.filters__twoInOne, classes.filters__flexItem)}>
+                    <TextInput label={"Created from"} type={"date"} value={params.createdFrom || ""}
+                               onChange={setCreatedFrom}/>
+                    <TextInput label={"Created to"} type={"date"} value={params.createdTo || ""}
+                               onChange={setCreatedTo}/>
+                </div>
+            </div>
+        </div>
+        <Button type={"primary"} onClick={onSubmit}>Find</Button>
+        <Button type={"danger"} onClick={reset}>Reset filters</Button>
     </form>
 }
 
