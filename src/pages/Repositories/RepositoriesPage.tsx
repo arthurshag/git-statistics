@@ -18,15 +18,11 @@ const RepositoriesPage: FC = () => {
         saveParamsInUrl({...newParams, page: "1"});
     }
 
-    const resetHandler = () => {
-        reset();
-    };
-
     const paginateHandler = useCallback((value: number) => {
         const page = String(value);
         setParams("page", page);
         saveParamsInUrl({...currentParams, page});
-    }, []);
+    }, [currentParams]);
 
     //todo: validation must have q
     const memoizedTransformToRequestReposParams = useMemo(() => transformToRequestReposParams(currentParams),
@@ -34,7 +30,7 @@ const RepositoriesPage: FC = () => {
     const {data, isLoading, error, isFetching} = useGetRepositoriesQuery(memoizedTransformToRequestReposParams);
     return (
         <BlockShadow>
-            <ReposFilters params={newParams} setParams={setParams} reset={resetHandler} onSubmit={fetchReposOnClick}/>
+            <ReposFilters params={newParams} setParams={setParams} reset={reset} onSubmit={fetchReposOnClick}/>
             <Loading isLoading={isLoading} style={{margin: "0 auto"}}>
                 <ErrorWrapper error={error as string | undefined | null}>
                     <Repositories repositories={data?.items || []}/>
