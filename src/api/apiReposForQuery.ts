@@ -18,12 +18,6 @@ export const reposAPI = {
             repo,
         }));
     },
-    async fetchLanguages({owner, repo}: { owner: string, repo: string }) {
-        return (await octokit.rest.repos.listLanguages({
-            owner,
-            repo,
-        }));
-    },
     async getLanguages({owner, repo}: { owner: string, repo: string }) {
         return (await octokit.rest.repos.listLanguages({
             owner,
@@ -44,25 +38,21 @@ export const reposAPI = {
 
         return response;
     },
-    async getEvents({owner, repo}: { owner: string, repo: string }) {
+    async getEvents({per_page = 100, ...rest}: Endpoints["GET /repos/{owner}/{repo}/events"]["parameters"]) {
         return (await octokit.request("GET /repos/{owner}/{repo}/events", {
-            owner,
-            repo,
+            per_page, ...rest
         }));
     },
-    async getAllCommits({owner, repo}: { owner: string, repo: string }) {
+    async getAllCommits({per_page = 100, ...rest}: Endpoints["GET /repos/{owner}/{repo}/commits"]["parameters"]) {
         const iterator = octokit.paginate.iterator(octokit.rest.repos.listCommits, {
-            owner,
-            repo,
-            per_page: 100
-        });
+            per_page, ...rest
+        })
+
 
         const response: { data: ICommits } = {data: []};
 
         for await (const resp of iterator) {
             response.data.push(...resp.data);
-            //todo: remove
-            break;
         }
 
         return response;

@@ -13,12 +13,13 @@ interface IProps {
 
 
 const Commits: FC<IProps> = ({owner, repo}) => {
-    const {data, error, isLoading} = useGetAllCommitsQuery({owner: owner, repo: repo});
+    const thisYear = new Date(new Date().getFullYear(), 0, 1);
+    const {data, error, isLoading} = useGetAllCommitsQuery({owner: owner, repo: repo, since: thisYear.toISOString()});
 
     const dataChart = data ? getDataChart(data) : [];
     return (
         <Loading isLoading={isLoading}>
-            <Title level={3}>Commits</Title>
+            <Title level={3}>Commits in this Year</Title>
             <ErrorWrapper error={error as string | null | undefined}>
                 <CalendarChart dataChart={dataChart}/>
             </ErrorWrapper>
