@@ -1,9 +1,9 @@
-import React, {FC, useCallback, useMemo} from 'react';
-import {useReposFilterParams} from "../../helpers/hooks/useReposFilterParams";
+import React, {FC, useCallback, useEffect} from 'react';
+import {ReposUrlParamsType, useReposFilterParams} from "../../helpers/hooks/useReposFilterParams";
 import ReposFilters from "../../components/ReposFilters/ReposFilters";
 import Repositories from "../../components/Repositories/Repositories";
 import Pagination from "../../components/utils/Pagination/Pagination";
-import {useGetRepositoriesQuery} from "../../redux/reducers/RepositoryReducer/RepositoryRTK";
+import {useLazyGetRepositoriesQuery} from "../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import {transformToRequestReposParams} from "../../helpers/TransformToRequestReposParams";
 import Loading from "../../components/utils/Loading/Loading";
 import ErrorWrapper from "../../components/utils/ErrorWrapper/ErrorWrapper";
@@ -11,26 +11,38 @@ import BlockShadow from "../../components/utils/BlockShadow/BlockShadow";
 
 
 const RepositoriesPage: FC = () => {
-    const {newParams, currentParams, setParams, saveParamsInUrl, reset} = useReposFilterParams();
+    let {newParams, currentParams, setParams, saveParamsInUrl, reset} = useReposFilterParams();
+    const [trigger, result] = useLazyGetRepositoriesQuery();
+    const {data, isLoading, error} = result;
+    useEffect(() => {
+        const params = transformToRequestReposParams(currentParams);
+        if (params.q.length > 0)
+            trigger(params);
+    }, [])
 
-    const fetchReposOnClick = () => {
-        setParams("page", "1");
-        saveParamsInUrl({...newParams, page: "1"});
+    const fetchRepos = (params: ReposUrlParamsType) => {
+        const requestReposParams = transformToRequestReposParams(params);
+        if (requestReposParams.q.length === 0)
+            return;
+        setParams("page", params.page);
+        saveParamsInUrl(params);
+        trigger(requestReposParams);
+    }
+
+    const fetchReposOnFiltersClick = () => {
+        const params = {...newParams, page: "1"};
+        fetchRepos(params);
     }
 
     const paginateHandler = useCallback((value: number) => {
-        const page = String(value);
-        setParams("page", page);
-        saveParamsInUrl({...currentParams, page});
+        const params = {...newParams, page: String(value)};
+        fetchRepos(params);
     }, [currentParams]);
 
-    //todo: validation must have q
-    const memoizedTransformToRequestReposParams = useMemo(() => transformToRequestReposParams(currentParams),
-        [currentParams]);
-    const {data, isLoading, error, isFetching} = useGetRepositoriesQuery(memoizedTransformToRequestReposParams);
+
     return (
         <BlockShadow>
-            <ReposFilters params={newParams} setParams={setParams} reset={reset} onSubmit={fetchReposOnClick}/>
+            <ReposFilters params={newParams} setParams={setParams} reset={reset} onSubmit={fetchReposOnFiltersClick}/>
             <Loading isLoading={isLoading} style={{margin: "0 auto"}}>
                 <ErrorWrapper error={error as string | undefined | null}>
                     <Repositories repositories={data?.items || []}/>

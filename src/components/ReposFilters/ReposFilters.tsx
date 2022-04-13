@@ -22,12 +22,22 @@ const ReposFilters: FC<IFilters> = ({
                                         onSubmit
                                     }) => {
     const optionsSort = [
-        {label: "created", value: "created"},
-        {label: "full_name", value: "full_name"},
-        {label: "pushed", value: "pushed"},
-        {label: "updated", value: "updated"},
+        {label: "Created", value: "created"},
+        {label: "Full name", value: "full_name"},
+        {label: "Pushed", value: "pushed"},
+        {label: "Updated", value: "updated"},
     ];
-    //todo: add default options languages
+
+    const optionsLanguages = [
+        {label: "C#", value: "c#"},
+        {label: "Javascript", value: "javascript"},
+        {label: "Typescript", value: "typescript"},
+        {label: "C++", value: "C++"},
+        {label: "Python", value: "python"},
+        {label: "Java", value: "Java"},
+        {label: "PHP", value: "PHP"},
+    ];
+
     const currentOptionSort = params.sort ? optionsSort.find((e) => params.sort === e.value) : null;
     const currentOptionsLanguages = params.languages ?
         params.languages.split(" ").map((e) => ({label: e, value: e})) : null;
@@ -56,7 +66,7 @@ const ReposFilters: FC<IFilters> = ({
                 isMulti
                 value={currentOptionsLanguages}
                 onChange={onChangeLanguages}
-                options={[]}
+                options={optionsLanguages}
             />
             <Select options={optionsSort} onChange={onChangeFilterSort} isClearable={true} value={currentOptionSort}
                     placeholder={"Sort type"}/>

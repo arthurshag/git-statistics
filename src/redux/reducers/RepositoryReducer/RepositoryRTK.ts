@@ -56,6 +56,7 @@ export const repositoryApi = createApi({
 
 // auto-generated based on the defined endpoints
 export const {
+    useLazyGetRepositoriesQuery,
     useGetRepositoriesQuery,
     useGetRepositoryQuery,
     useGetContributorsQuery,
