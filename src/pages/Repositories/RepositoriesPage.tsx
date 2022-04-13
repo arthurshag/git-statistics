@@ -6,7 +6,7 @@ import Pagination from "../../components/utils/Pagination/Pagination";
 import {useLazyGetRepositoriesQuery} from "../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import {transformToRequestReposParams} from "../../helpers/TransformToRequestReposParams";
 import Loading from "../../components/utils/Loading/Loading";
-import ErrorWrapper from "../../components/utils/ErrorWrapper/ErrorWrapper";
+import ErrorGate from "../../components/utils/ErrorGate/ErrorGate";
 import BlockShadow from "../../components/utils/BlockShadow/BlockShadow";
 
 
@@ -44,12 +44,12 @@ const RepositoriesPage: FC = () => {
         <BlockShadow>
             <ReposFilters params={newParams} setParams={setParams} reset={reset} onSubmit={fetchReposOnFiltersClick}/>
             <Loading isLoading={isLoading} style={{margin: "0 auto"}}>
-                <ErrorWrapper error={error as string | undefined | null}>
+                <ErrorGate error={error as string | undefined | null}>
                     <Repositories repositories={data?.items || []}/>
                     <Pagination current={+newParams.page} pageHandler={paginateHandler}
                                 count={calcCountPages(data?.total_count || 0, +newParams.filesPerPage, 1000)}/>
                     {/* todo у github ограничение на поиск 1000 элементами*/}
-                </ErrorWrapper>
+                </ErrorGate>
             </Loading>
         </BlockShadow>
     );
