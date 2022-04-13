@@ -1,24 +1,19 @@
-import React, {FC, MouseEvent} from 'react';
+import React, {FC} from 'react';
 import classNames from "classnames";
 import classes from "./Button.module.scss";
 
-interface IProps {
+interface IProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "type"> {
     type?: "default" | "primary" | "danger",
-    className?: string,
-    disabled?: boolean,
-    onClick?: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
 const Button: FC<IProps> = ({
                                 type = "default",
-                                className = "",
+                                className,
                                 children,
-                                disabled,
-                                onClick
+                                ...props
                             }) => {
     return (
-        <button onClick={onClick} className={classNames(classes.button, classes["button_" + type], className)}
-                disabled={disabled}>
+        <button className={classNames(classes.button, classes["button_" + type], className)} {...props}>
             <span>{children}</span>
         </button>
     );

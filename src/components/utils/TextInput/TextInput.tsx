@@ -2,33 +2,23 @@ import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
 import classNames from "classnames";
 import classes from "./TextInput.module.scss";
 
-interface IProps {
-    className?: string,
-    value?: string,
-    disabled?: boolean,
+interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void,
     onPressEnter?: () => void,
-    placeholder?: string,
     label?: string,
     error?: string,
-    pattern?: string
-    type?: "text" | "number" | "date"
+
 }
 
 const TextInput: FC<IProps> = ({
                                    className = "",
-                                   value,
-                                   disabled,
-                                   onChange,
-                                   placeholder,
                                    label,
                                    error,
                                    onPressEnter,
-                                   type = "text",
-                                   pattern
+                                   ...props
                                }) => {
-    function onKeyPress(e: KeyboardEvent<HTMLInputElement>) {
-        if (e.keyCode === 13) {
+    function onKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+        if (e.key === "Enter") {
             onPressEnter?.()
         }
     }
@@ -36,13 +26,9 @@ const TextInput: FC<IProps> = ({
     return (
         <label className={classNames(classes.wrapper, className)}>
             {label && <span className={classNames(classes.label)}>{label}</span>}
-            <input className={classNames(classes.input, error && classes.input_error)}
-                   placeholder={placeholder}
-                   disabled={disabled}
-                   onChange={onChange}
-                   value={value}
-                   type={type}
-                   onKeyPress={onKeyPress}/>
+            <input
+                className={classNames(classes.input, error && classes.input_error, props.disabled && classes.input_disabled)} {...props}
+                onKeyDown={onKeyDown}/>
             {error && <span className={classes.error}>{error}</span>}
         </label>
     );
