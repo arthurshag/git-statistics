@@ -5,7 +5,7 @@ import classes from "../../Repository.module.scss";
 import Title from "../../../utils/Title/Title";
 import CalendarChart from "./CalendarChart";
 import Loading from "../../../utils/Loading/Loading";
-import Error from "../../../utils/ErrorWrapper/ErrorWrapper";
+import ErrorGate from "../../../utils/ErrorGate/ErrorGate";
 
 interface IProps {
     owner: string,
@@ -20,9 +20,9 @@ const Events: FC<IProps> = ({owner, repo}) => {
     return (
         <Loading isLoading={isLoading} className={classes.chart}>
             <Title level={3}>Events:</Title>
-            <Error error={error as string | undefined | null}>
+            <ErrorGate error={error as string | undefined | null}>
                 <CalendarChart dataChart={dataChart}/>
-            </Error>
+            </ErrorGate>
         </Loading>
     );
 };

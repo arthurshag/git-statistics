@@ -4,7 +4,7 @@ import Title from "../../../utils/Title/Title";
 import {Endpoints} from "@octokit/types";
 import ColumnDateChart from "./ColumnChart";
 import Loading from "../../../utils/Loading/Loading";
-import ErrorWrapper from "../../../utils/ErrorWrapper/ErrorWrapper";
+import ErrorGate from "../../../utils/ErrorGate/ErrorGate";
 
 interface IProps {
     owner: string,
@@ -21,9 +21,9 @@ const Pulls: FC<IProps> = ({owner, repo}) => {
             <div>
                 <Title level={3}>Last 100 Closed Pulls</Title>
                 <p>Time in hours spent on closing pulls requests</p>
-                <ErrorWrapper error={error as string | null | undefined}>
+                <ErrorGate error={error as string | null | undefined}>
                     <ColumnDateChart dataChart={dataChart}/>
-                </ErrorWrapper>
+                </ErrorGate>
             </div>
         </Loading>
     );

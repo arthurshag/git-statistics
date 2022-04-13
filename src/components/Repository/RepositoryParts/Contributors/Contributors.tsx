@@ -3,7 +3,7 @@ import {useGetContributorsQuery} from "../../../../redux/reducers/RepositoryRedu
 import Title from "../../../utils/Title/Title";
 import classes from "./Contributors.module.scss";
 import Loading from "../../../utils/Loading/Loading";
-import Error from "../../../utils/ErrorWrapper/ErrorWrapper";
+import ErrorGate from "../../../utils/ErrorGate/ErrorGate";
 
 interface IProps {
     owner: string,
@@ -20,9 +20,9 @@ const Contributors: FC<IProps> = ({owner, repo}) => {
         <Loading isLoading={isLoading}>
             <div className={classes.contributors}>
                 <Title level={3}>Contributors:</Title>
-                <Error error={error as string | undefined | null}>
+                <ErrorGate error={error as string | undefined | null}>
                     <div className={classes.contributors__items}>{contributorsUI}</div>
-                </Error>
+                </ErrorGate>
             </div>
         </Loading>
     );

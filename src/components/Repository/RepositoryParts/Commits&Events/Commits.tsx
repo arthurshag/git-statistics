@@ -4,7 +4,7 @@ import {Endpoints} from "@octokit/types";
 import Title from "../../../utils/Title/Title";
 import CalendarChart from "./CalendarChart";
 import Loading from "../../../utils/Loading/Loading";
-import ErrorWrapper from "../../../utils/ErrorWrapper/ErrorWrapper";
+import ErrorGate from "../../../utils/ErrorGate/ErrorGate";
 
 interface IProps {
     owner: string,
@@ -20,9 +20,9 @@ const Commits: FC<IProps> = ({owner, repo}) => {
     return (
         <Loading isLoading={isLoading}>
             <Title level={3}>Commits in this Year</Title>
-            <ErrorWrapper error={error as string | null | undefined}>
+            <ErrorGate error={error as string | null | undefined}>
                 <CalendarChart dataChart={dataChart}/>
-            </ErrorWrapper>
+            </ErrorGate>
         </Loading>
     );
 };
