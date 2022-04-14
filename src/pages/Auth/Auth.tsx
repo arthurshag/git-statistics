@@ -23,7 +23,7 @@ const AuthContainer: FC = () => {
                     <section className={classes.auth__form}>
                         <div className={classes.auth__formWrapper}>
                             {loading ?
-                                "Loading..." : user !== null
+                                "ErrorWrapper..." : user !== null
                                     ? <Profile user={user}/>
                                     : <AuthForm/>
                             }

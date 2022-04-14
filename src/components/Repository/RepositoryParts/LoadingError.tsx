@@ -16,7 +16,7 @@ const LoadingError: FC<IProps> = ({
                                       style
                                   }) => {
     return <div className={className} style={style}>
-        {error ? error : isLoading ? "Loading... " : children}
+        {error ? error : isLoading ? "ErrorGate... " : children}
     </div>
 }
 
