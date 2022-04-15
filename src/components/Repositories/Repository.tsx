@@ -16,6 +16,10 @@ interface PropsType extends IRepository {
 const Repository: FC<PropsType> = memo((props) => {
     const btnHandler = () => navigator.clipboard.writeText(props.clone_url);
 
+    const createdDate = new Date(props.created_at);
+    const updatedDate = new Date(props.updated_at);
+
+    //todo: change forks, stars, watcher on icons
     return (
         <BlockShadow className={classes.repository}>
             <Title level={3} className={classNames(classes.repository__name)}>
@@ -39,8 +43,8 @@ const Repository: FC<PropsType> = memo((props) => {
             {props.owner &&
             <Languages owner={props.owner.login} repo={props.name} className={classes.repository__item}/>}
             <div className={classes.repository__item}>
-                <div>Created at: {props.created_at}</div>
-                <div>Updated at: {props.updated_at}</div>
+                <div>Updated at: {updatedDate.toLocaleDateString()}</div>
+                <div>Created at: {createdDate.toLocaleDateString()}</div>
             </div>
             <Button className={classes.repository__btnClone}
                     onClick={btnHandler}>Copy clone url
