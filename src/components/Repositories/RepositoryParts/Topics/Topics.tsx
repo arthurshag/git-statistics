@@ -16,10 +16,8 @@ const Topics: FC<IProps> = ({topics, className}) => {
 
     return (
         <div className={classNames(classes.topics, className)}>
-            <span>Topics:</span>
-            <div className={classes.topics__items}>
-                {topicsUI}
-            </div>
+            <span className={classes.topics__title}>Topics:</span>
+            {topicsUI}
         </div>
     );
 };

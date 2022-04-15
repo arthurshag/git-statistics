@@ -2,14 +2,15 @@
 
 .topics {
   display: flex;
-  gap: 1em;
+  gap: 0.3em;
+  align-items: center;
+  flex-wrap: wrap;
 
-  &__items {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    flex-wrap: wrap;
+  &__title {
+    font-weight: 600;
   }
+
+
 }
 
 
@@ -36,4 +37,5 @@
   &_dark {
     background: $colorDark;
   }
+
 }
