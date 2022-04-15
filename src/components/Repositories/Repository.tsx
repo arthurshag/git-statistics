@@ -8,12 +8,14 @@ import Button from "../utils/Button/Button";
 import Title from "../utils/Title/Title";
 import Topics from "./RepositoryParts/Topics/Topics";
 import classes from "./Repositories.module.scss";
+import Description from "./RepositoryParts/Description/Description";
 
 interface PropsType extends IRepository {
 }
 
 const Repository: FC<PropsType> = memo((props) => {
     const btnHandler = () => navigator.clipboard.writeText(props.clone_url);
+
     return (
         <BlockShadow className={classes.repository}>
             <Title level={3} className={classNames(classes.repository__name)}>
@@ -33,7 +35,7 @@ const Repository: FC<PropsType> = memo((props) => {
             {props.topics && props.topics.length !== 0 &&
             <Topics topics={props.topics} className={classes.repository__item}/>
             }
-            {props.description && <div className={classes.repository__item}>Description: {props.description}</div>}
+            {props.description && <Description description={props.description} className={classes.repository__item}/>}
             {props.owner &&
             <Languages owner={props.owner.login} repo={props.name} className={classes.repository__item}/>}
             <div className={classes.repository__item}>
