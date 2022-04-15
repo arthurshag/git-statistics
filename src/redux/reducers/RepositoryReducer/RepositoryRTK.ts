@@ -5,7 +5,8 @@ import {ILanguage} from "../../../models/ILanguage";
 import {IContributors} from "../../../models/IContributors";
 import {IRepoEvents} from "../../../models/IRepoEvents";
 import {ICommits} from "../../../models/ICommits";
-import {Endpoints} from "@octokit/types";
+import {IPulls} from "../../../models/IPulls";
+import {IIssues} from "../../../models/IIssues";
 
 
 type PropsType<T extends keyof typeof reposAPI> = {
@@ -52,11 +53,11 @@ export const repositoryApi = createApi({
         ({
             query: (params) => ({params, url: "getAllCommits"}),
         }),
-        getClosedPulls: builder.query <Endpoints["GET /repos/{owner}/{repo}/pulls"]["response"]["data"], PropsType<"getClosedPulls">["params"]>
+        getClosedPulls: builder.query <IPulls, PropsType<"getClosedPulls">["params"]>
         ({
             query: (params) => ({params, url: "getClosedPulls"}),
         }),
-        getClosedIssues: builder.query <Endpoints["GET /repos/{owner}/{repo}/issues"]["response"]["data"], PropsType<"getClosedIssues">["params"]>
+        getClosedIssues: builder.query <IIssues, PropsType<"getClosedIssues">["params"]>
         ({
             query: (params) => ({params, url: "getClosedIssues"}),
         }),

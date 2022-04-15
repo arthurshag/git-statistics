@@ -2,6 +2,7 @@ import {Octokit} from "octokit";
 import {Endpoints} from "@octokit/types";
 import {ICommits} from "../models/ICommits";
 import {ParamsSearchReposType} from "../models/IRepository";
+import {IIssues} from "../models/IIssues";
 
 let octokit = new Octokit({
     auth: localStorage.getItem("access_token")
@@ -79,7 +80,7 @@ export const reposAPI = {
             state: "closed",
             per_page: 100
         });
-        const response: { data: Endpoints["GET /repos/{owner}/{repo}/issues"]["response"]["data"] } = {data: []};
+        const response: { data: IIssues } = {data: []};
 
         for await (const resp of iterator) {
             response.data.push(...resp.data);

@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import {useGetClosedPullsQuery} from "../../../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import Title from "../../../utils/Title/Title";
-import {Endpoints} from "@octokit/types";
 import ColumnDateChart from "./ColumnChart";
 import Loading from "../../../utils/Loading/Loading";
 import ErrorGate from "../../../utils/ErrorGate/ErrorGate";
+import {IPulls} from "../../../../models/IPulls";
 
 interface IProps {
     owner: string,
@@ -29,7 +29,7 @@ const Pulls: FC<IProps> = ({owner, repo}) => {
     );
 };
 
-const getDataChart = (data: Endpoints["GET /repos/{owner}/{repo}/pulls"]["response"]["data"]) => {
+const getDataChart = (data: IPulls) => {
     const dataChart: [string, string | number, object | string][] = [["Element", "Hours", {role: 'style'}]];
     data.forEach((c) => {
         if (!c.closed_at)
