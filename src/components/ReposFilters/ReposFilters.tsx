@@ -6,6 +6,7 @@ import CreatableSelect from "react-select/creatable";
 import Button from "../utils/Button/Button";
 import classes from "./ReposFilters.module.scss";
 import classNames from "classnames";
+import {ParamsSearchReposType} from "../../models/IRepository";
 
 interface IFilters {
     params: ReposUrlParamsType,
@@ -21,11 +22,11 @@ const ReposFilters: FC<IFilters> = ({
                                         setParams,
                                         onSubmit
                                     }) => {
-    const optionsSort = [
-        {label: "Created", value: "created"},
-        {label: "Full name", value: "full_name"},
-        {label: "Pushed", value: "pushed"},
+    const optionsSort: { label: string, value: ParamsSearchReposType["sort"] }[] = [
         {label: "Updated", value: "updated"},
+        {label: "Stars", value: "stars"},
+        {label: "Forks", value: "forks"},
+        {label: "Help wanted issues", value: "help-wanted-issues"},
     ];
 
     const optionsLanguages = [
@@ -111,8 +112,8 @@ function getHandlers(setParams: <T extends keyof ReposUrlParamsType>(field: T, v
         setParams("languages", value ? value.map(e => e.label).join(" ") : null);
     }
 
-    const onChangeFilterSort = (value: SingleValue<{ label: string; value: string; }>) => {
-        setParams("sort", value ? value.value as ReposUrlParamsType["sort"] : null)
+    const onChangeFilterSort = (value: SingleValue<{ label: string, value: ParamsSearchReposType["sort"] }>) => {
+        setParams("sort", value ? value.value : null)
     }
 
     const setStarsMax = (e: ChangeEvent<HTMLInputElement>) => {
