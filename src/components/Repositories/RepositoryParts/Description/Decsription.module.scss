@@ -23,13 +23,19 @@
   }
 
   &__btn {
-    display: inline-block;
-    margin-left: auto;
-    padding: 0;
+    padding: .1em;
+    align-self: flex-start;
+    width: 1.2em;
+    height: 1.2em;
 
-    & svg {
-      width: 100%;
-      height: 100%;
+    & span {
+      @include flexCenterCenter();
+
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }

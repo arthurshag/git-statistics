@@ -7,8 +7,8 @@ import BlockShadow from "../utils/BlockShadow/BlockShadow";
 import Button from "../utils/Button/Button";
 import Title from "../utils/Title/Title";
 import Topics from "./RepositoryParts/Topics/Topics";
-import classes from "./Repositories.module.scss";
 import Description from "./RepositoryParts/Description/Description";
+import classes from "./Repositories.module.scss";
 
 interface PropsType extends IRepository {
 }

@@ -8,6 +8,7 @@ import {transformToRequestReposParams} from "../../helpers/TransformToRequestRep
 import Loading from "../../components/utils/Loading/Loading";
 import ErrorGate from "../../components/utils/ErrorGate/ErrorGate";
 import BlockShadow from "../../components/utils/BlockShadow/BlockShadow";
+import Title from "../../components/utils/Title/Title";
 
 
 const RepositoriesPage: FC = () => {
@@ -42,6 +43,7 @@ const RepositoriesPage: FC = () => {
 
     return (
         <BlockShadow>
+            <Title level={2}>Repositories</Title>
             <ReposFilters params={newParams} setParams={setParams} reset={reset} onSubmit={fetchReposOnFiltersClick}/>
             <Loading isLoading={isLoading} style={{margin: "0 auto"}}>
                 <ErrorGate error={error as string | undefined | null}>

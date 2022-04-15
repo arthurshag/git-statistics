@@ -5,11 +5,12 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  margin-bottom: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 
   &__wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 500px));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     justify-items: start;
     flex-wrap: wrap;
     gap: 20px;
@@ -21,6 +22,7 @@
 
 .repository {
   width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   padding: 16px;
@@ -39,6 +41,10 @@
 
       overflow: hidden;
       text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
     }
 
     &Svg {
