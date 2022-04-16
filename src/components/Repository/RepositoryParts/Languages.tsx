@@ -12,22 +12,19 @@ interface IProps {
 
 const Languages: FC<IProps> = ({owner, repo}) => {
     const {data, error, isLoading} = useGetLanguagesQuery({owner: owner, repo: repo});
-
-    const chartData = data ? [["Language", "strokes"], ...Object.keys(data).map((language) => {
-        return [language, data[language]]
-    })] : undefined;
+    const chartData = data && [["Language", "strokes"], ...Object.entries(data)];
 
     return (
         <Loading isLoading={isLoading}>
             <div>
                 <Title level={3}>Languages</Title>
                 <ErrorGate error={error as string | null | undefined}>
-                    <Chart
+                    {chartData ? <Chart
                         chartType="PieChart"
                         width={"400px"}
                         height="200px"
                         data={chartData}
-                    />
+                    /> : "No data"}
                 </ErrorGate>
             </div>
         </Loading>

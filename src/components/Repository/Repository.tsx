@@ -1,7 +1,7 @@
 import {IRepository} from "../../models/IRepository";
 import {FC, memo} from "react";
+import {ReactComponent as Icon} from "./../../assets/icons/link.svg";
 import Languages from "./RepositoryParts/Languages";
-import classes from "./Repository.module.scss";
 import Contributors from "./RepositoryParts/Contributors/Contributors";
 import Commits from "./RepositoryParts/Commits&Events/Commits";
 import Events from "./RepositoryParts/Commits&Events/Events";
@@ -11,6 +11,7 @@ import Owner from "./RepositoryParts/Owner/Owner";
 import Button from "../utils/Button/Button";
 import Pulls from "./RepositoryParts/Issues&Pulls/Pulls";
 import Issues from "./RepositoryParts/Issues&Pulls/Issues";
+import classes from "./Repository.module.scss";
 
 interface PropsType {
     repository: IRepository
@@ -24,22 +25,31 @@ const Repository: FC<PropsType> = memo(({repository}) => {
 
     return (
         <BlockShadow className={classes.repository}>
-            <Title level={2}>Repository <a href={repository.html_url}>{repository.name}</a> in detail</Title>
+            <Title level={2}>
+                Repository {repository.name} {" "}
+                <a href={repository.html_url} target="_blank" rel="noopener"
+                   className={classes.repository__titleLinkIcon}>
+                    <Icon/>
+                </a> {" "}
+                in detail
+            </Title>
             <div className={classes.statistics}>
-                <div className={classes.statistics__main}>
-                    <div className={classes.statistics__mainItem}>
-                        <span>Stargazers count:</span>
-                        <span className={classes.statistics__mainValue}>{repository.stargazers_count}</span>
-                    </div>
-                    <div className={classes.statistics__mainItem}>
-                        <span>Watchers count:</span>
-                        <span className={classes.statistics__mainValue}>{repository.watchers_count}</span>
-                    </div>
-                    <div className={classes.statistics__mainItem}>
-                        <span>Forks count:</span>
-                        <span className={classes.statistics__mainValue}>{repository.forks_count}</span>
-                    </div>
-                </div>
+                <table className={classes.statistics__main}>
+                    <tbody>
+                    <tr className={classes.statistics__mainItem}>
+                        <td>Stargazers count:</td>
+                        <td className={classes.statistics__mainValue}>{repository.stargazers_count}</td>
+                    </tr>
+                    <tr className={classes.statistics__mainItem}>
+                        <td>Watchers count:</td>
+                        <td className={classes.statistics__mainValue}>{repository.watchers_count}</td>
+                    </tr>
+                    <tr className={classes.statistics__mainItem}>
+                        <td>Forks count:</td>
+                        <td className={classes.statistics__mainValue}>{repository.forks_count}</td>
+                    </tr>
+                    </tbody>
+                </table>
                 <div className={classes.statistics__addInfo}>
                     <div>
                         Description: {repository.description}
@@ -54,9 +64,9 @@ const Repository: FC<PropsType> = memo(({repository}) => {
                     <div>
                         Is fork: {String(repository.fork)}
                     </div>
-                    <Button className={classes.statistics__cloneUrl} onClick={btnHandler}>Copy clone url</Button>
+                    <Button onClick={btnHandler}>Copy clone url</Button>
                 </div>
-                <div className={classes.statisticsData}>
+                <div>
                     {repository.owner && <>
                         <Owner owner={repository.owner}/>
                         <Languages owner={repository.owner.login} repo={repository.name}/>
