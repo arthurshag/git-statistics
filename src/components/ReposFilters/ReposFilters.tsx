@@ -47,23 +47,16 @@ const ReposFilters: FC<IFilters> = ({
 
 
 function getHandlers(setParams: <T extends keyof ReposUrlParamsType>(field: T, value: ReposUrlParamsType[T]) => void) {
-    //todo: мб сразу в объект пихать
-    const setUsername = (e: ChangeEvent<HTMLInputElement>) => {
-        setParams("username", e.target.value);
-    }
-
-    const setRepoName = (e: ChangeEvent<HTMLInputElement>) => {
-        setParams("repo", e.target.value);
-    }
-
-    const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-    }
-
     return {
-        setUsername,
-        setRepoName,
-        onSubmitForm,
+        setUsername: (e: ChangeEvent<HTMLInputElement>) => {
+            setParams("username", e.target.value);
+        },
+        setRepoName: (e: ChangeEvent<HTMLInputElement>) => {
+            setParams("repo", e.target.value);
+        },
+        onSubmitForm: (e: FormEvent<HTMLFormElement>) => {
+            e.preventDefault()
+        },
     };
 }
 

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, FormEvent, useMemo} from "react";
+import React, {ChangeEvent, FC, useMemo} from "react";
 import Select, {MultiValue, SingleValue} from "react-select"
 import {ReposUrlParamsType} from "../../helpers/hooks/useReposFilterParams";
 import TextInput from "../utils/TextInput/TextInput";
@@ -59,15 +59,15 @@ const ReposAddFilters: FC<IFilters> = ({
                 onChange={onChangeLanguages}
                 options={optionsLanguages}
             />
-            <Select options={optionsSort} onChange={onChangeFilterSort} isClearable={true}
+            <Select options={optionsSort} onChange={onChangeFilterSort} isClearable
                     value={currentOptionSort}
                     placeholder={"Sort type"} inputValue={""}/>
         </div>
         <div className={classes.filters__flex}>
             <div className={classNames(classes.filters__twoInOne)}>
                 <TextInput label={"Stars min"} type={"number"} value={params.starsMin || ""}
-                           onChange={setStarsMin}/>
-                <TextInput label={"Stars max"} type={"number"} value={params.starsMax || ""}
+                           onChange={setStarsMin} min={0}/>
+                <TextInput label={"Stars max"} type={"number"} value={params.starsMax || ""} min={0}
                            onChange={setStarsMax}/>
             </div>
 
@@ -91,55 +91,34 @@ const ReposAddFilters: FC<IFilters> = ({
 
 
 function getHandlers(setParams: <T extends keyof ReposUrlParamsType>(field: T, value: ReposUrlParamsType[T]) => void) {
-
-    const onChangeLanguages = (value: MultiValue<{ label: string; value: string; }>) => {
-        setParams("languages", value ? value.map(e => e.label).join(" ") : null);
-    }
-
-    const onChangeFilterSort = (value: SingleValue<{ label: string, value: ParamsSearchReposType["sort"] }>) => {
-        setParams("sort", value ? value.value : null)
-    }
-
-    const setStarsMax = (e: ChangeEvent<HTMLInputElement>) => {
-        setParams("starsMax", e.target.value);
-    }
-
-    const setStarsMin = (e: ChangeEvent<HTMLInputElement>) => {
-        setParams("starsMin", e.target.value);
-    }
-
-
-    const setPushedFrom = (e: ChangeEvent<HTMLInputElement>) => {
-        setParams("pushedFrom", e.target.value);
-    }
-
-    const setPushedTo = (e: ChangeEvent<HTMLInputElement>) => {
-        setParams("pushedTo", e.target.value);
-    }
-
-    const setCreatedFrom = (e: ChangeEvent<HTMLInputElement>) => {
-        setParams("createdFrom", e.target.value);
-    }
-
-    const setCreatedTo = (e: ChangeEvent<HTMLInputElement>) => {
-        setParams("createdTo", e.target.value);
-    }
-
-
-    const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-    }
-
     return {
-        onChangeFilterSort,
-        onChangeLanguages,
-        setStarsMax,
-        setStarsMin,
-        onSubmitForm,
-        setPushedFrom,
-        setPushedTo,
-        setCreatedTo,
-        setCreatedFrom,
+        onChangeLanguages: (value: MultiValue<{ label: string; value: string; }>) => {
+            setParams("languages", value ? value.map(e => e.label).join(" ") : null);
+        },
+        onChangeFilterSort: (value: SingleValue<{ label: string, value: ParamsSearchReposType["sort"] }>) => {
+            setParams("sort", value ? value.value : null)
+        },
+        setStarsMax: (e: ChangeEvent<HTMLInputElement>) => {
+            setParams("starsMax", e.target.value);
+        },
+        setStarsMin: (e: ChangeEvent<HTMLInputElement>) => {
+            setParams("starsMin", e.target.value);
+        },
+        onSubmitForm: (e: ChangeEvent<HTMLInputElement>) => {
+            setParams("pushedFrom", e.target.value);
+        },
+        setPushedFrom: (e: ChangeEvent<HTMLInputElement>) => {
+            setParams("pushedFrom", e.target.value);
+        },
+        setPushedTo: (e: ChangeEvent<HTMLInputElement>) => {
+            setParams("pushedTo", e.target.value);
+        },
+        setCreatedTo: (e: ChangeEvent<HTMLInputElement>) => {
+            setParams("createdFrom", e.target.value);
+        },
+        setCreatedFrom: (e: ChangeEvent<HTMLInputElement>) => {
+            setParams("createdFrom", e.target.value);
+        },
     };
 }
 

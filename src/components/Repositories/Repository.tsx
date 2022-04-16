@@ -31,7 +31,7 @@ const Repository: FC<PropsType> = memo((props) => {
                         {props.name}
                     </Link>
                     {" "}
-                    <a href={props.html_url} className={classes.repository__nameSvg}>
+                    <a href={props.html_url} className={classes.repository__nameSvg} target="_blank" rel="noopener">
                         <LinkIcon/>
                     </a>
                 </span>
