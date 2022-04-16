@@ -1,7 +1,7 @@
 import {Octokit} from "octokit";
-import {Endpoints} from "@octokit/types";
 import {ICommits} from "../models/ICommits";
 import {ParamsSearchReposType} from "../models/IRepository";
+import {IContributors} from "../models/IContributors";
 
 let octokit = new Octokit({
     auth: localStorage.getItem("access_token")
@@ -30,7 +30,7 @@ export const reposAPI = {
             per_page: 100
         });
 
-        const response: { data: Endpoints["GET /repos/{owner}/{repo}/contributors"]["response"]["data"] } = {data: []};
+        const response: { data: IContributors } = {data: []};
         for await (const {data} of iterator) {
             response.data.push(...data);
         }

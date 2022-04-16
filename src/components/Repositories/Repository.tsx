@@ -9,6 +9,7 @@ import Title from "../utils/Title/Title";
 import Topics from "./RepositoryParts/Topics/Topics";
 import Description from "./RepositoryParts/Description/Description";
 import classes from "./Repositories.module.scss";
+import {Link} from "react-router-dom";
 
 interface PropsType extends IRepository {
 }
@@ -24,10 +25,16 @@ const Repository: FC<PropsType> = memo((props) => {
         <BlockShadow className={classes.repository}>
             <Title level={3} className={classNames(classes.repository__name)}>
                 Repository: {" "}
-                <a href={props.html_url}>
-                    <span className={classes.repository__nameText}>{props.name}</span> {" "}
-                    <span className={classes.repository__nameSvg}><LinkIcon/></span>
-                </a>
+                <span className={classes.repository__nameLinks}>
+                    <Link to={`/repository/${props?.owner?.login}/${props.name}`}
+                          className={classes.repository__nameText}>
+                        {props.name}
+                    </Link>
+                    {" "}
+                    <a href={props.html_url} className={classes.repository__nameSvg}>
+                        <LinkIcon/>
+                    </a>
+                </span>
             </Title>
             <div className={classes.repository__owner}>
                 <div className={classes.repository__ownerName}>Owner: {props?.owner?.login}</div>

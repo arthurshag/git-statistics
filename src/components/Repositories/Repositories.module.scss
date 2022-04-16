@@ -30,7 +30,7 @@
   &__name {
     font-size: 1.5em;
 
-    & a {
+    &Links {
       display: flex;
       align-items: center;
       gap: 0.5em;
@@ -48,7 +48,12 @@
     }
 
     &Svg {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
       & svg {
+        margin-bottom: -0.1em;
         width: 1em;
         height: 1em;
       }
