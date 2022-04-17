@@ -22,7 +22,6 @@ const RepositoriesPage: FC = () => {
         setParams("page", value);
         saveParamsInUrl({...currentParams, page: value});
     };
-
     const {data, isLoading, error, isFetching} = useGetRepositoriesQuery(transformToRequestParams(currentParams));
     return (
         <>

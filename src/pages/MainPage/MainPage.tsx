@@ -968,7 +968,7 @@ const MainPage: FC = () => {
                         className={classes.addUserBtn}
                     >+</div>
                 </div>
-
+                {/*<img src="https://ghchart.rshah.org/TalisMan701" alt="TalisMan701 Github chart" />*/}
                 {/*{contributionCalendar()}*/}
             </div>
         </>

@@ -9,11 +9,8 @@
 }
 
 .loadingProfile{
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  width: $widthProfile;
+  height: 500px;
   background-color: #e0e0e0;
   @include flexCenterCenter;
 }
@@ -35,6 +32,10 @@
 .btnRepos{
   margin-top: auto;
   margin-bottom: 0px;
+  width: 100%;
+  @include flexCenterCenter;
+  text-decoration: none;
+  padding: 8px 0;
 }
 
 .profileDelBtn{
