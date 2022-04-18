@@ -21,14 +21,8 @@ const ReposFilters: FC<IFilters> = ({
                                     }) => {
 
     const [isOpen, setIsOpen] = useState(false);
-    const memoizedGetHandlers = useMemo(() => getHandlers(setParams), [setParams]);
+    const {setRepoName, onSubmitForm, setUsername} = useMemo(() => getHandlers(setParams), [setParams]);
     const onClickMore = () => setIsOpen((prev) => !prev);
-    const {
-        setRepoName,
-        onSubmitForm,
-        setUsername,
-    } = memoizedGetHandlers;
-
 
     //todo: change ui buttons
     return <BlockShadow>

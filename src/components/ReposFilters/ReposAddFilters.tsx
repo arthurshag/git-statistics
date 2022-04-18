@@ -38,7 +38,6 @@ const ReposAddFilters: FC<IFilters> = ({
     const currentOptionsLanguages = params.languages ?
         params.languages.split(" ").map((e) => ({label: e, value: e})) : null;
 
-    const memoizedGetHandlers = useMemo(() => getHandlers(setParams), [setParams]);
     const {
         onChangeFilterSort,
         onChangeLanguages,
@@ -48,7 +47,7 @@ const ReposAddFilters: FC<IFilters> = ({
         setPushedFrom,
         setPushedTo,
         setCreatedTo
-    } = memoizedGetHandlers;
+    } = useMemo(() => getHandlers(setParams), [setParams]);
 
     return (<>
         <div className={classes.filters__twoInOne}>

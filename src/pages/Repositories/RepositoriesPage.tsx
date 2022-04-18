@@ -1,5 +1,5 @@
 import React, {FC, useCallback, useEffect} from 'react';
-import {ReposUrlParamsType, useReposFilterParams} from "../../helpers/hooks/useReposFilterParams";
+import {useReposFilterParams} from "../../helpers/hooks/useReposFilterParams";
 import ReposFilters from "../../components/ReposFilters/ReposFilters";
 import Repositories from "../../components/Repositories/Repositories";
 import Pagination from "../../components/utils/Pagination/Pagination";
@@ -11,33 +11,29 @@ import BlockShadow from "../../components/utils/BlockShadow/BlockShadow";
 import Title from "../../components/utils/Title/Title";
 
 
+//todo: change newParams onClick back page
 const RepositoriesPage: FC = () => {
-    let {newParams, currentParams, setParams, saveParamsInUrl, reset} = useReposFilterParams();
+    const {newParams, currentParams, setParams, saveParamsInUrl, reset} = useReposFilterParams();
     const [trigger, result] = useLazyGetRepositoriesQuery();
     const {data, isLoading, error} = result;
+
     useEffect(() => {
         const params = transformToRequestReposParams(currentParams);
         if (params.q.length > 0)
             trigger(params);
-    }, [])
+    }, [...Object.values(currentParams)])
 
-    const fetchRepos = (params: ReposUrlParamsType) => {
-        const requestReposParams = transformToRequestReposParams(params);
-        if (requestReposParams.q.length === 0)
-            return;
-        setParams("page", params.page);
-        saveParamsInUrl(params);
-        trigger(requestReposParams);
-    }
 
     const fetchReposOnFiltersClick = () => {
         const params = {...newParams, page: "1"};
-        fetchRepos(params);
+        setParams("page", params.page);
+        saveParamsInUrl(params);
     }
 
     const paginateHandler = useCallback((value: number) => {
         const params = {...newParams, page: String(value)};
-        fetchRepos(params);
+        setParams("page", params.page);
+        saveParamsInUrl(params);
     }, [currentParams]);
 
 
