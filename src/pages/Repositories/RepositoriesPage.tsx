@@ -11,30 +11,29 @@ import BlockShadow from "../../components/utils/BlockShadow/BlockShadow";
 import Title from "../../components/utils/Title/Title";
 
 
-//todo: change newParams onClick back page
 const RepositoriesPage: FC = () => {
     const {newParams, currentParams, setParams, saveParamsInUrl, reset} = useReposFilterParams();
     const [trigger, result] = useLazyGetRepositoriesQuery();
     const {data, isLoading, error} = result;
 
+    const deps = [...Object.values(currentParams)];
+
     useEffect(() => {
         const params = transformToRequestReposParams(currentParams);
         if (params.q.length > 0)
             trigger(params);
-    }, [...Object.values(currentParams)])
+    }, deps)
 
 
     const fetchReposOnFiltersClick = () => {
         const params = {...newParams, page: "1"};
-        setParams("page", params.page);
         saveParamsInUrl(params);
     }
 
     const paginateHandler = useCallback((value: number) => {
         const params = {...newParams, page: String(value)};
-        setParams("page", params.page);
         saveParamsInUrl(params);
-    }, [currentParams]);
+    }, deps);
 
 
     return (

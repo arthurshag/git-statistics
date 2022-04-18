@@ -1,6 +1,6 @@
 import {useSearchParams} from "react-router-dom";
 import {ParamsSearchReposType} from "../../models/IRepository";
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 export type ReposUrlParamsType = {
     username?: string | null,
@@ -21,7 +21,7 @@ type SetValueType = <T extends keyof ReposUrlParamsType>(field: T, value: ReposU
 
 //todo: maybe take string fields in param and configure parameters from the url for them
 export const useReposFilterParams = () => {
-    let [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const currentParams: ReposUrlParamsType = {
         sort: searchParams.get("sort") as ParamsSearchReposType["sort"],
         username: searchParams.get("username"),
@@ -38,6 +38,10 @@ export const useReposFilterParams = () => {
     };
 
     const [newParams, setNewParams] = useState<ReposUrlParamsType>(currentParams);
+    useEffect(() => {
+        setNewParams(currentParams);
+    }, [...Object.values(currentParams)])
+
     const reset = () => setNewParams({username: "", page: "1", filesPerPage: "10"});
     const setValue: SetValueType = useCallback((field, value) => {
         setNewParams((state) => ({...state, [field]: value}));
