@@ -1,7 +1,10 @@
-import React, {ChangeEvent, FC, KeyboardEvent, useRef, useState} from "react";
+import React, {ChangeEvent, FC, useRef, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../redux/hooks/reduxHooks";
 import {checkTokenByFetchProfile} from "../../../redux/reducers/ProfileReducer/ActionCreators";
+import TextInput from "../../utils/TextInput/TextInput";
+import Button from "../../utils/Button/Button";
 import classes from "../Auth.module.scss";
+import Loading from "../../utils/Loading/Loading";
 
 const AuthForm: FC = () => {
     const [token, setToken] = useState("");
@@ -12,43 +15,52 @@ const AuthForm: FC = () => {
     const error = useAppSelector((state) => state.profileReducer.error);
     const loading = useAppSelector((state) => state.profileReducer.checkTokenLoading);
 
-    function onChange(e: ChangeEvent<HTMLInputElement>) {
-        setValidationError(null);
-        setToken(e.target.value);
+    function validationHandler() {
+        let flag = true;
+        if (!input.current?.checkValidity()) {
+            flag = false;
+            setValidationError("You can use only Latin letters and numbers");
+        } else if (!input?.current?.value || input?.current?.value.length === 0) {
+            flag = false;
+            setValidationError("This is required field")
+        } else {
+            setValidationError(null);
+        }
+
+        return flag;
     }
 
-    function onKeyPress(e: KeyboardEvent<HTMLInputElement>) {
-        if (e.keyCode === 13) {
-            onSubmit();
-        }
+    function onChange(e: ChangeEvent<HTMLInputElement>) {
+        setToken(e.target.value);
+        validationHandler();
     }
 
     function onSubmit() {
-        if (!input.current?.checkValidity()) {
-            setValidationError("You can use only Latin letters and numbers");
-            return;
+        if (!validationHandler()) {
+            return
         }
 
         dispatch(checkTokenByFetchProfile(token));
     }
 
-    //todo: add validate
+
     return (<>
             <a className={classes.auth__hrefToken}
                href={"https://github.com/settings/tokens"}>
                 Get token
             </a>
-            <label className={classes.auth__input}>
-                <input disabled={loading} className={classes.auth__inputForm}
+            <TextInput disabled={loading} className={classes.auth__inputForm}
                        pattern={"[a-zA-Z0-9_]*"}
                        placeholder={"Enter your personal key token"} value={token} ref={input}
-                       onChange={onChange} onKeyDown={onKeyPress}/>
-                <span className={classes.auth__inputError}>{validationError || error}</span>
-            </label>
-
-            <button onClick={onSubmit} disabled={loading || validationError !== null}>SET TOKEN</button>
+                       onChange={onChange} onPressEnter={onSubmit} error={validationError}
+            />
+            <span className={classes.auth__error}>{error}</span>
+            <Button onClick={onSubmit} disabled={loading || validationError !== null} className={classes.auth__btn}>
+                SET TOKEN <Loading className={classes.auth__loading} isLoading={loading}/>
+            </Button>
         </>
     );
 };
+
 
 export default AuthForm;
