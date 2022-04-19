@@ -13,13 +13,6 @@
 
   }
 
-  &__input {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-
   &__btn {
     font-size: 1.2em;
 
@@ -37,7 +30,7 @@
   }
 
   &__error {
-    height: 1cm;
+    height: 1.1em;
     color: $colorAlert;
     font-weight: 600;
     font-size: 1.1em;

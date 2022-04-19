@@ -3,8 +3,8 @@ import {useAppDispatch, useAppSelector} from "../../../redux/hooks/reduxHooks";
 import {checkTokenByFetchProfile} from "../../../redux/reducers/ProfileReducer/ActionCreators";
 import TextInput from "../../utils/TextInput/TextInput";
 import Button from "../../utils/Button/Button";
-import classes from "../Auth.module.scss";
 import Loading from "../../utils/Loading/Loading";
+import classes from "../Auth.module.scss";
 
 const AuthForm: FC = () => {
     const [token, setToken] = useState("");
