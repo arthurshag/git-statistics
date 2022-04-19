@@ -14,7 +14,9 @@ const ColumnDateChart: FC<IProps> = ({legend, dataChart}) => {
             <span className={classes.yellow}>Yellow</span>{" >=24 hours "}
             <span className={classes.green}>Green</span>{" <24 hours "}
         </p>
-        <Chart chartType={"ColumnChart"} data={[legend, ...dataChart]}/>
+        <p>You can also change the scale of the chart using the mouse wheel. Right click reset chart</p>
+        <Chart chartType={"AreaChart"} data={[legend, ...dataChart]}
+               options={{explorer: {keepInBounds: true}, vAxis: {minValue: 0}}}/>
     </>
 }
 

@@ -13,7 +13,10 @@ const CalendarChart: FC<IProps> = ({dataChart, legend}) => {
         chartType="Calendar"
         data={[legend, ...dataChart]}
         height={300}
-        options={{calendar: {cellSize: 14},}}
+        options={{
+            calendar: {cellSize: 14},
+            colorAxis: {minValue: 0, colors: ['#f6ffe5', '#ff0000']},
+        }}
         width="100%"
     />;
 };
