@@ -1,41 +1,48 @@
 @import "../../assets/variables";
 
-//todo: пока стили тяп ляп для виду, позже переделать
-@mixin block () {
-  box-shadow: 1px 2px 6px 2px rgba(197, 204, 211, 0.5);
-  border-radius: 5px;
-  padding: 20px 50px;
-  overflow: hidden;
-}
 
 .repository {
-  align-self: stretch;
   margin-top: 20px;
-  @include block();
+  padding: 20px 50px;
 
+  &__titleLinkIcon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1em;
+    height: 1em;
 
-  &__statsWrapperData{
-    @include block();
-  }
-
-  & h2,& h3, & h4 {
-    margin-bottom: 20px;
-  }
-
-}
-
-.owner {
-  @include block;
-  margin: 20px 0;
-  font-size: 30px;
-
-  &__img {
-    width: 50%;
+    & svg {
+      display: inline-block;
+      vertical-align: top;
+      margin-top: -0.1em;
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 
 
-.block {
-  margin: 20px 0;
-  @include block();
+.statistics {
+  &__cloneUrl {
+    margin-top: 20px;
+  }
+
+  &__main {
+    width: calc(max(50%, 400px));
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid $colorSecondary;
+    font-size: 1.5em;
+
+    &Value {
+      color: $colorAzure;
+    }
+  }
+
+  &__addInfo {
+    font-size: 1.2em;
+    margin-bottom: 80px;
+  }
 }
+
