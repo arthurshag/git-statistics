@@ -5,11 +5,21 @@ import AuthContainer from "../../pages/Auth/Auth";
 import {Navigate, RouteObject} from "react-router-dom";
 import Repository from "../Repository/RepositoryContainer";
 import RepositoriesPage from "../../pages/Repositories/RepositoriesPage";
+import UserDetailed from "../UserDetailed/UserDetailed";
 
 const routes: RouteObject[] = [
     {
         path: '/',
         element: <MainPage/>,
+    },
+    {
+        path: "user",
+        element: <UserDetailed/>,
+        children: [
+            {
+                path: ":username", element: <UserDetailed/>,
+            }
+        ]
     },
     {
         path: "login",

@@ -1,14 +1,8 @@
-import {Octokit} from "octokit";
-import {Endpoints} from "@octokit/types";
 import {ICommits} from "../models/ICommits";
 import {ParamsSearchReposType} from "../models/IRepository";
-import {IIssues} from "../models/IIssues";
+import {octokit} from "./api";
+import {ICollaborators} from "../models/ICollaborators";
 import {IContributors} from "../models/IContributors";
-import {IPulls} from "../models/IPulls";
-
-let octokit = new Octokit({
-    auth: localStorage.getItem("access_token")
-});
 
 export const reposAPI = {
     async getRepos(params: ParamsSearchReposType) {
@@ -35,6 +29,20 @@ export const reposAPI = {
         });
 
         const response: { data: IContributors } = {data: []};
+        for await (const {data} of iterator) {
+            response.data.push(...data);
+        }
+
+        return response;
+    },
+    async getCollaborators({owner, repo}: { owner: string, repo: string }) {
+        const iterator = octokit.paginate.iterator(octokit.rest.repos.listCollaborators, {
+            owner,
+            repo,
+            per_page: 100
+        });
+
+        const response: { data: ICollaborators } = {data: []};
         for await (const {data} of iterator) {
             response.data.push(...data);
         }
@@ -91,4 +99,6 @@ export const reposAPI = {
 
         return response;
     },
+
+
 }
