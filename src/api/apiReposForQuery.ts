@@ -3,6 +3,9 @@ import {ParamsSearchReposType} from "../models/IRepository";
 import {octokit} from "./api";
 import {ICollaborators} from "../models/ICollaborators";
 import {IContributors} from "../models/IContributors";
+import {Endpoints} from "@octokit/types";
+import {IPulls} from "../models/IPulls";
+import {IIssues} from "../models/IIssues";
 
 export const reposAPI = {
     async getRepos(params: ParamsSearchReposType) {
