@@ -33,13 +33,13 @@ const Events: FC<IProps> = ({data, isLoading, error}) => {
             <Title level={3}><IconWrapper Icon={PinIcon}/> Last 500 Events:</Title>
             <Loading isLoading={isLoading}>
                 <ErrorGate error={error as string | undefined | null}>
-                    <Chart
+                    {separate && separate.length > 0 ? <Chart
                         chartType="Table"
                         width="100%"
                         data={separate && [["Type", "Count"], ...separate]}
                         options={options}
                         formatters={formatters}
-                    />
+                    /> : "No data"}
                 </ErrorGate>
             </Loading>
         </div>
