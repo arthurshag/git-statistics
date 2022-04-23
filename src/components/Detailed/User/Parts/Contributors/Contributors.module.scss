@@ -1,0 +1,34 @@
+@import "src/assets/variables";
+
+.contributors {
+  &__list {
+    padding: 0.2em;
+    max-height: 300px;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5em, 1fr));
+    flex-wrap: wrap;
+    column-gap: 0.3em;
+    gap: 0.8em;
+  }
+}
+
+
+.contributor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+
+  &__login {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__img {
+    width: 6em;
+    height: 6em;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid $colorAzure;
+  }
+}

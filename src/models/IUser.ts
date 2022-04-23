@@ -1,4 +1,5 @@
 import {IRepository} from "./IRepository";
+import {Endpoints} from "@octokit/types";
 
 export interface IUser {
     avatar_url: string,
@@ -13,3 +14,6 @@ export interface IUser {
     public_repos: number,
     repositories?: undefined | null | IRepository[]
 }
+
+export type UserGitType = Endpoints["GET /user"]["response"]["data"];
+// интерфейс не дает создать

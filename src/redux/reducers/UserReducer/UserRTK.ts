@@ -2,8 +2,9 @@ import {createApi} from '@reduxjs/toolkit/query/react'
 import {IRepository} from "../../../models/IRepository";
 import {usersAPI} from "../../../api/apiUserForQuery";
 import {IContributors} from "../../../models/IContributors";
-import {IUser} from "../../../models/IUser";
+import {UserGitType} from "../../../models/IUser";
 import {ILanguage} from "../../../models/ILanguage";
+import {ICommits} from "../../../models/ICommits";
 
 
 type PropsType<T extends keyof typeof usersAPI> = {
@@ -24,12 +25,12 @@ export const usersRTK = createApi({
         }
     },
     endpoints: (builder) => ({
-        getUser: builder.query <IUser, PropsType<"getUser">["params"]>
+        getUser: builder.query <UserGitType, PropsType<"getUser">["params"]>
         ({
             query: (params) => ({params, url: "getUser"}),
 
         }),
-        getAllCommits: builder.query <IRepository[], PropsType<"getAllUserCommits">["params"]>
+        getAllCommits: builder.query <ICommits, PropsType<"getAllUserCommits">["params"]>
         ({
             query: (params) => ({params, url: "getAllUserCommits"}),
         }),

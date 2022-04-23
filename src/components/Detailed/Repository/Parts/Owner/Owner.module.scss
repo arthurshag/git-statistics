@@ -1,0 +1,19 @@
+.user {
+  display: flex;
+  gap: 50px;
+}
+
+.userData {
+  display: flex;
+  flex-direction: column;
+}
+
+.userType {
+  font-size: 1.4em;
+}
+
+.userBlockImg {
+  & img {
+    height: 200px;
+  }
+}

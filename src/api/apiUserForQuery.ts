@@ -9,21 +9,22 @@ export const usersAPI = {
     async getUser(params: { username: string }) {
         return octokit.rest.users.getByUsername(params);
     },
-    async getUserContributors(repos: { owner: string, repo: string }[]) {
-        const obj: { [key: string]: IContributors[0] & { count: number } } = {};
+    async getUserContributors({repos, user}: { repos: { owner: string, repo: string }[], user: string }) {
+        const contributorsObj: { [key: string]: IContributors[0] & { count: number } } = {};
         for (const repo of repos) {
             const {data} = await reposAPI.getContributors(repo);
             data.forEach((e) => {
-                if (!e.login)
+                if (!e.login || e.login === user)
                     return;
-                if (!obj[e.login])
-                    obj[e.login] = {...e, count: 1};
+                if (!contributorsObj[e.login])
+                    contributorsObj[e.login] = {...e, count: 1};
                 else
-                    obj[e.login].count++;
+                    contributorsObj[e.login].count++;
             })
         }
 
-        return {data: obj};
+        const contributors = Object.values(contributorsObj).sort((a, b) => -a.count + b.count);
+        return {data: contributors};
     },
     async getAllRepos(params: Omit<ParamsSearchReposType, "per_page" | "page">) {
         const iterator = octokit.paginate.iterator(octokit.rest.search.repos, {
@@ -54,10 +55,16 @@ export const usersAPI = {
     },
     async getAllUserCommits(repos: { owner: string, repo: string }[]) {
         const response: { data: ICommits } = {data: []};
+        //region todo: add config in params
+        const todayYearAgo = new Date();
+        todayYearAgo.setFullYear(todayYearAgo.getFullYear() - 1);
+        const dateIsoString = todayYearAgo.toISOString();
+        //endregion
         for (const repo of repos) {
             const iterator = octokit.paginate.iterator(octokit.rest.repos.listCommits, {
                 owner: repo.owner,
                 repo: repo.repo,
+                since: dateIsoString,
                 per_page: 100
             });
 
