@@ -1,7 +1,6 @@
 import axios, {AxiosInstance} from 'axios';
 import {IUser} from "../models/IUser";
 import {Octokit} from "octokit";
-import {Endpoints} from "@octokit/types";
 
 let octokit = new Octokit({
     auth: localStorage.getItem("access_token")
@@ -46,5 +45,9 @@ export const auth = {
     setAccessToken(access_token: string) {
         localStorage.setItem("access_token", access_token)
         octokit = new Octokit({auth: access_token});
+    },
+    removeAccessToken() {
+        localStorage.removeItem("access_token")
+        octokit = new Octokit();
     }
 }
