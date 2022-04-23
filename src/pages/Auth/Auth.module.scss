@@ -3,7 +3,7 @@
 .auth {
   display: flex;
   background: $colorSecondary;
-  min-height: 100vh;
+  flex: 1 1 auto;
   overflow: hidden;
 
   color: black;
@@ -33,7 +33,7 @@
   &__formWrapper {
     align-self: flex-start;
     background: white;
-    margin: 50% auto 0;
+    margin: 35% auto 0;
     max-width: 600px;
     width: 100%;
     display: flex;

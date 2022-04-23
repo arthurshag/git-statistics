@@ -1,6 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
 import classes from "./MainPage.module.scss"
-import Header from "../../components/Header/Header";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks/reduxHooks";
 import {fetchUser} from "../../redux/reducers/UserReducer/ActionCreators";
 import FormLogin from "../../components/FormLogin/FormLogin";
@@ -23,14 +22,13 @@ const MainPage: FC = () => {
     }, []);
 
     return (
-        <>
-            <Header/>
+        <div className={classes.wrapper}>
             <div className={classes.container}>
                 <FormLogin handleClick={handleClick} text={login} setText={setLogin} disabled={isLoading}
                            error={error}/>
                 <Profile user={user} isLoading={isLoading}/>
             </div>
-        </>
+        </div>
     );
 };
 

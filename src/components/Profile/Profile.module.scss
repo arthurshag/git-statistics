@@ -1,11 +1,12 @@
 @import "../../assets/variables";
-.profile{
+
+.profile {
   position: relative;
   width: $widthProfile;
   box-shadow: 0 0 3px 0 #0000005c;
 }
 
-.loadingProfile{
+.loadingProfile {
   position: absolute;
   top: 0;
   right: 0;
@@ -15,16 +16,17 @@
   @include flexCenterCenter;
 }
 
-.profileImg{
+.profileImg {
   width: $widthProfile;
   height: $widthProfile;
 }
 
-.profileRow{
+.profileRow {
   width: 100%;
   padding: 8px;
   border-bottom: 1px solid rgba(217, 214, 214, 0.6);
-  &:last-child{
+
+  &:last-child {
     border-bottom: none;
   }
 }
