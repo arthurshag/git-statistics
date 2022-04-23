@@ -14,7 +14,6 @@ const Repositories: FC<PropsType> = memo(({repositories}) => {
 
     return (
         <div className={classes.repositories}>
-            <h2>Repositories</h2>
             <div className={classes.repositories__wrapper}>{UIRepos}</div>
         </div>
     );

@@ -1,5 +1,4 @@
 import {Octokit} from "octokit";
-import {Endpoints} from "@octokit/types";
 import {ICommits} from "../models/ICommits";
 import {ParamsSearchReposType} from "../models/IRepository";
 import {IIssues} from "../models/IIssues";
