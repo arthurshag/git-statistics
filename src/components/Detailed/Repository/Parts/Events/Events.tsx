@@ -19,7 +19,7 @@ const Events: FC<IProps> = ({owner, repo, className}) => {
 
     return (
         <Loading isLoading={isLoading}>
-            <Title level={3}>Events:</Title>
+            <Title level={3}>Last 500 Events:</Title>
             <ErrorGate error={error as string | undefined | null}>
                 <CalendarChart dataChart={dataChart}
                                legend={[{type: "date", id: "Date"}, {type: "number", id: "events"}]}/>

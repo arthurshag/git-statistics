@@ -5,6 +5,7 @@ import {IContributors} from "../../../models/IContributors";
 import {UserGitType} from "../../../models/IUser";
 import {ILanguage} from "../../../models/ILanguage";
 import {ICommits} from "../../../models/ICommits";
+import {IEvents} from "../../../models/IEvents";
 
 
 type PropsType<T extends keyof typeof usersAPI> = {
@@ -46,6 +47,10 @@ export const usersRTK = createApi({
         ({
             query: (params) => ({params, url: "getAllRepos"}),
         }),
+        getEvents: builder.query <IEvents, PropsType<"getEvents">["params"]>
+        ({
+            query: (params) => ({params, url: "getEvents"}),
+        }),
     }),
 })
 
@@ -57,4 +62,5 @@ export const {
     useGetAllCommitsQuery,
     useLazyGetContributorsQuery,
     useLazyGetLanguagesQuery,
+    useGetEventsQuery,
 } = usersRTK;

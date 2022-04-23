@@ -4,6 +4,7 @@ import {reposAPI} from "./apiReposForQuery";
 import {ILanguage} from "../models/ILanguage";
 import {IRepository, ParamsSearchReposType} from "../models/IRepository";
 import {ICommits} from "../models/ICommits";
+import {IEvents} from "../models/IEvents";
 
 export const usersAPI = {
     async getUser(params: { username: string }) {
@@ -75,4 +76,25 @@ export const usersAPI = {
 
         return response;
     },
+    async getEvents({
+                        username,
+                        countToTake = 500
+                    }: { username: string, countToTake?: 100 | 200 | 300 | 400 | 500 | "all" }) {
+        const response: { data: IEvents } = {data: []};
+
+        const iterator = octokit.paginate.iterator(octokit.rest.activity.listPublicEventsForUser, {
+            username,
+            per_page: 100
+        });
+
+        let i = 0;
+        for await (const resp of iterator) {
+            response.data.push(...resp.data);
+            i++;
+            if (i * 100 === countToTake)
+                break;
+        }
+
+        return response;
+    }
 }

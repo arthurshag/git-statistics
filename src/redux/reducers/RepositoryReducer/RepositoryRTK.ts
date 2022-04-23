@@ -3,7 +3,7 @@ import {reposAPI} from "../../../api/apiReposForQuery";
 import {IRepository, ParamsSearchReposType, SearchReposType} from "../../../models/IRepository";
 import {ILanguage} from "../../../models/ILanguage";
 import {IContributors} from "../../../models/IContributors";
-import {IRepoEvents} from "../../../models/IRepoEvents";
+import {IEvents} from "../../../models/IEvents";
 import {ICommits} from "../../../models/ICommits";
 import {IPulls} from "../../../models/IPulls";
 import {IIssues} from "../../../models/IIssues";
@@ -45,7 +45,7 @@ export const repositoryApi = createApi({
         ({
             query: (params) => ({params, url: "getContributors"}),
         }),
-        getEvents: builder.query <IRepoEvents, PropsType<"getEvents">["params"]>
+        getEvents: builder.query <IEvents, PropsType<"getEvents">["params"]>
         ({
             query: (params) => ({params, url: "getEvents"}),
         }),
