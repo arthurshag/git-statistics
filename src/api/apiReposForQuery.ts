@@ -4,6 +4,7 @@ import {ParamsSearchReposType} from "../models/IRepository";
 import {IIssues} from "../models/IIssues";
 import {IContributors} from "../models/IContributors";
 import {IPulls} from "../models/IPulls";
+import {Endpoints} from "@octokit/types";
 
 let octokit = new Octokit({
     auth: localStorage.getItem("access_token")
