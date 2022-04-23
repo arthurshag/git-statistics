@@ -3,9 +3,11 @@ import {useGetContributorsQuery} from "../../../../../redux/reducers/RepositoryR
 import Title from "../../../../utils/Title/Title";
 import Loading from "../../../../utils/Loading/Loading";
 import ErrorGate from "../../../../utils/ErrorGate/ErrorGate";
-import {ReactComponent as Icon} from "../../../../../assets/icons/link.svg";
-import {Link} from "react-router-dom";
 import classes from "./Contributors.module.scss";
+import BlockShadow from "../../../../utils/BlockShadow/BlockShadow";
+import LinkGit from "../../../../utils/LinkGit/LinkGit";
+import {PeopleIcon} from "@primer/octicons-react";
+import IconWrapper from "../../../../utils/IconWrapper/IconWrapper";
 
 interface IProps {
     owner: string,
@@ -15,25 +17,23 @@ interface IProps {
 const Contributors: FC<IProps> = ({owner, repo}) => {
     const {data, error, isLoading} = useGetContributorsQuery({owner, repo})
     const contributorsUI = data?.map((c) => {
-        return <React.Fragment key={c.id}>
-            <span>
-                <Link to={`users/${c.login}`}>{c.login}</Link>{" "}
-                <a href={c.html_url} className={classes.contributors__iconLink} target="_blank" rel="noopener">
-                    <Icon/>
-                </a>
-            </span> {" "}
-        </React.Fragment>
+        return <BlockShadow key={c.id} className={classes.contributor}>
+            <LinkGit inner={{url: `/user/${c.login}`, text: c.login || ""}} githubUrl={c.html_url}/>
+            <div className={classes.contributor__img}><img src={c.avatar_url}/></div>
+        </BlockShadow>
     })
 
     return (
-        <Loading isLoading={isLoading}>
-            <div className={classes.contributors}>
-                <Title level={3}>Contributors:</Title>
+        <div>
+            <Title level={3}><IconWrapper Icon={PeopleIcon}/> Contributors:</Title>
+            <Loading isLoading={isLoading}>
                 <ErrorGate error={error as string | undefined | null}>
-                    <div className={classes.contributors__items}>{contributorsUI}</div>
+                    <div className={classes.contributors__list}>
+                        {contributorsUI && contributorsUI?.length > 0 ? contributorsUI : "There nothing"}
+                    </div>
                 </ErrorGate>
-            </div>
-        </Loading>
+            </Loading>
+        </div>
     );
 };
 

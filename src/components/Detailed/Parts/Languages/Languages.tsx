@@ -4,6 +4,8 @@ import {Chart} from "react-google-charts";
 import ErrorGate from "../../../utils/ErrorGate/ErrorGate";
 import {ILanguage} from "../../../../models/ILanguage";
 import Loading from "../../../utils/Loading/Loading";
+import {VersionsIcon} from "@primer/octicons-react";
+import IconWrapper from "../../../utils/IconWrapper/IconWrapper";
 
 interface IProps {
     data: ILanguage | undefined,
@@ -18,7 +20,7 @@ const Languages: FC<IProps> = ({data, error, isLoading, label}) => {
         //todo: говно либа ломается, если здесь ставить loading, почему и как это происходит не понимаю
         <Loading isLoading={false}>
             <div>
-                <Title level={3}>Languages</Title>
+                <Title level={3}><IconWrapper Icon={VersionsIcon}/> Languages</Title>
                 <p>{label}</p>
                 <ErrorGate error={error as string | null | undefined}>
                     <Chart

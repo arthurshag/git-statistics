@@ -30,7 +30,9 @@ const Contributors: FC<IProps> = ({user}) => {
             <Title level={3}>Contributors:</Title>
             <Loading isLoading={isLoading}>
                 <ErrorGate error={error as string | undefined | null}>
-                    <div className={classes.contributors__list}>{contributorsUI || "There nothing"}</div>
+                    <div className={classes.contributors__list}>
+                        {contributorsUI && contributorsUI?.length > 0 ? contributorsUI : "There nothing"}
+                    </div>
                 </ErrorGate>
             </Loading>
         </div>

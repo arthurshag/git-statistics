@@ -2,8 +2,8 @@
 
 .contributors {
   &__list {
-    padding: 0.2em;
-    max-height: 300px;
+    padding: 0.6em;
+    max-height: 240px;
     overflow: auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(8.5em, 1fr));

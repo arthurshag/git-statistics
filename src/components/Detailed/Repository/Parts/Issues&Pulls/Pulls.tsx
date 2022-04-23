@@ -4,6 +4,8 @@ import Title from "../../../../utils/Title/Title";
 import ColumnChart, {getDataChart} from "../../../Parts/Charts/ColumnChart/ColumnChart";
 import Loading from "../../../../utils/Loading/Loading";
 import ErrorGate from "../../../../utils/ErrorGate/ErrorGate";
+import {GitPullRequestIcon} from "@primer/octicons-react";
+import IconWrapper from "../../../../utils/IconWrapper/IconWrapper";
 
 interface IProps {
     owner: string,
@@ -18,7 +20,7 @@ const Pulls: FC<IProps> = ({owner, repo}) => {
     return (
         <Loading isLoading={isLoading}>
             <div>
-                <Title level={3}>Last 100 Closed Pulls</Title>
+                <Title level={3}><IconWrapper Icon={GitPullRequestIcon}/> Last 100 Closed Pulls</Title>
                 <p>Time in hours spent on closing pulls requests</p>
                 <ErrorGate error={error as string | null | undefined}>
                     {dataChart && dataChart.length > 0 ?

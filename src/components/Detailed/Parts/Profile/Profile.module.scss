@@ -1,8 +1,9 @@
-@import "src/assets/variables";
+@import "../../../../assets/variables";
 
 .user {
   display: flex;
   gap: 50px;
+  margin-bottom: 1em;
 }
 
 .userData {
@@ -20,7 +21,7 @@
   overflow: hidden;
   border: 1px solid $colorAzure;
   aspect-ratio: 1/1;
-  height: 200px;
+  width: 200px;
 
   & img {
     width: 100%;
