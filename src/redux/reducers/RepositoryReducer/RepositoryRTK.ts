@@ -5,6 +5,8 @@ import {ILanguage} from "../../../models/ILanguage";
 import {IContributors} from "../../../models/IContributors";
 import {IRepoEvents} from "../../../models/IRepoEvents";
 import {ICommits} from "../../../models/ICommits";
+import {IPulls} from "../../../models/IPulls";
+import {IIssues} from "../../../models/IIssues";
 
 
 type PropsType<T extends keyof typeof reposAPI> = {
@@ -51,6 +53,14 @@ export const repositoryApi = createApi({
         ({
             query: (params) => ({params, url: "getAllCommits"}),
         }),
+        getClosedPulls: builder.query <IPulls, PropsType<"getClosedPulls">["params"]>
+        ({
+            query: (params) => ({params, url: "getClosedPulls"}),
+        }),
+        getClosedIssues: builder.query <IIssues, PropsType<"getClosedIssues">["params"]>
+        ({
+            query: (params) => ({params, url: "getClosedIssues"}),
+        }),
     }),
 })
 
@@ -61,5 +71,7 @@ export const {
     useGetContributorsQuery,
     useGetEventsQuery,
     useGetLanguagesQuery,
-    useGetAllCommitsQuery
+    useGetAllCommitsQuery,
+    useGetClosedPullsQuery,
+    useGetClosedIssuesQuery,
 } = repositoryApi;

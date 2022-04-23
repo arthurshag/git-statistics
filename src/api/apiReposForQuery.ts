@@ -2,6 +2,9 @@ import {Octokit} from "octokit";
 import {Endpoints} from "@octokit/types";
 import {ICommits} from "../models/ICommits";
 import {ParamsSearchReposType} from "../models/IRepository";
+import {IIssues} from "../models/IIssues";
+import {IContributors} from "../models/IContributors";
+import {IPulls} from "../models/IPulls";
 
 let octokit = new Octokit({
     auth: localStorage.getItem("access_token")
@@ -11,14 +14,9 @@ export const reposAPI = {
     async getRepos(params: ParamsSearchReposType) {
         return octokit.rest.search.repos(params);
     },
+
     async getRepo({owner, repo}: { owner: string, repo: string }) {
         return (await octokit.rest.repos.get({
-            owner,
-            repo,
-        }));
-    },
-    async fetchLanguages({owner, repo}: { owner: string, repo: string }) {
-        return (await octokit.rest.repos.listLanguages({
             owner,
             repo,
         }));
@@ -36,31 +34,58 @@ export const reposAPI = {
             per_page: 100
         });
 
-        const response: { data: Endpoints["GET /repos/{owner}/{repo}/contributors"]["response"]["data"] } = {data: []};
+        const response: { data: IContributors } = {data: []};
         for await (const {data} of iterator) {
             response.data.push(...data);
         }
 
         return response;
     },
-    async getEvents({owner, repo}: { owner: string, repo: string }) {
+    async getEvents({per_page = 100, ...rest}: Endpoints["GET /repos/{owner}/{repo}/events"]["parameters"]) {
         return (await octokit.request("GET /repos/{owner}/{repo}/events", {
-            owner,
-            repo,
+            per_page, ...rest
         }));
     },
-    async getAllCommits({owner, repo}: { owner: string, repo: string }) {
+    async getAllCommits({per_page = 100, ...rest}: Endpoints["GET /repos/{owner}/{repo}/commits"]["parameters"]) {
         const iterator = octokit.paginate.iterator(octokit.rest.repos.listCommits, {
-            owner,
-            repo,
-            per_page: 100
-        });
+            per_page, ...rest
+        })
+
 
         const response: { data: ICommits } = {data: []};
-      
+
         for await (const resp of iterator) {
             response.data.push(...resp.data);
-            //todo: remove
+        }
+
+        return response;
+    },
+    async getClosedPulls(params: { owner: string, repo: string }) {
+        const iterator = octokit.paginate.iterator(octokit.rest.pulls.list, {
+            ...params,
+            state: "closed",
+            per_page: 100,
+        });
+        const response: { data: IPulls } = {data: []};
+
+        for await (const resp of iterator) {
+            response.data.push(...resp.data);
+            break;
+        }
+
+        return response;
+    },
+
+    async getClosedIssues(params: { owner: string, repo: string }) {
+        const iterator = octokit.paginate.iterator(octokit.rest.issues.listForRepo, {
+            ...params,
+            state: "closed",
+            per_page: 100
+        });
+        const response: { data: IIssues } = {data: []};
+
+        for await (const resp of iterator) {
+            response.data.push(...resp.data);
             break;
         }
 
