@@ -1,0 +1,24 @@
+@import "src/assets/variables";
+
+
+.link {
+  display: inline-grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.inner {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 0.4em;
+}
+
+.github {
+  vertical-align: text-bottom;
+
+  & svg {
+    width: 1em;
+    height: 1em;
+  }
+}

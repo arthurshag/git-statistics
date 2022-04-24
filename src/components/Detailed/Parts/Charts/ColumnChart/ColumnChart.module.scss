@@ -1,0 +1,14 @@
+@import "src/assets/variables";
+
+.red {
+  color: $colorAlert;
+}
+
+.yellow {
+  color: yellow;
+  text-shadow: 1px 0px 1px black, 0px 1px 1px black, -1px 0px 1px black, 0px -1px 1px black;
+}
+
+.green {
+  color: green;
+}
