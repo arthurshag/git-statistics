@@ -2,7 +2,6 @@
 
 .auth {
   display: flex;
-  background: $colorSecondary;
   flex: 1 1 auto;
   overflow: hidden;
 
@@ -14,8 +13,12 @@
   }
 
   &__title {
-    font-size: 1.8em;
+    font-size: 2em;
     margin-bottom: 0.1em;
+  }
+
+  &__p {
+    font-size: 1.3em;
   }
 
   &__wrapperInner {
@@ -33,8 +36,9 @@
   &__formWrapper {
     align-self: flex-start;
     background: white;
-    margin: 35% auto 0;
-    max-width: 600px;
+    margin: 20vh auto 0;
+    max-width: 800px;
+    min-height: 300px;
     width: 100%;
     display: flex;
     flex-direction: column;
