@@ -1,9 +1,9 @@
 import React, {ChangeEvent, FC, useMemo} from "react";
 import Select, {MultiValue, SingleValue} from "react-select"
-import {ReposUrlParamsType} from "../../helpers/hooks/useReposFilterParams";
-import TextInput from "../utils/TextInput/TextInput";
+import {ReposUrlParamsType} from "../../../helpers/hooks/useReposFilterParams";
+import TextInput from "../../utils/TextInput/TextInput";
 import classes from "./ReposFilters.module.scss";
-import {ParamsSearchReposType} from "../../models/IRepository";
+import {ParamsSearchReposType} from "../../../models/IRepository";
 import CreatableSelect from "react-select/creatable";
 import classNames from "classnames";
 

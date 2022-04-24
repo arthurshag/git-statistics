@@ -1,7 +1,7 @@
 import React, {FC, memo} from "react";
 import Button from "../../../../utils/Button/Button";
 import {IRepository} from "../../../../../models/IRepository";
-import {EyeIcon, RepoForkedIcon, StarFillIcon} from "@primer/octicons-react";
+import {CopyIcon, EyeIcon, RepoForkedIcon, StarFillIcon} from "@primer/octicons-react";
 import IconWrapper from "../../../../utils/IconWrapper/IconWrapper";
 import classes from "./MainStatistics.module.scss";
 
@@ -54,7 +54,8 @@ const MainStatistics: FC<PropsType> = memo(({repository}) => {
                 <div>
                     Is fork: {String(repository.fork)}
                 </div>
-                <Button onClick={btnHandler} className={classes.statistics__cloneUrl}>Copy clone url</Button>
+                <Button onClick={btnHandler} className={classes.statistics__cloneUrl}><IconWrapper
+                    Icon={CopyIcon}/> Copy clone url</Button>
             </div>
         </>
     );

@@ -10,7 +10,7 @@ import Description from "./RepositoryParts/Description/Description";
 import classes from "./Repositories.module.scss";
 import LinkGit from "../utils/LinkGit/LinkGit";
 import IconWrapper from "../utils/IconWrapper/IconWrapper";
-import {EyeIcon, RepoForkedIcon, StarFillIcon} from "@primer/octicons-react";
+import {CopyIcon, EyeIcon, RepoForkedIcon, StarFillIcon} from "@primer/octicons-react";
 
 interface PropsType extends IRepository {
 }
@@ -52,7 +52,8 @@ const Repository: FC<PropsType> = memo((props) => {
                 <div>Created at: {createdDate.toLocaleDateString()}</div>
             </div>
             <Button className={classes.repository__btnClone}
-                    onClick={btnHandler}>Copy clone url
+                    onClick={btnHandler}><IconWrapper Icon={CopyIcon}
+                                                      className={classes.repository__btnCloneIcon}/> Copy clone url
             </Button>
         </BlockShadow>
     );

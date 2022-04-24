@@ -1,6 +1,12 @@
 @import "src/assets/variables";
 
 .contributors {
+  &__wrapper {
+    padding: 0.5em;
+    border-radius: 5px;
+    border: 1px solid rgba($colorSecondary, 0.1);
+  }
+
   &__list {
     padding: 0.6em;
     max-height: 240px;
@@ -16,6 +22,7 @@
 
 .contributor {
   justify-self: start;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.5em;

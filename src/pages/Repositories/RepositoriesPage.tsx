@@ -1,6 +1,6 @@
 import React, {FC, useCallback, useEffect} from 'react';
 import {useReposFilterParams} from "../../helpers/hooks/useReposFilterParams";
-import ReposFilters from "../../components/ReposFilters/ReposFilters";
+import ReposFilters from "../../components/Repositories/ReposSearchFilters/ReposFilters";
 import Repositories from "../../components/Repositories/Repositories";
 import Pagination from "../../components/utils/Pagination/Pagination";
 import {useLazyGetRepositoriesQuery} from "../../redux/reducers/RepositoryReducer/RepositoryRTK";
@@ -9,6 +9,8 @@ import Loading from "../../components/utils/Loading/Loading";
 import ErrorGate from "../../components/utils/ErrorGate/ErrorGate";
 import BlockShadow from "../../components/utils/BlockShadow/BlockShadow";
 import Title from "../../components/utils/Title/Title";
+import IconWrapper from "../../components/utils/IconWrapper/IconWrapper";
+import {RepoIcon} from "@primer/octicons-react";
 
 
 const RepositoriesPage: FC = () => {
@@ -38,7 +40,7 @@ const RepositoriesPage: FC = () => {
 
     return (
         <BlockShadow>
-            <Title level={2}>Repositories</Title>
+            <Title level={2}><IconWrapper Icon={RepoIcon}/> Repositories</Title>
             <ReposFilters params={newParams} setParams={setParams} reset={reset} onSubmit={fetchReposOnFiltersClick}/>
             <Loading isLoading={isLoading} style={{margin: "0 auto"}}>
                 <ErrorGate error={error as string | undefined | null}>

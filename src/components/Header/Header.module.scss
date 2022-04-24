@@ -20,11 +20,22 @@
   }
 }
 
+.profile {
+  margin-left: auto;
+}
+
+.loading {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+}
+
 .container {
   @include container;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   height: 100%;
+  gap: 1em;
 }
 

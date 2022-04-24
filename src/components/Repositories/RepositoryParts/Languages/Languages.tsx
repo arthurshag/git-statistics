@@ -20,9 +20,9 @@ const Languages: FC<IProps> = ({owner, repo, className}) => {
 
     return (
         <div className={classNames(classes.languages, className)}>
-            <Loading isLoading={isLoading}>
-                <div className={classes.languages__title}>Languages:</div>
-                {" "}
+            <div className={classes.languages__title}>Languages:</div>
+            {" "}
+            <Loading className={classes.loading} isLoading={isLoading}>
                 <ErrorGate error={error as string | null | undefined}>
                     {values}
                 </ErrorGate>

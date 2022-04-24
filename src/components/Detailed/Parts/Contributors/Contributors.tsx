@@ -30,8 +30,10 @@ const Contributors: FC<IProps> = ({data, error, isLoading}) => {
             <Title level={3}><IconWrapper Icon={PeopleIcon}/> Contributors:</Title>
             <Loading isLoading={isLoading}>
                 <ErrorGate error={error as string | undefined | null}>
-                    <div className={classes.contributors__list}>
-                        {contributorsUI && contributorsUI?.length > 0 ? contributorsUI : "There nothing"}
+                    <div className={classes.contributors__wrapper}>
+                        <div className={classes.contributors__list}>
+                            {contributorsUI && contributorsUI?.length > 0 ? contributorsUI : "There nothing"}
+                        </div>
                     </div>
                 </ErrorGate>
             </Loading>

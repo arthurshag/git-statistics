@@ -75,6 +75,9 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background: #272531;
+    overflow-y: scroll;
+    padding-bottom: 40px;
+    min-width: 600px;
 }
 
 code {

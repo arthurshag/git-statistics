@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import loadingGif from "../../../assets/loading.gif";
 import classes from "./Loading.module.scss";
 import classNames from "classnames";
@@ -16,9 +16,35 @@ const Loading: FC<IProps> = ({
                                  className,
                                  style
                              }) => {
-    return isLoading ?
-        <div className={classNames(className, classes.wrapper)} style={style}><img className={classes.img}
-                                                                                   src={loadingGif}/></div>
+    const [minLoading, setMinLoading] = useState(isLoading);
+    const time = useRef<Date | null>(null);
+    const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const minimumTimeWait = 500;
+    useEffect(() => {
+        if (isLoading) {
+            setMinLoading(isLoading);
+            time.current = new Date();
+            if (timeout.current)
+                clearTimeout(timeout.current)
+            return;
+        }
+
+        if (time.current) {
+            const dif = time.current.valueOf() - new Date().valueOf();
+            if (dif > minimumTimeWait) {
+                setMinLoading(isLoading);
+                return;
+            }
+            timeout.current = setTimeout(() => {
+                setMinLoading(false);
+            }, minimumTimeWait - dif);
+        }
+    }, [isLoading])
+
+    return minLoading ?
+        <div className={classNames(className, classes.wrapper)} style={style}>
+            <img className={classes.img} src={loadingGif}/>
+        </div>
         : <>{children}</>;
 
 }

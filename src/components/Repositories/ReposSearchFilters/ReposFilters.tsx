@@ -1,10 +1,12 @@
 import React, {ChangeEvent, FC, FormEvent, useMemo, useState} from "react";
-import {ReposUrlParamsType} from "../../helpers/hooks/useReposFilterParams";
-import TextInput from "../utils/TextInput/TextInput";
-import BlockShadow from "../utils/BlockShadow/BlockShadow";
-import Button from "../utils/Button/Button";
+import {ReposUrlParamsType} from "../../../helpers/hooks/useReposFilterParams";
+import TextInput from "../../utils/TextInput/TextInput";
+import BlockShadow from "../../utils/BlockShadow/BlockShadow";
+import Button from "../../utils/Button/Button";
 import ReposAddFilters from "./ReposAddFilters";
 import classes from "./ReposFilters.module.scss";
+import IconWrapper from "../../utils/IconWrapper/IconWrapper";
+import {ScreenFullIcon, ScreenNormalIcon, SearchIcon, XIcon} from "@primer/octicons-react";
 
 interface IFilters {
     params: ReposUrlParamsType,
@@ -27,14 +29,17 @@ const ReposFilters: FC<IFilters> = ({
     //todo: change ui buttons
     return <BlockShadow>
         <form onSubmit={onSubmitForm} className={classes.filters}>
-            <TextInput placeholder={"Repo name"} value={params.repo || ""} onChange={setRepoName}/>
-            <TextInput placeholder={"Login user"} value={params.username || ""} onChange={setUsername}/>
+            <TextInput placeholder={"Repo name"} value={params.repo || ""} onChange={setRepoName}
+                       onPressEnter={onSubmit}/>
+            <TextInput placeholder={"Login user"} value={params.username || ""} onChange={setUsername}
+                       onPressEnter={onSubmit}/>
             {isOpen && <ReposAddFilters params={params} setParams={setParams}/>}
             <Button type={"default"} className={classes.filters__btnMore} onClick={onClickMore}>
-                {isOpen ? "Contract filters" : "Expand filters"}
+                {isOpen ? <><IconWrapper Icon={ScreenNormalIcon}/> Contract filters</>
+                    : <><IconWrapper Icon={ScreenFullIcon}/> Expand filters</>}
             </Button>
-            <Button type={"primary"} onClick={onSubmit}>Find</Button>
-            <Button type={"danger"} onClick={reset}>Reset filters</Button>
+            <Button type={"primary"} onClick={onSubmit}><IconWrapper Icon={SearchIcon}/> Find</Button>
+            <Button type={"danger"} onClick={reset}><IconWrapper Icon={XIcon}/> Reset filters</Button>
         </form>
     </BlockShadow>
 }

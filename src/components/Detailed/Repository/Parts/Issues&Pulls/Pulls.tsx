@@ -18,17 +18,18 @@ const Pulls: FC<IProps> = ({owner, repo}) => {
     const dataChart = data && getDataChart(data);
 
     return (
-        <Loading isLoading={isLoading}>
-            <div>
-                <Title level={3}><IconWrapper Icon={GitPullRequestIcon}/> Last 100 Closed Pulls</Title>
-                <p>Time in hours spent on closing pulls requests</p>
+        <div>
+            <Title level={3}><IconWrapper Icon={GitPullRequestIcon}/> Last 100 Closed Pulls</Title>
+            <p>Time in hours spent on closing pulls requests</p>
+            <Loading isLoading={isLoading}>
+
                 <ErrorGate error={error as string | null | undefined}>
                     {dataChart && dataChart.length > 0 ?
                         <ColumnChart dataChart={dataChart} legend={["Element", "Hours", {role: 'style'}]}/>
                         : "No data"}
                 </ErrorGate>
-            </div>
-        </Loading>
+            </Loading>
+        </div>
     );
 };
 

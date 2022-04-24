@@ -18,17 +18,17 @@ const Issues: FC<IProps> = ({owner, repo}) => {
     const dataChart = data && getDataChart(data);
 
     return (
-        <Loading isLoading={isLoading}>
-            <div>
-                <Title level={3}><IconWrapper Icon={IssueDraftIcon}/> Last 100 Closed Issues</Title>
-                <p>Time in hours spent on closing issues requests</p>
+        <div>
+            <Title level={3}><IconWrapper Icon={IssueDraftIcon}/> Last 100 Closed Issues</Title>
+            <p>Time in hours spent on closing issues requests</p>
+            <Loading isLoading={isLoading}>
                 <ErrorGate error={error as string | null | undefined}>
                     {dataChart && dataChart.length > 0 ?
                         <ColumnChart dataChart={dataChart} legend={["Element", "Hours", {role: 'style'}]}/>
                         : "No data"}
                 </ErrorGate>
-            </div>
-        </Loading>
+            </Loading>
+        </div>
     );
 };
 
