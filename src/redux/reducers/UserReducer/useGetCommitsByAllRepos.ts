@@ -1,6 +1,6 @@
 import {
     useGetAllRepositoriesQuery,
-    useLazyGetAllCommitsQuery,
+    useLazyGetAllUserCommitsForLastYearQuery,
     useLazyGetContributorsQuery,
     useLazyGetLanguagesQuery
 } from "./UserRTK";
@@ -9,7 +9,7 @@ import {IRepository} from "../../../models/IRepository";
 
 export const useGetCommitsByAllRepos = (username: string) => {
     const {data: repos, error, isLoading, isFetching} = useGetAllRepositoriesQuery({q: `user:${username}`});
-    const [trigger, result] = useLazyGetAllCommitsQuery();
+    const [trigger, result] = useLazyGetAllUserCommitsForLastYearQuery();
 
     useTriggerWhenReposComes(repos, trigger);
 

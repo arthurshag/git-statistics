@@ -22,4 +22,12 @@
   &__flexItem {
     flex: 1 1 auto;
   }
+
+  &__loading {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 8px;
+    width: 1.5em;
+    height: 1.5em;
+  }
 }

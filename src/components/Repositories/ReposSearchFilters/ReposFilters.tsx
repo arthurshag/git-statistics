@@ -1,32 +1,34 @@
-import React, {ChangeEvent, FC, FormEvent, useMemo, useState} from "react";
+import React, {ChangeEvent, FC, FormEvent, memo, useMemo, useState} from "react";
 import {ReposUrlParamsType} from "../../../helpers/hooks/useReposFilterParams";
 import TextInput from "../../utils/TextInput/TextInput";
 import BlockShadow from "../../utils/BlockShadow/BlockShadow";
 import Button from "../../utils/Button/Button";
 import ReposAddFilters from "./ReposAddFilters";
-import classes from "./ReposFilters.module.scss";
 import IconWrapper from "../../utils/IconWrapper/IconWrapper";
 import {ScreenFullIcon, ScreenNormalIcon, SearchIcon, XIcon} from "@primer/octicons-react";
+import Loading from "../../utils/Loading/Loading";
+import classes from "./ReposFilters.module.scss";
 
 interface IFilters {
     params: ReposUrlParamsType,
     setParams: <T extends keyof ReposUrlParamsType>(field: T, value: ReposUrlParamsType[T]) => void,
-    reset: () => void
-    onSubmit: () => void
+    reset: () => void,
+    onSubmit: () => void,
+    isFetching: boolean
 }
 
-const ReposFilters: FC<IFilters> = ({
-                                        params,
-                                        reset,
-                                        setParams,
-                                        onSubmit
-                                    }) => {
+const ReposFilters: FC<IFilters> = memo(({
+                                             params,
+                                             reset,
+                                             setParams,
+                                             onSubmit,
+                                             isFetching
+                                         }) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const {setRepoName, onSubmitForm, setUsername} = useMemo(() => getHandlers(setParams), [setParams]);
     const onClickMore = () => setIsOpen((prev) => !prev);
 
-    //todo: change ui buttons
     return <BlockShadow>
         <form onSubmit={onSubmitForm} className={classes.filters}>
             <TextInput placeholder={"Repo name"} value={params.repo || ""} onChange={setRepoName}
@@ -38,11 +40,12 @@ const ReposFilters: FC<IFilters> = ({
                 {isOpen ? <><IconWrapper Icon={ScreenNormalIcon}/> Contract filters</>
                     : <><IconWrapper Icon={ScreenFullIcon}/> Expand filters</>}
             </Button>
-            <Button type={"primary"} onClick={onSubmit}><IconWrapper Icon={SearchIcon}/> Find</Button>
+            <Button type={"primary"} onClick={onSubmit} disabled={isFetching}><IconWrapper
+                Icon={SearchIcon}/> Find <Loading isLoading={isFetching} className={classes.filters__loading}/></Button>
             <Button type={"danger"} onClick={reset}><IconWrapper Icon={XIcon}/> Reset filters</Button>
         </form>
     </BlockShadow>
-}
+})
 
 
 function getHandlers(setParams: <T extends keyof ReposUrlParamsType>(field: T, value: ReposUrlParamsType[T]) => void) {

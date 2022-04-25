@@ -19,6 +19,7 @@ const TextInput = React.forwardRef<HTMLInputElement, IProps>(({
                                                               }, ref) => {
     function onKeyDown(e: KeyboardEvent<HTMLInputElement>) {
         if (e.key === "Enter") {
+            e.preventDefault();
             onPressEnter?.()
         }
     }

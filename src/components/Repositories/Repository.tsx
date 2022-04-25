@@ -21,7 +21,6 @@ const Repository: FC<PropsType> = memo((props) => {
     const createdDate = new Date(props.created_at);
     const updatedDate = new Date(props.updated_at);
 
-    //todo: change forks, stars, watcher on icons
     return (
         <BlockShadow className={classes.repository}>
             <Title level={3} className={classNames(classes.repository__name)}>

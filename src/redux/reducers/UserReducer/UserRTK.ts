@@ -31,9 +31,9 @@ export const usersRTK = createApi({
             query: (params) => ({params, url: "getUser"}),
 
         }),
-        getAllCommits: builder.query <ICommits, PropsType<"getAllUserCommits">["params"]>
+        getAllUserCommitsForLastYear: builder.query <ICommits, PropsType<"getAllUserCommitsForLastYear">["params"]>
         ({
-            query: (params) => ({params, url: "getAllUserCommits"}),
+            query: (params) => ({params, url: "getAllUserCommitsForLastYear"}),
         }),
         getContributors: builder.query <(IContributors[0] & { count: number })[], PropsType<"getUserContributors">["params"]>
         ({
@@ -58,8 +58,8 @@ export const usersRTK = createApi({
 export const {
     useGetAllRepositoriesQuery,
     useGetUserQuery,
-    useLazyGetAllCommitsQuery,
-    useGetAllCommitsQuery,
+    useLazyGetAllUserCommitsForLastYearQuery,
+    useGetAllUserCommitsForLastYearQuery,
     useLazyGetContributorsQuery,
     useLazyGetLanguagesQuery,
     useGetEventsQuery,

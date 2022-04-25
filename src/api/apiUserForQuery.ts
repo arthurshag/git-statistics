@@ -54,13 +54,11 @@ export const usersAPI = {
 
         return {data: languages};
     },
-    async getAllUserCommits(repos: { owner: string, repo: string }[]) {
+    async getAllUserCommitsForLastYear(repos: { owner: string, repo: string }[]) {
         const response: { data: ICommits } = {data: []};
-        //region todo: add config in params
         const todayYearAgo = new Date();
         todayYearAgo.setFullYear(todayYearAgo.getFullYear() - 1);
         const dateIsoString = todayYearAgo.toISOString();
-        //endregion
         for (const repo of repos) {
             const iterator = octokit.paginate.iterator(octokit.rest.repos.listCommits, {
                 owner: repo.owner,

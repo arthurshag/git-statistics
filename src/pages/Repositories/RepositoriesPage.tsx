@@ -16,8 +16,7 @@ import {RepoIcon} from "@primer/octicons-react";
 const RepositoriesPage: FC = () => {
     const {newParams, currentParams, setParams, saveParamsInUrl, reset} = useReposFilterParams();
     const [trigger, result] = useLazyGetRepositoriesQuery();
-    const {data, isLoading, error} = result;
-
+    const {data, isLoading, error, isFetching} = result;
     const deps = [...Object.values(currentParams)];
 
     useEffect(() => {
@@ -28,6 +27,8 @@ const RepositoriesPage: FC = () => {
 
 
     const fetchReposOnFiltersClick = () => {
+        if (isFetching)
+            return;
         const params = {...newParams, page: "1"};
         saveParamsInUrl(params);
     }
@@ -41,11 +42,12 @@ const RepositoriesPage: FC = () => {
     return (
         <BlockShadow>
             <Title level={2}><IconWrapper Icon={RepoIcon}/> Repositories</Title>
-            <ReposFilters params={newParams} setParams={setParams} reset={reset} onSubmit={fetchReposOnFiltersClick}/>
+            <ReposFilters params={newParams} setParams={setParams} reset={reset} onSubmit={fetchReposOnFiltersClick}
+                          isFetching={isFetching}/>
             <Loading isLoading={isLoading} style={{margin: "0 auto"}}>
                 <ErrorGate error={error as string | undefined | null}>
                     <Repositories repositories={data?.items || []}/>
-                    <Pagination current={+newParams.page} pageHandler={paginateHandler}
+                    <Pagination current={+newParams.page} pageHandler={paginateHandler} disabled={isFetching}
                                 count={calcCountPages(data?.total_count || 0, +newParams.filesPerPage, 1000)}/>
                     {/* todo у github ограничение на поиск 1000 элементами*/}
                 </ErrorGate>
