@@ -17,11 +17,10 @@ interface IProps {
 const Languages: FC<IProps> = ({data, error, isLoading, label}) => {
     const chartData = data && [["Language", "strokes"], ...Object.entries(data)];
     return (
-        //todo: говно либа ломается, если здесь ставить loading, почему и как это происходит не понимаю
-        <Loading isLoading={false}>
-            <div>
-                <Title level={3}><IconWrapper Icon={VersionsIcon}/> Languages</Title>
-                <p>{label}</p>
+        <div>
+            <Title level={3}><IconWrapper Icon={VersionsIcon}/> Languages</Title>
+            <p>{label}</p>
+            <Loading isLoading={isLoading}>
                 <ErrorGate error={error as string | null | undefined}>
                     <Chart
                         chartType="PieChart"
@@ -30,8 +29,8 @@ const Languages: FC<IProps> = ({data, error, isLoading, label}) => {
                         data={chartData}
                     />
                 </ErrorGate>
-            </div>
-        </Loading>
+            </Loading>
+        </div>
     );
 };
 
