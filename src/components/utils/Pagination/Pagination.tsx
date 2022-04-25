@@ -5,23 +5,24 @@ import classes from "./Pagination.module.scss";
 interface IProps {
     current: number,
     count: number,
-    pageHandler: (page: number) => void
-
+    pageHandler: (page: number) => void,
+    disabled?: boolean
 }
 
-//todo: maybe add in configure
 const countNeighbours = 2;
 
-const Pagination: FC<IProps> = memo(({count, current, pageHandler}) => {
+const Pagination: FC<IProps> = memo(({count, current, pageHandler, disabled = false}) => {
     if (count === 0 || count === 1)
         return <></>;
     const paginatorItems: React.ReactElement[] = [];
     if (current - countNeighbours > 1) {
-        paginatorItems.push(<Elem key={1} isCurrent={current === 1} page={1} pageHandler={pageHandler}/>);
+        paginatorItems.push(<Elem disabled={disabled} key={1} isCurrent={current === 1} page={1}
+                                  pageHandler={pageHandler}/>);
         paginatorItems.push(<Button key={"left"}>{"..."}</Button>)
     }
     for (let i = Math.max(current - 2, 1); i <= Math.min(current + countNeighbours, count); i++) {
-        paginatorItems.push(<Elem key={i} isCurrent={current === i} page={i} pageHandler={pageHandler}/>);
+        paginatorItems.push(<Elem key={i} isCurrent={current === i} page={i} pageHandler={pageHandler}
+                                  disabled={disabled}/>);
     }
     if (current + countNeighbours < count) {
         paginatorItems.push(<Button key={"right"}>{"..."}</Button>);
@@ -30,19 +31,28 @@ const Pagination: FC<IProps> = memo(({count, current, pageHandler}) => {
 
     return (
         <div>
-            <Button disabled={current === 1} onClick={() => pageHandler(current - 1)}>Left</Button>
+            <Button disabled={current === 1 || disabled} onClick={() => pageHandler(current - 1)}>Left</Button>
             {paginatorItems}
-            <Button disabled={current === count} onClick={() => pageHandler(current + 1)}>Right</Button>
+            <Button disabled={current === count || disabled} onClick={() => pageHandler(current + 1)}>Right</Button>
         </div>
     );
 });
 
-const Elem: FC<{ isCurrent: boolean, page: number, pageHandler: (page: number) => void }> = ({
-                                                                                                 isCurrent,
-                                                                                                 page,
-                                                                                                 pageHandler
-                                                                                             }) => {
-    return <Button onClick={() => pageHandler(page)} className={isCurrent ? classes.active : undefined}>{page}</Button>
+interface IElemProps {
+    isCurrent: boolean,
+    page: number,
+    pageHandler: (page: number) => void,
+    disabled?: boolean
+}
+
+const Elem: FC<IElemProps> = ({
+                                  isCurrent,
+                                  page,
+                                  pageHandler,
+                                  disabled = false
+                              }) => {
+    return <Button disabled={disabled} onClick={() => pageHandler(page)}
+                   className={isCurrent ? classes.active : undefined}>{page}</Button>
 }
 
 

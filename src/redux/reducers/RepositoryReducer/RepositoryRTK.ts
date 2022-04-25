@@ -3,11 +3,10 @@ import {reposAPI} from "../../../api/apiReposForQuery";
 import {IRepository, SearchReposType} from "../../../models/IRepository";
 import {ILanguage} from "../../../models/ILanguage";
 import {IContributors} from "../../../models/IContributors";
-import {IRepoEvents} from "../../../models/IRepoEvents";
+import {IEvents} from "../../../models/IEvents";
 import {ICommits} from "../../../models/ICommits";
 import {IPulls} from "../../../models/IPulls";
 import {IIssues} from "../../../models/IIssues";
-
 
 type PropsType<T extends keyof typeof reposAPI> = {
     params: Parameters<typeof reposAPI[T]>[0],
@@ -17,11 +16,8 @@ type PropsType<T extends keyof typeof reposAPI> = {
 
 export const repositoryApi = createApi({
     reducerPath: 'repositoryApi',
-    baseQuery: async (args: PropsType<keyof typeof reposAPI>,
-                      {signal, dispatch, getState},
-                      extraOptions) => {
+    baseQuery: async (args: PropsType<keyof typeof reposAPI>) => {
         try {
-            //todo: fix
             return await reposAPI[args.url](args.params as any);
         } catch (e) {
             const error = e as Error;
@@ -45,7 +41,7 @@ export const repositoryApi = createApi({
         ({
             query: (params) => ({params, url: "getContributors"}),
         }),
-        getEvents: builder.query <IRepoEvents, PropsType<"getEvents">["params"]>
+        getEvents: builder.query <IEvents, PropsType<"getEvents">["params"]>
         ({
             query: (params) => ({params, url: "getEvents"}),
         }),
@@ -64,7 +60,6 @@ export const repositoryApi = createApi({
     }),
 })
 
-// auto-generated based on the defined endpoints
 export const {
     useLazyGetRepositoriesQuery,
     useGetRepositoriesQuery,

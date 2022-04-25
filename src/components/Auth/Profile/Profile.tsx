@@ -17,8 +17,8 @@ const Profile: FC<IProps> = ({user}) => {
     }
 
     return (<>
-            <p className={classes.text}>Hello {user.login}</p>
-            <Button onClick={onSubmit}>REMOVE TOKEN</Button>
+            <p className={classes.text}>{user.login} you successfully logged in</p>
+            <Button onClick={onSubmit} className={classes.btn}>REMOVE TOKEN</Button>
         </>
     );
 };

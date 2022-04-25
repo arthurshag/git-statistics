@@ -10,19 +10,22 @@
 
   &__wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     justify-items: start;
     flex-wrap: wrap;
     gap: 20px;
     column-gap: 40px;
     justify-content: space-between;
+    @media (max-width: 800px) {
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
   }
 }
 
 
 .repository {
   width: 100%;
-  max-width: 500px;
+  max-width: 380px;
   display: flex;
   flex-direction: column;
   padding: 16px;
@@ -63,6 +66,7 @@
   &__owner {
 
     &Name {
+      overflow: hidden;
       font-size: 1.3em;
       font-weight: 600;
       margin-bottom: 10px;
@@ -95,6 +99,10 @@
     font-size: 1.2em;
     width: 100%;
     margin-top: auto;
+
+    &Icon {
+      margin-right: .1em;
+    }
   }
 
 }

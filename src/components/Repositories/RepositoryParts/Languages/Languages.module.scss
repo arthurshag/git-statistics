@@ -1,5 +1,11 @@
 @import "src/assets/variables";
 
+.loading {
+  aspect-ratio: 1/1;
+  width: 1.5em;
+  height: 1.5em;
+}
+
 .languages {
   display: flex;
   align-items: center;
