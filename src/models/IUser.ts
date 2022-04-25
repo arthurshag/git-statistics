@@ -15,5 +15,10 @@ export interface IUser {
     repositories?: undefined | null | IRepository[]
 }
 
+export interface IUserWithLoading extends IUser{
+    isLoading: boolean,
+    error: string | null
+}
+
 export type UserGitType = Endpoints["GET /user"]["response"]["data"];
 // интерфейс не дает создать

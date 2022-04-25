@@ -4,14 +4,14 @@
   position: relative;
   width: $widthProfile;
   box-shadow: 0 0 3px 0 #0000005c;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.loadingProfile {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.loadingProfile{
+  width: $widthProfile;
+  height: 500px;
   background-color: #e0e0e0;
   @include flexCenterCenter;
 }
@@ -29,4 +29,26 @@
   &:last-child {
     border-bottom: none;
   }
+}
+
+.btnRepos{
+  margin-top: auto;
+  margin-bottom: 0px;
+  width: 100%;
+  @include flexCenterCenter;
+  text-decoration: none;
+  padding: 8px 0;
+}
+
+.profileDelBtn{
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background-color: #092b4b;
+  color: #FFF;
+  @include flexCenterCenter;
+  cursor: pointer;
+  position: absolute;
+  top: 4px;
+  right: 4px;
 }

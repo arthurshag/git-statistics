@@ -38,7 +38,6 @@ const RepositoriesPage: FC = () => {
         saveParamsInUrl(params);
     }, deps);
 
-
     return (
         <BlockShadow>
             <Title level={2}><IconWrapper Icon={RepoIcon}/> Repositories</Title>
