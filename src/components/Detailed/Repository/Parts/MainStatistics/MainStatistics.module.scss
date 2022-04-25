@@ -1,0 +1,31 @@
+@import "/src/assets/variables";
+
+
+.statistics {
+  &__cloneUrl {
+    margin-top: 20px;
+  }
+
+  &__main {
+    width: calc(max(50%, 400px));
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid $colorSecondary;
+    font-size: 1.5em;
+
+    & svg {
+      margin-right: 0.1em;
+    }
+
+    &Value {
+      color: $colorAzure;
+    }
+  }
+
+  &__addInfo {
+    font-size: 1.2em;
+    margin-bottom: 80px;
+  }
+}
+

@@ -1,0 +1,41 @@
+@import "../../assets/variables";
+
+.header {
+  width: 100%;
+  height: 80px;
+  background-color: $colorHeader;
+  color: white;
+  margin-bottom: 40px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+
+  &:hover {
+    transition: color 0.2s ease-in-out;
+    color: rgba(white, 0.7);
+  }
+}
+
+.profile {
+  margin-left: auto;
+}
+
+.loading {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+}
+
+.container {
+  @include container;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 1em;
+}
+

@@ -1,0 +1,42 @@
+@import "src/assets/variables";
+
+.contributors {
+  &__wrapper {
+    padding: 0.5em;
+    border-radius: 5px;
+    border: 1px solid rgba($colorSecondary, 0.1);
+  }
+
+  &__list {
+    padding: 0.6em;
+    max-height: 240px;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(8.5em, 1fr));
+    flex-wrap: wrap;
+    column-gap: 0.3em;
+    gap: 0.8em;
+  }
+}
+
+
+.contributor {
+  justify-self: start;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+
+  &__login {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__img {
+    width: 6em;
+    height: 6em;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid $colorAzure;
+  }
+}

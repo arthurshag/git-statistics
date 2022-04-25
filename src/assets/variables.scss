@@ -1,0 +1,22 @@
+$colorAzure: #007BFF;
+$colorGray: #E5E8EB;
+$colorPurple: #C16EBB;
+$colorDark: #000;
+$colorSecondary: #3F6079;
+$colorAlert: #DC3545;
+$colorHeader: #161b22;
+$shadow: 1px 2px 6px 2px rgba(197, 204, 211, 0.5);
+$widthProfile: 300px;
+
+@mixin flexCenterCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin container() {
+  padding: 0 16px;
+  max-width: 1250px;
+  width: 100%;
+  margin: 0 auto;
+}

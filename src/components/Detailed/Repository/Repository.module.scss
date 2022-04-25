@@ -1,0 +1,14 @@
+@import "/src/assets/variables";
+
+
+.repository {
+  padding: 20px 50px;
+
+  &__charts {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+}
+

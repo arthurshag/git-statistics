@@ -1,0 +1,77 @@
+@import "src/assets/variables";
+
+.loading {
+  aspect-ratio: 1/1;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.languages {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  flex-wrap: wrap;
+
+  & .languages__title {
+    font-weight: 600;
+    color: black;
+    margin-bottom: 0;
+  }
+}
+
+.language {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  border-radius: 5px;
+  font-size: 0.7em;
+  border: 1px solid $colorAzure;
+
+  padding: 0 0.3em;
+
+  color: white;
+  background: $colorAzure;
+
+  &:hover {
+    & .language__count {
+      opacity: 1;
+    }
+  }
+
+  &_yellow {
+    border: 1px solid $colorSecondary;
+
+    color: black;
+    background: yellow;
+  }
+
+  &_green {
+    border: 1px solid green;
+
+    color: white;
+    background: green;
+  }
+
+
+  &_red {
+    border: 1px solid $colorAlert;
+
+    color: white;
+    background: $colorAlert;
+  }
+
+  &__count {
+    position: absolute;
+    z-index: 1;
+    top: -1.3em;
+    left: 0;
+    opacity: 0;
+    padding: 0 0.3em;
+    transition: opacity .3s ease;
+    background: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: black;
+    font-size: 0.7em;
+  }
+}

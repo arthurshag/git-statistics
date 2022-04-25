@@ -1,0 +1,94 @@
+@import "../../assets/variables";
+
+@mixin animationBorder() {
+  position: relative;
+
+  &:before, &:after {
+    border-radius: 8px;
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00, #ffff00, #ff0000, #fb0094,
+            #0000ff, #00ff00, #ffff00, #ff0000);
+    background-size: 400%;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: steam 20s linear infinite;
+  }
+  &:after {
+    filter: blur(50px);
+  }
+}
+
+@keyframes steam {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+
+.auth {
+  display: flex;
+  flex: 1 1 auto;
+  overflow: hidden;
+
+  color: black;
+
+  &__wrapper {
+    @include container();
+    display: flex;
+  }
+
+  &__title {
+    font-size: 2em;
+    margin-bottom: 0.1em;
+  }
+
+  &__p {
+    font-size: 1.3em;
+  }
+
+  &__wrapperInner {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-rows: 50px 1fr;
+  }
+
+  &__hrefHome {
+    color: white;
+    align-self: center;
+    padding: 5px;
+  }
+
+  &__formWrapper {
+    padding: 3em;
+    align-self: flex-start;
+    background: white;
+    margin: 20vh auto 0;
+    max-width: 800px;
+    min-height: 300px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @include animationBorder();
+
+  }
+
+  &__loading {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
