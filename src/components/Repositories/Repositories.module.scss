@@ -5,10 +5,13 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
+  padding-top: 30px;
+  padding-bottom: 30px;
 
   &__wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    justify-items: start;
     flex-wrap: wrap;
     gap: 20px;
     column-gap: 40px;
@@ -18,16 +21,68 @@
 
 
 .repository {
+  width: 100%;
+  max-width: 380px;
   display: flex;
   flex-direction: column;
-  border: 1px black solid;
-  padding: 5px;
+  padding: 16px;
+
+  &__name {
+    font-size: 1.5em;
+
+    &Links {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    &Text {
+      flex: 0 1 auto;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+
+    &Svg {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      & svg {
+        margin-bottom: -0.1em;
+        width: 1em;
+        height: 1em;
+      }
+    }
+  }
+
+  &__owner {
+
+    &Name {
+      font-size: 1.3em;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    &Img {
+      border: 4px $colorAzure solid;
+      border-radius: 50%;
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+    }
+  }
 
   &__item {
+    font-size: 1.2em;
     padding: 8px;
 
     & + .repository__item {
-      border-top: 1px solid rgba(217, 214, 214, 0.6);
+      border-top: 1px solid $colorAzure;
     }
 
     &:last-child {
@@ -35,46 +90,14 @@
     }
   }
 
-  &__name {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    & svg {
-      width: 1em;
-      height: 1em;
-    }
-
-    & a {
-      @include flexCenterCenter;
-    }
-  }
-
-  &__topics {
-    display: flex;
-    gap: 1em;
-  }
-
-  &__topicsItems {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  &__topic {
-    font-size: 0.7em;
-    line-height: 1.3;
-    padding: 4px;
-    border-radius: 8px;
-    border: 1px solid rgba(217, 214, 214, 0.6);
-  }
 
   &__btnClone {
+    font-size: 1.2em;
     width: 100%;
     margin-top: auto;
-    cursor: pointer;
-    &:hover {
+
+    &Icon {
+      margin-right: .1em;
     }
   }
 

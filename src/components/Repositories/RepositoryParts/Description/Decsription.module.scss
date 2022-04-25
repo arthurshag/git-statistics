@@ -1,0 +1,41 @@
+@import "src/assets/variables";
+
+.description {
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    color: black;
+  }
+
+  &__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    &_open {
+      -webkit-line-clamp: initial;
+      line-clamp: initial;
+    }
+  }
+
+  &__btn {
+    padding: .1em;
+    align-self: flex-start;
+    width: 1.2em;
+    height: 1.2em;
+
+    & span {
+      @include flexCenterCenter();
+
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

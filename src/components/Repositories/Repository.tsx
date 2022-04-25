@@ -1,48 +1,60 @@
 import React, {FC, memo} from 'react';
 import {IRepository} from "../../models/IRepository";
-import classes from "./Repositories.module.scss";
-import {ReactComponent as LinkIcon} from "./../../assets/icons/link.svg";
 import classNames from "classnames";
+import Languages from "./RepositoryParts/Languages/Languages";
+import BlockShadow from "../utils/BlockShadow/BlockShadow";
+import Button from "../utils/Button/Button";
+import Title from "../utils/Title/Title";
+import Topics from "./RepositoryParts/Topics/Topics";
+import Description from "./RepositoryParts/Description/Description";
+import classes from "./Repositories.module.scss";
+import LinkGit from "../utils/LinkGit/LinkGit";
+import IconWrapper from "../utils/IconWrapper/IconWrapper";
+import {CopyIcon, EyeIcon, RepoForkedIcon, StarFillIcon} from "@primer/octicons-react";
 
-interface PropsType extends IRepository {}
+interface PropsType extends IRepository {
+}
 
 const Repository: FC<PropsType> = memo((props) => {
-    const topicsUI = props.topics?.map((e) => {
-        return <div key={e} className={classes.repository__topic}>{e}</div>
-    })
-
-
     const btnHandler = () => navigator.clipboard.writeText(props.clone_url);
 
+    const createdDate = new Date(props.created_at);
+    const updatedDate = new Date(props.updated_at);
+
     return (
-        <section className={classes.repository}>
-            <div className={classNames(classes.repository__item, classes.repository__name)}>
-                <span>Repository: {props.name}</span> <a href={props.html_url}><LinkIcon/></a>
+        <BlockShadow className={classes.repository}>
+            <Title level={3} className={classNames(classes.repository__name)}>
+                Repository: {" "}
+                <span className={classes.repository__nameLinks}>
+                    <LinkGit inner={{url: `/repository/${props?.owner?.login}/${props.name}`, text: props.name}}
+                             githubUrl={props.html_url}/>
+                </span>
+            </Title>
+            <div className={classes.repository__owner}>
+                <div className={classes.repository__ownerName}>Owner: {props?.owner?.login}</div>
+                <img src={props.owner?.avatar_url} alt={"avatar"} className={classes.repository__ownerImg}/>
             </div>
-            <div className={classes.repository__item}>Owner: {props?.owner?.login}</div>
-            <div className={classes.repository__item}>Count forks: {props.forks_count}</div>
-            {topicsUI?.length !== 0 &&
-            <div className={classNames(classes.repository__item, classes.repository__topics)}>
-                <span>Topics:</span>
-                <div className={classes.repository__topicsItems}>
-                    {topicsUI}
-                </div>
+            <div className={classes.repository__item}><IconWrapper Icon={StarFillIcon}/> Stars: {props.stargazers_count}
             </div>
+            <div className={classes.repository__item}><IconWrapper Icon={EyeIcon}/> Watchers: {props.watchers_count}
+            </div>
+            <div className={classes.repository__item}><IconWrapper Icon={RepoForkedIcon}/> Forks: {props.forks_count}
+            </div>
+            {props.topics && props.topics.length !== 0 &&
+            <Topics topics={props.topics} className={classes.repository__item}/>
             }
-            <div className={classes.repository__item}>Watchers count: {props.watchers_count}</div>
-            <div className={classes.repository__item}>Stargazers count: {props.stargazers_count}</div>
-            {props.description && <div className={classes.repository__item}>Description: {props.description}</div>}
+            {props.description && <Description description={props.description} className={classes.repository__item}/>}
+            {props.owner &&
+            <Languages owner={props.owner.login} repo={props.name} className={classes.repository__item}/>}
             <div className={classes.repository__item}>
-                Languages: {}
+                <div>Updated at: {updatedDate.toLocaleDateString()}</div>
+                <div>Created at: {createdDate.toLocaleDateString()}</div>
             </div>
-            <div className={classes.repository__item}>
-                <div>Created at: {props.created_at}</div>
-                <div>Updated at: {props.updated_at}</div>
-            </div>
-            <button className={classes.repository__btnClone}
-                    onClick={btnHandler}>Copy clone url
-            </button>
-        </section>
+            <Button className={classes.repository__btnClone}
+                    onClick={btnHandler}><IconWrapper Icon={CopyIcon}
+                                                      className={classes.repository__btnCloneIcon}/> Copy clone url
+            </Button>
+        </BlockShadow>
     );
 });
 

@@ -1,6 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
 import classes from "./MainPage.module.scss"
-import Header from "../../components/Header/Header";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks/reduxHooks";
 import {fetchUser} from "../../redux/reducers/UserReducer/ActionCreators";
 import FormLogin from "../../components/FormLogin/FormLogin";
@@ -954,8 +953,7 @@ const MainPage: FC = () => {
     }*/
 
     return (
-        <>
-            <Header/>
+        <div className={classes.wrapper}>
             <div className={classes.container}>
                 <div className={classes.users}>
                     {users.map((user, index) => {
@@ -971,7 +969,7 @@ const MainPage: FC = () => {
                 {/*<img src="https://ghchart.rshah.org/TalisMan701" alt="TalisMan701 Github chart" />*/}
                 {/*{contributionCalendar()}*/}
             </div>
-        </>
+        </div>
     );
 };
 

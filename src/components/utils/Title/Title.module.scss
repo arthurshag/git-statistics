@@ -1,0 +1,30 @@
+@import "../../../assets/variables";
+
+
+.title {
+  margin-bottom: 0.5em;
+  font-weight: 600;
+
+  color: $colorSecondary;
+
+  &_1 {
+    font-size: 4em;
+  }
+
+  &_2 {
+    font-size: 3em;
+  }
+
+  &_3 {
+    font-size: 2.5em;
+  }
+
+  &_4 {
+    font-size: 2em;
+  }
+
+  &_5 {
+    font-size: 1.5em;
+  }
+}
+

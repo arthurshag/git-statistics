@@ -1,5 +1,5 @@
-import { AppDispatch } from "../../redux-store";
-import {auth, userAPI} from "../../../api/api";
+import {AppDispatch} from "../../redux-store";
+import {userAPI} from "../../../api/api";
 import {userSlice} from "./UserSlice"
 import {IUser} from "../../../models/IUser";
 

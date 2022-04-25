@@ -1,9 +1,17 @@
 @import "../../assets/variables";
-.container{
+
+.wrapper {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+  background: white;
+}
+
+.container {
   @include container;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  flex: 1 1 auto;
 }
 
 .ContributionCalendarLabel{

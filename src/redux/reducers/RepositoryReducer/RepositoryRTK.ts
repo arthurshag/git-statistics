@@ -1,10 +1,12 @@
 import {createApi} from '@reduxjs/toolkit/query/react'
 import {reposAPI} from "../../../api/apiReposForQuery";
-import {IRepository, ParamsSearchReposType, SearchReposType} from "../../../models/IRepository";
+import {IRepository, SearchReposType} from "../../../models/IRepository";
 import {ILanguage} from "../../../models/ILanguage";
 import {IContributors} from "../../../models/IContributors";
-import {IRepoEvents} from "../../../models/IRepoEvents";
+import {IEvents} from "../../../models/IEvents";
 import {ICommits} from "../../../models/ICommits";
+import {IPulls} from "../../../models/IPulls";
+import {IIssues} from "../../../models/IIssues";
 
 
 type PropsType<T extends keyof typeof reposAPI> = {
@@ -27,7 +29,7 @@ export const repositoryApi = createApi({
         }
     },
     endpoints: (builder) => ({
-        getRepositories: builder.query <SearchReposType, ParamsSearchReposType>
+        getRepositories: builder.query <SearchReposType, PropsType<"getRepos">["params"]>
         ({
             query: (params) => ({params, url: "getRepos"}),
         }),
@@ -43,7 +45,7 @@ export const repositoryApi = createApi({
         ({
             query: (params) => ({params, url: "getContributors"}),
         }),
-        getEvents: builder.query <IRepoEvents, PropsType<"getEvents">["params"]>
+        getEvents: builder.query <IEvents, PropsType<"getEvents">["params"]>
         ({
             query: (params) => ({params, url: "getEvents"}),
         }),
@@ -51,15 +53,25 @@ export const repositoryApi = createApi({
         ({
             query: (params) => ({params, url: "getAllCommits"}),
         }),
+        getClosedPulls: builder.query <IPulls, PropsType<"getClosedPulls">["params"]>
+        ({
+            query: (params) => ({params, url: "getClosedPulls"}),
+        }),
+        getClosedIssues: builder.query <IIssues, PropsType<"getClosedIssues">["params"]>
+        ({
+            query: (params) => ({params, url: "getClosedIssues"}),
+        }),
     }),
 })
 
-// auto-generated based on the defined endpoints
 export const {
+    useLazyGetRepositoriesQuery,
     useGetRepositoriesQuery,
     useGetRepositoryQuery,
     useGetContributorsQuery,
     useGetEventsQuery,
     useGetLanguagesQuery,
-    useGetAllCommitsQuery
+    useGetAllCommitsQuery,
+    useGetClosedPullsQuery,
+    useGetClosedIssuesQuery,
 } = repositoryApi;

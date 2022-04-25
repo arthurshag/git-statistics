@@ -1,25 +1,39 @@
 @import "../../assets/variables";
 
 .auth {
-
-
   &__hrefToken {
-    color: white;
+    color: $colorAzure;
+    font-size: 1.4em;
+    font-weight: 600;
     align-self: start;
+
+    &:hover {
+      color: rgba($colorAzure, 0.5);
+    }
+
   }
 
-  &__input{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    position: relative;
+  &__btn {
+    font-size: 1.2em;
+
+    & span {
+      position: relative;
+    }
   }
 
-  &__inputError{
+  &__loading {
     position: absolute;
-    right: 0;
+    right: -1.4em;
     top: 0;
-    color: red;
+    height: 100%;
+    width: 1.3em;
+  }
+
+  &__error {
+    height: 1.1em;
+    color: $colorAlert;
+    font-weight: 600;
+    font-size: 1.1em;
   }
 }
 
