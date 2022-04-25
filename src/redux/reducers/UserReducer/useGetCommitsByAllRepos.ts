@@ -10,7 +10,6 @@ import {IRepository} from "../../../models/IRepository";
 export const useGetCommitsByAllRepos = (username: string) => {
     const {data: repos, error, isLoading, isFetching} = useGetAllRepositoriesQuery({q: `user:${username}`});
     const [trigger, result] = useLazyGetAllUserCommitsForLastYearQuery();
-
     useTriggerWhenReposComes(repos, trigger);
 
     return {
@@ -21,6 +20,17 @@ export const useGetCommitsByAllRepos = (username: string) => {
     };
 };
 
+export const useLanguagesByAllRepos = (username: string) => {
+    const {data: repos, error, isLoading, isFetching} = useGetAllRepositoriesQuery({q: `user:${username}`})
+    const [trigger, result] = useLazyGetLanguagesQuery();
+    useTriggerWhenReposComes(repos, trigger);
+    return {
+        data: result.data,
+        error: error || result.error,
+        isLoading: result.isLoading || isLoading,
+        isFetching: result.isFetching || isFetching
+    };
+}
 
 export const useCollaboratorsByAllRepos = (username: string) => {
     const {data: repos, error, isLoading, isFetching} = useGetAllRepositoriesQuery({q: `user:${username}`})
@@ -42,19 +52,6 @@ export const useCollaboratorsByAllRepos = (username: string) => {
     }, [repos])
 
 
-    return {
-        data: result.data,
-        error: error || result.error,
-        isLoading: result.isLoading || isLoading,
-        isFetching: result.isFetching || isFetching
-    };
-}
-
-
-export const useLanguagesByAllRepos = (username: string) => {
-    const {data: repos, error, isLoading, isFetching} = useGetAllRepositoriesQuery({q: `user:${username}`})
-    const [trigger, result] = useLazyGetLanguagesQuery();
-    useTriggerWhenReposComes(repos, trigger);
     return {
         data: result.data,
         error: error || result.error,

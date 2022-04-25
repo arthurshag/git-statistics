@@ -1,10 +1,10 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect} from 'react';
 import classes from './User.module.scss'
 import FormLogin from "../FormLogin/FormLogin";
 import Profile from "../Profile/Profile";
 import {fetchUser} from "../../redux/reducers/UserReducer/ActionCreators";
-import {useAppDispatch, useAppSelector} from "../../redux/hooks/reduxHooks";
-import {IUser, IUserWithLoading} from "../../models/IUser";
+import {useAppDispatch} from "../../redux/hooks/reduxHooks";
+import {IUserWithLoading} from "../../models/IUser";
 import {userSlice} from "../../redux/reducers/UserReducer/UserSlice";
 
 interface UserProps {
@@ -40,7 +40,7 @@ const User: FC<UserProps> = ({user, index}) => {
         <div className={classes.userContainer} key={`user${index}`}>
             <FormLogin handleClick={handleClick} text={user.login} setText={setText} disabled={user.isLoading}
                        error={user.error}/>
-            <Profile user={user} deleteUser={index > 0 ? deleteUser: undefined}/>
+            <Profile user={user} deleteUser={index > 0 ? deleteUser : undefined}/>
         </div>
     );
 };

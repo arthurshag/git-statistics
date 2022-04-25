@@ -13,12 +13,10 @@ type PropsType<T extends keyof typeof usersAPI> = {
     url: T
 }
 
-
 export const usersRTK = createApi({
     reducerPath: 'usersApi',
-    baseQuery: async (args) => {
+    baseQuery: async (args: PropsType<keyof typeof usersAPI>) => {
         try {
-            // @ts-ignore
             return await usersAPI[args.url](args.params as any);
         } catch (e) {
             const error = e as Error;
@@ -29,7 +27,6 @@ export const usersRTK = createApi({
         getUser: builder.query <UserGitType, PropsType<"getUser">["params"]>
         ({
             query: (params) => ({params, url: "getUser"}),
-
         }),
         getAllUserCommitsForLastYear: builder.query <ICommits, PropsType<"getAllUserCommitsForLastYear">["params"]>
         ({

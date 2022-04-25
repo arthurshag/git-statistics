@@ -2,7 +2,6 @@ import React, {FC} from 'react';
 import {useGetAllCommitsQuery} from "../../../../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import Commits from "../../../Parts/Commits/Commits";
 
-
 interface IProps {
     owner: string,
     repo: string

@@ -13,17 +13,3 @@ export const fetchUser = (login: string, index: number) => (dispatch: AppDispatc
             dispatch(userSlice.actions.userFetchingError({error: error.message, index}))
         })
 }
-
-
-/*export const fetchCurrentUser = () => (dispatch: AppDispatch) => {
-    dispatch(userSlice.actions.userFetching())
-    userAPI.getCurrent()
-        .then(response => {
-            dispatch(userSlice.actions.userFetchingSuccess(response as IUser))
-        })
-        .catch(error => {
-            dispatch(userSlice.actions.userFetchingError(error.message))
-        })
-}*/
-
-

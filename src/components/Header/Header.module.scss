@@ -3,7 +3,7 @@
 .header {
   width: 100%;
   height: 80px;
-  background-color: $colorAzure;
+  background-color: $colorHeader;
   color: white;
   margin-bottom: 40px;
   font-size: 1.5em;
@@ -16,7 +16,7 @@
 
   &:hover {
     transition: color 0.2s ease-in-out;
-    color: #442e4c;
+    color: rgba(white, 0.7);
   }
 }
 

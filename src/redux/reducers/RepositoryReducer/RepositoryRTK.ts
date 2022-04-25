@@ -8,7 +8,6 @@ import {ICommits} from "../../../models/ICommits";
 import {IPulls} from "../../../models/IPulls";
 import {IIssues} from "../../../models/IIssues";
 
-
 type PropsType<T extends keyof typeof reposAPI> = {
     params: Parameters<typeof reposAPI[T]>[0],
     url: T
@@ -17,11 +16,8 @@ type PropsType<T extends keyof typeof reposAPI> = {
 
 export const repositoryApi = createApi({
     reducerPath: 'repositoryApi',
-    baseQuery: async (args: PropsType<keyof typeof reposAPI>,
-                      {signal, dispatch, getState},
-                      extraOptions) => {
+    baseQuery: async (args: PropsType<keyof typeof reposAPI>) => {
         try {
-            //todo: fix
             return await reposAPI[args.url](args.params as any);
         } catch (e) {
             const error = e as Error;

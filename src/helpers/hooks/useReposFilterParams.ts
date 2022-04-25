@@ -19,7 +19,6 @@ export type ReposUrlParamsType = {
 
 type SetValueType = <T extends keyof ReposUrlParamsType>(field: T, value: ReposUrlParamsType[T]) => void
 
-//todo: maybe take string fields in param and configure parameters from the url for them
 export const useReposFilterParams = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const currentParams: ReposUrlParamsType = {
