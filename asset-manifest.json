@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/git-statistics/static/css/main.792c4c23.css",
+    "main.js": "/git-statistics/static/js/main.4103d4cf.js",
+    "static/media/loading.gif": "/git-statistics/static/media/loading.d944122cbaa2f441e1b7.gif",
+    "index.html": "/git-statistics/index.html",
+    "static/media/expand.svg": "/git-statistics/static/media/expand.fea5860168cb4f0a85fda15a3cb5b5b9.svg",
+    "main.792c4c23.css.map": "/git-statistics/static/css/main.792c4c23.css.map",
+    "main.4103d4cf.js.map": "/git-statistics/static/js/main.4103d4cf.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.792c4c23.css",
+    "static/js/main.4103d4cf.js"
+  ]
+}
