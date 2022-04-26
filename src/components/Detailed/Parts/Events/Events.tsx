@@ -12,6 +12,7 @@ interface IProps {
     data: IEvents | undefined,
     error?: string | null,
     isLoading: boolean,
+    className?:string,
 }
 
 const options = {
@@ -30,10 +31,10 @@ const formatters = [
     },
 ];
 
-const Events: FC<IProps> = ({data, isLoading, error}) => {
+const Events: FC<IProps> = ({data, isLoading, error, className}) => {
     const separate = data && Object.entries(getData(data));
     return (
-        <div>
+        <div className={className}>
             <Title level={3}><IconWrapper Icon={PinIcon}/> Last 500 Events:</Title>
             <Loading isLoading={isLoading}>
                 <ErrorGate error={error as string | undefined | null}>
