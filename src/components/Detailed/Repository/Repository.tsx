@@ -31,13 +31,15 @@ const Repository: FC<PropsType> = memo(({repository}) => {
                 <MainStatistics repository={repository}/>
                 <div className={classes.repository__charts}>
                     {repository.owner && <>
-                        <Profile username={repository.owner.login} title={"Owner"}/>
+                    <Profile username={repository.owner.login} title={"Owner"}/>
+                    <div className={classes.repository__languagesEvents}>
                         <LanguagesContainer owner={repository.owner.login} repo={repository.name}/>
-                        <Contributors owner={repository.owner.login} repo={repository.name}/>
                         <Events owner={repository.owner.login} repo={repository.name}/>
-                        <CommitsContainer owner={repository.owner.login} repo={repository.name}/>
-                        <Pulls owner={repository.owner.login} repo={repository.name}/>
-                        <Issues owner={repository.owner.login} repo={repository.name}/>
+                    </div>
+                    <Contributors owner={repository.owner.login} repo={repository.name}/>
+                    <CommitsContainer owner={repository.owner.login} repo={repository.name}/>
+                    <Pulls owner={repository.owner.login} repo={repository.name}/>
+                    <Issues owner={repository.owner.login} repo={repository.name}/>
                     </>
                     }
                 </div>
