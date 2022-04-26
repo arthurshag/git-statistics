@@ -1,0 +1,33 @@
+@import "../../assets/variables";
+
+.messages{
+  position: absolute;
+  right: 10px;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  z-index: 1;
+}
+
+
+.message{
+  background: white;
+  position: relative;
+  padding: 1.5em 1em;
+  overflow: hidden;
+
+  &__close{
+    padding: 0.1em ;
+    line-height: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    box-shadow: none;
+
+    &:hover, &:focus{
+      border-radius: inherit;
+      box-shadow: none;
+    }
+  }
+}
