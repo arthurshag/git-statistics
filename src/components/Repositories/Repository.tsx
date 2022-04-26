@@ -13,6 +13,7 @@ import {CopyIcon, EyeIcon, RepoForkedIcon, StarFillIcon} from "@primer/octicons-
 import classes from "./Repositories.module.scss";
 
 interface PropsType extends IRepository {
+    type?: "list" | "tile"
 }
 
 const Repository: FC<PropsType> = memo((props) => {
@@ -22,7 +23,7 @@ const Repository: FC<PropsType> = memo((props) => {
     const updatedDate = new Date(props.updated_at);
 
     return (
-        <BlockShadow className={classes.repository}>
+        <BlockShadow className={classNames(classes.repository, props.type === "list" && classes.repository_list)}>
             <Title level={3} className={classNames(classes.repository__name)}>
                 Repository: {" "}
                 <span className={classes.repository__nameLinks}>
@@ -38,11 +39,14 @@ const Repository: FC<PropsType> = memo((props) => {
                 </div>}
                 <img src={props.owner?.avatar_url} alt={"avatar"} className={classes.repository__ownerImg}/>
             </div>
-            <div className={classes.repository__item}><IconWrapper Icon={StarFillIcon}/> Stars: {props.stargazers_count}
+            <div className={classes.repository__item}>
+                <IconWrapper Icon={StarFillIcon}/> Stars: {props.stargazers_count}
             </div>
-            <div className={classes.repository__item}><IconWrapper Icon={EyeIcon}/> Watchers: {props.watchers_count}
+            <div className={classes.repository__item}>
+                <IconWrapper Icon={EyeIcon}/> Watchers: {props.watchers_count}
             </div>
-            <div className={classes.repository__item}><IconWrapper Icon={RepoForkedIcon}/> Forks: {props.forks_count}
+            <div className={classes.repository__item}>
+                <IconWrapper Icon={RepoForkedIcon}/> Forks: {props.forks_count}
             </div>
             {props.topics && props.topics.length !== 0 &&
             <Topics topics={props.topics} className={classes.repository__item}/>

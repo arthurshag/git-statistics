@@ -1,5 +1,7 @@
 import React, {FC} from 'react';
 import classes from "./FormLogin.module.scss"
+import TextInput from "../utils/TextInput/TextInput";
+import Button from "../utils/Button/Button";
 
 interface FormLoginProps {
     handleClick: () => void,
@@ -13,20 +15,21 @@ const FormLogin: FC<FormLoginProps> = ({handleClick, text, setText, disabled, er
     return (
         <div className={classes.formContainer}>
             <div className={classes.form}>
-                <input
+                <TextInput
                     className={classes.input}
                     disabled={disabled}
                     type="text"
                     value={text}
                     onChange={(event) => setText(event.target.value)}
                 />
-                <button
+                <Button
+                    type={"primary"}
                     className={classes.btn}
                     disabled={disabled}
                     onClick={()=>handleClick()}
                 >
                     Get data
-                </button>
+                </Button>
             </div>
 
             {error && <span className={classes.error}>{error}</span>}

@@ -3,7 +3,6 @@
 .profile {
   position: relative;
   width: $widthProfile;
-  box-shadow: 0 0 3px 0 #0000005c;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -12,7 +11,7 @@
 .loadingProfile{
   width: $widthProfile;
   height: 500px;
-  background-color: #e0e0e0;
+  background-color: #FFF;
   @include flexCenterCenter;
 }
 
@@ -31,9 +30,14 @@
   }
 }
 
-.btnRepos{
+.btns{
   margin-top: auto;
   margin-bottom: 0px;
+  width: 100%;
+}
+
+.btnRepos{
+  margin-top: 8px;
   width: 100%;
   @include flexCenterCenter;
   text-decoration: none;
@@ -51,4 +55,19 @@
   position: absolute;
   top: 4px;
   right: 4px;
+}
+
+.chart{
+  margin-bottom: 0.2em;
+  & h3{
+    font-size: 1.5em;
+  }
+  & section {
+    width: 50%;
+    height: 50%;
+    margin: 0 auto;
+  }
+}
+
+.charts{
 }

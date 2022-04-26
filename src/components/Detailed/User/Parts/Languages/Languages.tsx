@@ -4,12 +4,13 @@ import {useLanguagesByAllRepos} from "../../../../../redux/reducers/UserReducer/
 
 interface IProps {
     user: string,
+    className?: string
 }
 
-const LanguagesContainer: FC<IProps> = ({user}) => {
+const LanguagesContainer: FC<IProps> = ({user, className}) => {
     const {data, error, isLoading} = useLanguagesByAllRepos(user);
     return (
-        <Languages data={data} error={error as string | null | undefined} isLoading={isLoading}
+        <Languages data={data} error={error as string | null | undefined} isLoading={isLoading} className={className}
                    label={"Number of rows in the repositories"}
         />
     );

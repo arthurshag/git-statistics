@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {useGetClosedPullsQuery} from "../../../../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import Title from "../../../../utils/Title/Title";
-import ColumnChart, {getDataChart} from "../../../Parts/Charts/ColumnChart/ColumnChart";
+import ColumnChart, {getDataChart} from "../../../Parts/Charts/AreaChart/AreaChart";
 import Loading from "../../../../utils/Loading/Loading";
 import ErrorGate from "../../../../utils/ErrorGate/ErrorGate";
 import {GitPullRequestIcon} from "@primer/octicons-react";
