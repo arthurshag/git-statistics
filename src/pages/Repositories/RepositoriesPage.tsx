@@ -60,7 +60,6 @@ const RepositoriesPage: FC = () => {
     );
 };
 
-
 export default RepositoriesPage;
 
 
