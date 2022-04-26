@@ -6,6 +6,7 @@ import {fetchUser} from "../../redux/reducers/UserReducer/ActionCreators";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks/reduxHooks";
 import {IUser, IUserWithLoading} from "../../models/IUser";
 import {userSlice} from "../../redux/reducers/UserReducer/UserSlice";
+import BlockShadow from "../utils/BlockShadow/BlockShadow";
 
 interface UserProps {
     user: IUserWithLoading,
@@ -37,11 +38,11 @@ const User: FC<UserProps> = ({user, index}) => {
     }, []);
 
     return (
-        <div className={classes.userContainer} key={`user${index}`}>
+        <BlockShadow className={classes.userContainer} key={`user${index}`}>
             <FormLogin handleClick={handleClick} text={user.login} setText={setText} disabled={user.isLoading}
                        error={user.error}/>
             <Profile user={user} deleteUser={index > 0 ? deleteUser: undefined}/>
-        </div>
+        </BlockShadow>
     );
 };
 
