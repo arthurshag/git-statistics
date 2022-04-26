@@ -13,7 +13,7 @@ const ColumnChart: FC<IProps> = ({legend, dataChart}) => {
             chartType="ColumnChart"
             width="100%"
             height="400px" data={[legend, ...dataChart]}
-            options={{explorer: {}}}
+            options={{explorer: { keepInBounds: true}}}
         />
     </>
 }

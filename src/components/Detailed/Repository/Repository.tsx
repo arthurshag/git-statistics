@@ -14,12 +14,10 @@ import classes from "./Repository.module.scss";
 import LinkGit from "../../utils/LinkGit/LinkGit";
 import IconWrapper from "../../utils/IconWrapper/IconWrapper";
 import {RepoIcon} from "@primer/octicons-react";
-import CommitsSortedByPeople from "./Parts/CommitsSortedByPeople/CommitsSortedByPeople";
 
 interface PropsType {
     repository: IRepository
 }
-
 
 const Repository: FC<PropsType> = memo(({repository}) => {
     return (
@@ -38,7 +36,6 @@ const Repository: FC<PropsType> = memo(({repository}) => {
                         <Contributors owner={repository.owner.login} repo={repository.name}/>
                         <Events owner={repository.owner.login} repo={repository.name}/>
                         <CommitsContainer owner={repository.owner.login} repo={repository.name}/>
-                        <CommitsSortedByPeople owner={repository.owner.login} repo={repository.name}/>
                         <Pulls owner={repository.owner.login} repo={repository.name}/>
                         <Issues owner={repository.owner.login} repo={repository.name}/>
                     </>
