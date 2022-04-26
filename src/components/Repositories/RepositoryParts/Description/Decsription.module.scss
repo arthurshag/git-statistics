@@ -1,6 +1,7 @@
 @import "src/assets/variables";
 
 .description {
+  position: relative;
   &__title {
     display: flex;
     justify-content: space-between;
@@ -17,8 +18,13 @@
     -webkit-box-orient: vertical;
 
     &_open {
+      position: absolute;
+      background: white;
+      z-index: 1;
       -webkit-line-clamp: initial;
       line-clamp: initial;
+      box-shadow: $shadow;
+      padding: 1em;
     }
   }
 

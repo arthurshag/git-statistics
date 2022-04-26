@@ -98,10 +98,12 @@ function getHandlers(setParams: <T extends keyof ReposUrlParamsType>(field: T, v
             setParams("sort", value ? value.value : null)
         },
         setStarsMax: (e: ChangeEvent<HTMLInputElement>) => {
-            setParams("starsMax", e.target.value);
+            const value = Number(e.target.value) > 0 ? e.target.value : 0;
+            setParams("starsMax", String(value));
         },
         setStarsMin: (e: ChangeEvent<HTMLInputElement>) => {
-            setParams("starsMin", e.target.value);
+            const value = Number(e.target.value) > 0 ? e.target.value : 0;
+            setParams("starsMin", String(value));
         },
         onSubmitForm: (e: ChangeEvent<HTMLInputElement>) => {
             setParams("pushedFrom", e.target.value);
@@ -113,7 +115,7 @@ function getHandlers(setParams: <T extends keyof ReposUrlParamsType>(field: T, v
             setParams("pushedTo", e.target.value);
         },
         setCreatedTo: (e: ChangeEvent<HTMLInputElement>) => {
-            setParams("createdFrom", e.target.value);
+            setParams("createdTo", e.target.value);
         },
         setCreatedFrom: (e: ChangeEvent<HTMLInputElement>) => {
             setParams("createdFrom", e.target.value);

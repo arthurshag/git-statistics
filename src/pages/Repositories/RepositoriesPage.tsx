@@ -12,6 +12,7 @@ import Title from "../../components/utils/Title/Title";
 import IconWrapper from "../../components/utils/IconWrapper/IconWrapper";
 import {RepoIcon} from "@primer/octicons-react";
 import {calcCountPages} from "../../helpers/calcCountPages";
+import {validateReposFilters} from "../../helpers/validateReposFilters";
 
 const RepositoriesPage: FC = () => {
     const {newParams, currentParams, setParams, saveParamsInUrl, reset} = useReposFilterParams();
@@ -30,7 +31,8 @@ const RepositoriesPage: FC = () => {
         if (isFetching)
             return;
         const params = {...newParams, page: "1"};
-        saveParamsInUrl(params);
+        const validatedParams = validateReposFilters(params);
+        saveParamsInUrl(validatedParams);
     }
 
     const paginateHandler = useCallback((value: number) => {
@@ -54,6 +56,7 @@ const RepositoriesPage: FC = () => {
         </BlockShadow>
     );
 };
+
 
 export default RepositoriesPage;
 
