@@ -64,7 +64,8 @@
   }
 
   &__owner {
-
+    display: flex;
+    justify-content: space-between;
     &Name {
       overflow: hidden;
       font-size: 1.3em;
@@ -75,7 +76,8 @@
     &Img {
       border: 4px $colorAzure solid;
       border-radius: 50%;
-      width: 100%;
+      width: 4em;
+      height: 4em;
       aspect-ratio: 1/1;
       object-fit: cover;
     }

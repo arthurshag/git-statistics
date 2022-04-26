@@ -8,7 +8,6 @@ import IconWrapper from "../../utils/IconWrapper/IconWrapper";
 import {ScreenFullIcon, ScreenNormalIcon, SearchIcon, XIcon} from "@primer/octicons-react";
 import LoadingDefault from "../../utils/Loading/LoadingDefault";
 import classes from "./ReposFilters.module.scss";
-import Loading from "../../utils/Loading/Loading";
 
 interface IFilters {
     params: ReposUrlParamsType,
@@ -50,8 +49,6 @@ const ReposFilters: FC<IFilters> = memo(({
                 </Button>
             </div>
             {isOpen && <ReposAddFilters params={params} setParams={setParams}/>}
-
-
         </form>
     </BlockShadow>
 })

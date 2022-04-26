@@ -38,11 +38,14 @@ const Repository: FC<PropsType> = memo((props) => {
                 </div>}
                 <img src={props.owner?.avatar_url} alt={"avatar"} className={classes.repository__ownerImg}/>
             </div>
-            <div className={classes.repository__item}><IconWrapper Icon={StarFillIcon}/> Stars: {props.stargazers_count}
+            <div className={classes.repository__item}>
+                <IconWrapper Icon={StarFillIcon}/> Stars: {props.stargazers_count}
             </div>
-            <div className={classes.repository__item}><IconWrapper Icon={EyeIcon}/> Watchers: {props.watchers_count}
+            <div className={classes.repository__item}>
+                <IconWrapper Icon={EyeIcon}/> Watchers: {props.watchers_count}
             </div>
-            <div className={classes.repository__item}><IconWrapper Icon={RepoForkedIcon}/> Forks: {props.forks_count}
+            <div className={classes.repository__item}>
+                <IconWrapper Icon={RepoForkedIcon}/> Forks: {props.forks_count}
             </div>
             {props.topics && props.topics.length !== 0 &&
             <Topics topics={props.topics} className={classes.repository__item}/>
