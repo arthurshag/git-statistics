@@ -6,6 +6,7 @@ interface UserState {
     isAuthLoading: boolean;
     checkTokenLoading: boolean;
     error: string | null;
+    messages: {value: string}[]
 }
 
 const initialState: UserState = {
@@ -13,6 +14,7 @@ const initialState: UserState = {
     checkTokenLoading: false,
     isAuthLoading: false,
     error: null,
+    messages: []
 }
 
 export const profileSlice = createSlice({
@@ -34,7 +36,6 @@ export const profileSlice = createSlice({
             state.checkTokenLoading = false;
             state.error = action.payload;
         },
-
         setIsAuthLoading(state, action: PayloadAction<boolean>) {
             state.isAuthLoading = action.payload;
         },
@@ -43,6 +44,13 @@ export const profileSlice = createSlice({
         },
         clearError(state) {
             state.error = null;
+        },
+        setMessage(state, action: PayloadAction<string>) {
+            if (!state.messages.find(({value}) => value === action.payload))
+                state.messages.push({value: action.payload});
+        },
+        clearMessage(state, action: PayloadAction<{ id: number }>) {
+            state.messages = state.messages.filter((e, i) => i !== action.payload.id);
         }
     }
 })
