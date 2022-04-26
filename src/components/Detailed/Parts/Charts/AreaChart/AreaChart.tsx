@@ -1,10 +1,10 @@
 import React, {FC} from "react";
 import {Chart} from "react-google-charts";
-import classes from "./ColumnChart.module.scss";
+import classes from "./AreaChart.module.scss";
 
 interface IProps {
-    legend: [string, string, object]
-    dataChart: Array<[string, number, string]>
+    legend: [string, string, object]  | [string, string]
+    dataChart: Array<[string, number, string]> | Array<[string, number]>
 }
 
 const ColumnDateChart: FC<IProps> = ({legend, dataChart}) => {
