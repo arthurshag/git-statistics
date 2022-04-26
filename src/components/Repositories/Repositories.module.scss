@@ -5,19 +5,25 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  padding-top: 30px;
+  padding-top: 10px;
   padding-bottom: 30px;
+
+
 
   &__wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     justify-items: start;
-    flex-wrap: wrap;
     gap: 20px;
     column-gap: 40px;
     justify-content: space-between;
     @media (max-width: 800px) {
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+
+    &_tile{
+      display: flex;
+      flex-direction: column;
     }
   }
 }
@@ -29,6 +35,10 @@
   display: flex;
   flex-direction: column;
   padding: 16px;
+
+  &_tile{
+    max-width: none;
+  }
 
   &__name {
     font-size: 1.5em;

@@ -13,6 +13,7 @@ import {CopyIcon, EyeIcon, RepoForkedIcon, StarFillIcon} from "@primer/octicons-
 import classes from "./Repositories.module.scss";
 
 interface PropsType extends IRepository {
+    type?: "list" | "tile"
 }
 
 const Repository: FC<PropsType> = memo((props) => {
@@ -22,7 +23,7 @@ const Repository: FC<PropsType> = memo((props) => {
     const updatedDate = new Date(props.updated_at);
 
     return (
-        <BlockShadow className={classes.repository}>
+        <BlockShadow className={classNames(classes.repository, props.type === "tile" && classes.repository_tile)}>
             <Title level={3} className={classNames(classes.repository__name)}>
                 Repository: {" "}
                 <span className={classes.repository__nameLinks}>
