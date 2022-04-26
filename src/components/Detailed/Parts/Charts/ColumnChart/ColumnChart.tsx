@@ -9,12 +9,12 @@ interface IProps {
 
 const ColumnChart: FC<IProps> = ({legend, dataChart}) => {
     return <>
-        <Chart
+        {dataChart.length > 0? <Chart
             chartType="ColumnChart"
             width="100%"
             height="400px" data={[legend, ...dataChart]}
-            options={{explorer: { keepInBounds: true}}}
-        />
+            options={{explorer: {keepInBounds: true}}}
+        /> : "No data"}
     </>
 }
 

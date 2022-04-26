@@ -1,0 +1,17 @@
+@import "src/assets/variables";
+
+.eventsChart{
+  & .google-visualization-table{
+
+    & .gradient{
+      background: $colorGray;
+
+    }
+    & .google-visualization-formatters-bars {
+      & > .google-charts-bar-b{
+        background: $colorAzure;
+      }
+    }
+  }
+
+}
