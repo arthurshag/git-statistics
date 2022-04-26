@@ -1,6 +1,5 @@
 import {IUser, IUserWithLoading} from "../../../models/IUser";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IRepository} from "../../../models/IRepository";
 
 interface UserState {
     users: IUserWithLoading[];
@@ -27,31 +26,34 @@ const initialState: UserState = {
 
 export const userSlice = createSlice({
     name: "user",
-    initialState: localStorage.getItem("users") ? {...initialState, users: JSON.parse(localStorage.getItem("users") as string) as IUserWithLoading[]} : initialState,
+    initialState: localStorage.getItem("users") ? {
+        ...initialState,
+        users: JSON.parse(localStorage.getItem("users") as string) as IUserWithLoading[]
+    } : initialState,
     reducers: {
         userFetching(state, action: PayloadAction<number>) {
             state.users[action.payload].repositories = null;
             state.users[action.payload].isLoading = true;
             localStorage.setItem("users", JSON.stringify(state.users))
         },
-        userFetchingSuccess(state, action: PayloadAction<{user: IUser, index: number}>) {
-            state.users[action.payload.index]= {...action.payload.user, error: "", isLoading: false}
+        userFetchingSuccess(state, action: PayloadAction<{ user: IUser, index: number }>) {
+            state.users[action.payload.index] = {...action.payload.user, error: "", isLoading: false}
             localStorage.setItem("users", JSON.stringify(state.users))
         },
-        userFetchingError(state, action: PayloadAction<{error:string, index: number}>) {
+        userFetchingError(state, action: PayloadAction<{ error: string, index: number }>) {
             state.users[action.payload.index].isLoading = false
             state.users[action.payload.index].error = action.payload.error
             localStorage.setItem("users", JSON.stringify(state.users))
         },
-        addNewUser(state){
+        addNewUser(state) {
             state.users.push({...newUser})
             localStorage.setItem("users", JSON.stringify(state.users))
         },
-        deleteUser(state, action: PayloadAction<number>){
+        deleteUser(state, action: PayloadAction<number>) {
             state.users.splice(action.payload, 1)
             localStorage.setItem("users", JSON.stringify(state.users))
         },
-        changeUserLogin(state, action: PayloadAction<{login: string, index: number}>){
+        changeUserLogin(state, action: PayloadAction<{ login: string, index: number }>) {
             state.users[action.payload.index].login = action.payload.login
             localStorage.setItem("users", JSON.stringify(state.users))
         }

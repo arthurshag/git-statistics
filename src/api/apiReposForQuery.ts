@@ -77,7 +77,6 @@ export const reposAPI = {
             per_page, ...rest
         })
 
-
         const response: { data: ICommits } = {data: []};
 
         for await (const resp of iterator) {
@@ -117,6 +116,4 @@ export const reposAPI = {
 
         return response;
     },
-
-
 }

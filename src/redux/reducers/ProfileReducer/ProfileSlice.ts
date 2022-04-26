@@ -1,6 +1,5 @@
 import {IUser} from "../../../models/IUser";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IRepository} from "../../../models/IRepository";
 
 interface UserState {
     user: IUser | null;

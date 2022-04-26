@@ -7,10 +7,10 @@ import Button from "../utils/Button/Button";
 import Title from "../utils/Title/Title";
 import Topics from "./RepositoryParts/Topics/Topics";
 import Description from "./RepositoryParts/Description/Description";
-import classes from "./Repositories.module.scss";
 import LinkGit from "../utils/LinkGit/LinkGit";
 import IconWrapper from "../utils/IconWrapper/IconWrapper";
 import {CopyIcon, EyeIcon, RepoForkedIcon, StarFillIcon} from "@primer/octicons-react";
+import classes from "./Repositories.module.scss";
 
 interface PropsType extends IRepository {
 }
@@ -31,7 +31,11 @@ const Repository: FC<PropsType> = memo((props) => {
                 </span>
             </Title>
             <div className={classes.repository__owner}>
-                <div className={classes.repository__ownerName}>Owner: {props?.owner?.login}</div>
+                {props.owner && <div className={classes.repository__ownerName}>
+                    Owner:
+                    <div><LinkGit inner={{url: `/user/${props.owner.login}`, text: props.owner.login}}
+                                  githubUrl={props.owner?.html_url}/></div>
+                </div>}
                 <img src={props.owner?.avatar_url} alt={"avatar"} className={classes.repository__ownerImg}/>
             </div>
             <div className={classes.repository__item}><IconWrapper Icon={StarFillIcon}/> Stars: {props.stargazers_count}

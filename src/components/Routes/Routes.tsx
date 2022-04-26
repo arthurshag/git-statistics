@@ -35,10 +35,6 @@ const routes: RouteObject[] = [
             }
         ]
     },
-    // {
-    //     path: "*",
-    //     element: (<Navigate to="/" replace />)
-    // }
     {
         path: "/repositories",
         element: (<RepositoriesPage/>)

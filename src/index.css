@@ -74,10 +74,10 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: #272531;
+    background: #f2f2f2;
     overflow-y: scroll;
     padding-bottom: 40px;
-    min-width: 600px;
+    min-width: 650px;
 }
 
 code {

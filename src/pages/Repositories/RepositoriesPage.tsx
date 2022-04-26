@@ -4,14 +4,14 @@ import ReposFilters from "../../components/Repositories/ReposSearchFilters/Repos
 import Repositories from "../../components/Repositories/Repositories";
 import Pagination from "../../components/utils/Pagination/Pagination";
 import {useLazyGetRepositoriesQuery} from "../../redux/reducers/RepositoryReducer/RepositoryRTK";
-import {transformToRequestReposParams} from "../../helpers/TransformToRequestReposParams";
+import {transformToRequestReposParams} from "../../helpers/transformToRequestReposParams";
 import Loading from "../../components/utils/Loading/Loading";
 import ErrorGate from "../../components/utils/ErrorGate/ErrorGate";
 import BlockShadow from "../../components/utils/BlockShadow/BlockShadow";
 import Title from "../../components/utils/Title/Title";
 import IconWrapper from "../../components/utils/IconWrapper/IconWrapper";
 import {RepoIcon} from "@primer/octicons-react";
-
+import {calcCountPages} from "../../helpers/calcCountPages";
 
 const RepositoriesPage: FC = () => {
     const {newParams, currentParams, setParams, saveParamsInUrl, reset} = useReposFilterParams();
@@ -48,21 +48,12 @@ const RepositoriesPage: FC = () => {
                     <Repositories repositories={data?.items || []}/>
                     <Pagination current={+newParams.page} pageHandler={paginateHandler} disabled={isFetching}
                                 count={calcCountPages(data?.total_count || 0, +newParams.filesPerPage, 1000)}/>
-                    {/* todo у github ограничение на поиск 1000 элементами*/}
+                    {/*у github ограничение на поиск 1000 элементами*/}
                 </ErrorGate>
             </Loading>
         </BlockShadow>
     );
 };
-
-function calcCountPages(countsElements: number, perPage: number, maximumElements?: number) {
-    const countPages = Math.ceil(countsElements / perPage);
-    if (maximumElements) {
-        return Math.min(countPages, Math.ceil(maximumElements / perPage))
-    }
-
-    return countPages;
-}
 
 export default RepositoriesPage;
 

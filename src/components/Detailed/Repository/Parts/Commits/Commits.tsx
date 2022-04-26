@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {useGetAllCommitsQuery} from "../../../../../redux/reducers/RepositoryReducer/RepositoryRTK";
-import Commits from "../../../Parts/Commits/Commits";
-
+import CommitsSortedByDate from "../../../Parts/Commits/CommitsSortedByDate";
+import CommitsSortedByPeople from "../../../Parts/Commits/CommitsSortedByPeople";
 
 interface IProps {
     owner: string,
@@ -20,10 +20,11 @@ const CommitsContainer: FC<IProps> = ({owner, repo}) => {
         since: dateIsoString
     });
     const data = serverData?.map(({commit}) => ({created_at: commit?.committer?.date}));
-
     return (
-        <Commits error={error as string | null | undefined}
-                 data={data} isLoading={isLoading}/>
+        <>
+            <CommitsSortedByDate error={error as string | null | undefined} data={data} isLoading={isLoading}/>
+            <CommitsSortedByPeople error={error as string | null | undefined} data={serverData} isLoading={isLoading}/>
+        </>
     );
 };
 

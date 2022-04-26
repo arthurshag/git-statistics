@@ -19,7 +19,6 @@ interface PropsType {
     repository: IRepository
 }
 
-
 const Repository: FC<PropsType> = memo(({repository}) => {
     return (
         <BlockShadow className={classes.repository}>

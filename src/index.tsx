@@ -11,7 +11,7 @@ const store = setupStore()
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <BrowserRouter>
+            <BrowserRouter basename={"/git-statistics/"}>
                 <App/>
             </BrowserRouter>
         </Provider>

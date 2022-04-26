@@ -40,7 +40,6 @@ const calcQ = ({
         qArray.push(`created:${calcQArrange(createdFrom, createdTo)}`);
     }
 
-
     return qArray.join(" ");
 };
 
