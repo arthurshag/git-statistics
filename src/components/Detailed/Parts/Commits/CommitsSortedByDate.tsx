@@ -13,7 +13,7 @@ interface IProps {
 }
 
 
-const Commits: FC<IProps> = ({data, error, isLoading}) => {
+const CommitsSortedByDate: FC<IProps> = ({data, error, isLoading}) => {
     const dataChart = data ? getDataChart(data) : [];
     return (
         <>
@@ -29,4 +29,4 @@ const Commits: FC<IProps> = ({data, error, isLoading}) => {
 };
 
 
-export default Commits;
+export default CommitsSortedByDate;
