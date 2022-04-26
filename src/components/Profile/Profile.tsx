@@ -31,9 +31,14 @@ const Profile: FC<ProfileProps> = ({user, deleteUser}) => {
                 }
                 <div className={classes.profileRow}>{user.followers} Followers</div>
                 <div className={classes.profileRow}>{user.following} Following</div>
-                <Button type={"default"} className={classes.btnRepos} onClick={() => navigate(`/repositories?username=${user.login}`)}>
-                    Public repos
-                </Button>
+                <div className={classes.btns}>
+                    <Button type={"default"} className={classes.btnRepos} onClick={() => navigate(`/user/${user.login}`)}>
+                        More info
+                    </Button>
+                    <Button type={"default"} className={classes.btnRepos} onClick={() => navigate(`/repositories?username=${user.login}`)}>
+                        Public repos
+                    </Button>
+                </div>
                 {deleteUser &&
                     <div
                         onClick={deleteUser}

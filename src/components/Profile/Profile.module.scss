@@ -30,9 +30,14 @@
   }
 }
 
-.btnRepos{
+.btns{
   margin-top: auto;
   margin-bottom: 0px;
+  width: 100%;
+}
+
+.btnRepos{
+  margin-top: 8px;
   width: 100%;
   @include flexCenterCenter;
   text-decoration: none;
