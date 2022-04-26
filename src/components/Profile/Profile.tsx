@@ -1,7 +1,10 @@
 import React, {FC} from 'react';
 import classes from "./Profile.module.scss"
 import {IUser, IUserWithLoading} from "../../models/IUser";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import Button from "../utils/Button/Button";
+import {XIcon} from "@primer/octicons-react";
+import Loading from "../utils/Loading/Loading";
 
 interface ProfileProps {
     user: IUserWithLoading,
@@ -9,7 +12,7 @@ interface ProfileProps {
 }
 
 const Profile: FC<ProfileProps> = ({user, deleteUser}) => {
-
+    const navigate = useNavigate()
     const ProfileComponent = () => {
         return(
             <div className={classes.profile}>
@@ -28,14 +31,14 @@ const Profile: FC<ProfileProps> = ({user, deleteUser}) => {
                 }
                 <div className={classes.profileRow}>{user.followers} Followers</div>
                 <div className={classes.profileRow}>{user.following} Following</div>
-                <Link className={classes.btnRepos} to={`/repositories?username=${user.login}`}>
+                <Button type={"default"} className={classes.btnRepos} onClick={() => navigate(`/repositories?username=${user.login}`)}>
                     Public repos
-                </Link>
+                </Button>
                 {deleteUser &&
                     <div
                         onClick={deleteUser}
                         className={classes.profileDelBtn}
-                    >Del</div>
+                    ><XIcon size={24}/></div>
                 }
             </div>
         )
@@ -44,7 +47,7 @@ const Profile: FC<ProfileProps> = ({user, deleteUser}) => {
     const LoadingComponent = () => {
         return(
             <div className={classes.loadingProfile}>
-                Loading...
+                <Loading isLoading={true}/>
             </div>
         )
     }
