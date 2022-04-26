@@ -21,7 +21,7 @@
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     }
 
-    &_tile{
+    &_list{
       display: flex;
       flex-direction: column;
     }
@@ -36,7 +36,7 @@
   flex-direction: column;
   padding: 16px;
 
-  &_tile{
+  &_list{
     max-width: none;
   }
 

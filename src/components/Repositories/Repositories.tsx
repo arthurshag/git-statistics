@@ -12,18 +12,21 @@ interface PropsType {
 }
 
 const Repositories: FC<PropsType> = memo(({repositories}) => {
-    const [type, changeType] = useState<"list" | "tile">("list");
+    const [type, changeType] = useState<"list" | "tile">("tile");
     const UIRepos = repositories.map((props) => {
         return <Repository key={props.id} {...props} type={type}/>
     });
 
-
     return (
         <>
-            <Button onClick={() => changeType("list")}><IconWrapper Icon={ListUnorderedIcon} /></Button>
-            <Button onClick={() => changeType("tile")}><IconWrapper Icon={CopyIcon} /></Button>
+            <Button onClick={() => changeType("tile")} type={type === "tile" ? "primary" : undefined}>
+                <IconWrapper Icon={CopyIcon} />
+            </Button>
+            <Button onClick={() => changeType("list")} type={type === "list" ? "primary" : undefined}>
+                <IconWrapper Icon={ListUnorderedIcon} />
+            </Button>
             <div className={classes.repositories}>
-                <div className={classNames(classes.repositories__wrapper, type === "tile" && classes.repositories__wrapper_tile)}>
+                <div className={classNames(classes.repositories__wrapper, type === "list" && classes.repositories__wrapper_list)}>
                     {UIRepos}
                 </div>
             </div>
