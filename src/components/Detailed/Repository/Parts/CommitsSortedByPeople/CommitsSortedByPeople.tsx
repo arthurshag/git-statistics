@@ -2,17 +2,16 @@ import React, {FC} from 'react';
 import {useGetAllCommitsQuery} from "../../../../../redux/reducers/RepositoryReducer/RepositoryRTK";
 import Title from "../../../../utils/Title/Title";
 import IconWrapper from "../../../../utils/IconWrapper/IconWrapper";
-import {GraphIcon} from "@primer/octicons-react";
+import {PeopleIcon} from "@primer/octicons-react";
 import Loading from "../../../../utils/Loading/Loading";
 import ErrorGate from "../../../../utils/ErrorGate/ErrorGate";
-import BarChart from "../../../Parts/Charts/BarChart/BarChart";
+import ColumnChart from "../../../Parts/Charts/ColumnChart/ColumnChart";
 
 interface IProps {
     owner: string,
     repo: string
 }
 
-// если эти 3 строки внутри commits, то начинается бесконечный ререндер компоненты и запросы на коммиты
 const todayYearAgo = new Date();
 todayYearAgo.setFullYear(todayYearAgo.getFullYear() - 1);
 const dateIsoString = todayYearAgo.toISOString();
@@ -23,6 +22,7 @@ const CommitsSortedByPeople: FC<IProps> = ({owner, repo}) => {
         repo: repo,
         since: dateIsoString
     });
+
     const data = serverData?.reduce((filtered, current) => {
         if (!current.author)
             return filtered;
@@ -36,11 +36,12 @@ const CommitsSortedByPeople: FC<IProps> = ({owner, repo}) => {
 
     return (
         <>
-            <Title level={3}><IconWrapper Icon={GraphIcon}/> People contributions </Title>
+            <Title level={3}><IconWrapper Icon={PeopleIcon}/> Commits sorted by people for last year</Title>
+            <p>You can also change the scale of the chart using the mouse wheel. Right click reset chart</p>
             <Loading isLoading={isLoading}>
                 <ErrorGate error={error as string | null | undefined}>
-                    {data && <BarChart legend={["User", "Commits"]} dataChart={Object.entries(data)}
-                                       />}
+                    {data && <ColumnChart legend={["User", "Commits"]} dataChart={Object.entries(data)}
+                    />}
                 </ErrorGate>
             </Loading>
         </>

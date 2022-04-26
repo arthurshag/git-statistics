@@ -7,14 +7,15 @@ interface IProps {
     dataChart: Array<[string, number]>
 }
 
-const BarChart: FC<IProps> = ({legend, dataChart}) => {
+const ColumnChart: FC<IProps> = ({legend, dataChart}) => {
     return <>
         <Chart
-            chartType="Bar"
+            chartType="ColumnChart"
             width="100%"
             height="400px" data={[legend, ...dataChart]}
+            options={{explorer: {}}}
         />
     </>
 }
 
-export default BarChart;
+export default ColumnChart;
