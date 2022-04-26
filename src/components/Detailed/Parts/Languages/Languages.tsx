@@ -12,22 +12,23 @@ interface IProps {
     error: string | null | undefined,
     isLoading: boolean,
     label?: string,
+    className?:string
 }
 
-const Languages: FC<IProps> = ({data, error, isLoading, label}) => {
+const Languages: FC<IProps> = ({data, error, isLoading, label, className}) => {
     const chartData = data && [["Language", "strokes"], ...Object.entries(data)];
     return (
-        <div>
+        <div className={className}>
             <Title level={3}><IconWrapper Icon={VersionsIcon}/> Languages</Title>
             <p>{label}</p>
             <Loading isLoading={isLoading}>
                 <ErrorGate error={error as string | null | undefined}>
-                    <Chart
+                    {chartData && chartData?.length > 2 ? <Chart
                         chartType="PieChart"
-                        width={"400px"}
+                        width={"100%"}
                         height="200px"
                         data={chartData}
-                    />
+                    /> : "No data"}
                 </ErrorGate>
             </Loading>
         </div>

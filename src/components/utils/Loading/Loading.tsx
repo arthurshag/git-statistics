@@ -42,9 +42,9 @@ const Loading: FC<IProps> = ({
     }, [isLoading])
 
     return minLoading ?
-        <div className={classNames(className, classes.wrapper)} style={style}>
+        <section className={classNames(className, classes.wrapper)} style={style}>
             <img className={classes.img} src={loadingGif}/>
-        </div>
+        </section>
         : <>{children}</>;
 
 }
