@@ -6,6 +6,8 @@ import {XIcon} from "@primer/octicons-react";
 import classes from "./Messages.module.scss"
 import BlockShadow from "../utils/BlockShadow/BlockShadow";
 import {profileSlice} from "../../redux/reducers/ProfileReducer/ProfileSlice";
+import {TransitionGroup, CSSTransition} from 'react-transition-group';
+import "./Animation.scss";
 
 const Messages: FC = () => {
     const messages = useAppSelector(state => state.profileReducer.messages);
@@ -15,14 +17,20 @@ const Messages: FC = () => {
     }
     return (
         <section className={classes.messages}>
-            {messages.map((e, i) => <Message key={i} onClose={() => onClose(i)}>{e.value}</Message>)}
+            <TransitionGroup className="todo-list">
+                {messages.map((e, i) => <CSSTransition
+                    timeout={800}
+                    key={i}
+                    classNames="animation">
+                    <Message onClose={() => onClose(i)}>{e.value}</Message>
+                </CSSTransition>)}
+            </TransitionGroup>
         </section>
     );
 };
 
 
-const Message: FC<{onClose: () => void}> = ({children, onClose}) => {
-
+const Message: FC<{ onClose: () => void, key?: number }> = ({children, onClose}) => {
     return (
         <BlockShadow className={classes.message}>
             <span>{children}</span>
