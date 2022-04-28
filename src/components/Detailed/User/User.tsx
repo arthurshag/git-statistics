@@ -16,8 +16,10 @@ const User: FC = () => {
         <BlockShadow className={classes.wrapper}>
             <Title level={1} className={classes.title}>User In Detail</Title>
             <Profile username={username}/>
-            <LanguagesContainer user={username}/>
-            <Events username={username}/>
+            <div className={classes.languagesEvents}>
+                <LanguagesContainer user={username}/>
+                <Events username={username}/>
+            </div>
             <CommitsContainer user={username}/>
             <Contributors user={username}/>
         </BlockShadow>

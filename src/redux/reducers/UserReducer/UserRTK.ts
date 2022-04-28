@@ -6,6 +6,7 @@ import {UserGitType} from "../../../models/IUser";
 import {ILanguage} from "../../../models/ILanguage";
 import {ICommits} from "../../../models/ICommits";
 import {IEvents} from "../../../models/IEvents";
+import {profileSlice} from "../ProfileReducer/ProfileSlice";
 
 
 type PropsType<T extends keyof typeof usersAPI> = {
@@ -15,11 +16,14 @@ type PropsType<T extends keyof typeof usersAPI> = {
 
 export const usersRTK = createApi({
     reducerPath: 'usersApi',
-    baseQuery: async (args: PropsType<keyof typeof usersAPI>) => {
+    baseQuery: async (args: PropsType<keyof typeof usersAPI>,  { signal, dispatch, getState }) => {
         try {
             return await usersAPI[args.url](args.params as any);
         } catch (e) {
             const error = e as Error;
+            if (error.message.toLowerCase().includes("API rate limit exceeded".toLowerCase())){
+                dispatch(profileSlice.actions.setMessage("You need to log in to continue using the app"))
+            }
             return {error: error.message};
         }
     },

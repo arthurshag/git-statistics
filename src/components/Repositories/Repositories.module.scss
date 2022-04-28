@@ -36,13 +36,16 @@
   flex-direction: column;
   padding: 16px;
 
+  &__data{
+    padding: 0.6em;
+  }
+
   &_list{
     max-width: none;
   }
 
   &__name {
-    font-size: 1.5em;
-
+    font-size: 1.8em;
     &Links {
       display: flex;
       align-items: center;

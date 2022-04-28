@@ -7,6 +7,7 @@ import {IEvents} from "../../../models/IEvents";
 import {ICommits} from "../../../models/ICommits";
 import {IPulls} from "../../../models/IPulls";
 import {IIssues} from "../../../models/IIssues";
+import {profileSlice} from "../ProfileReducer/ProfileSlice";
 
 type PropsType<T extends keyof typeof reposAPI> = {
     params: Parameters<typeof reposAPI[T]>[0],
@@ -16,11 +17,14 @@ type PropsType<T extends keyof typeof reposAPI> = {
 
 export const repositoryApi = createApi({
     reducerPath: 'repositoryApi',
-    baseQuery: async (args: PropsType<keyof typeof reposAPI>) => {
+    baseQuery: async (args: PropsType<keyof typeof reposAPI>, { signal, dispatch, getState }) => {
         try {
             return await reposAPI[args.url](args.params as any);
         } catch (e) {
             const error = e as Error;
+            if (error.message.toLowerCase().includes("API rate limit exceeded".toLowerCase())){
+                dispatch(profileSlice.actions.setMessage("You need to log in to continue using the app"))
+            }
             return {error: error.message};
         }
     },
